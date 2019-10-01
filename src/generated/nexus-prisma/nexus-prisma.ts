@@ -24,6 +24,10 @@ export interface NexusPrismaTypes {
       PostConnection: PostConnectionObject
       PostEdge: PostEdgeObject
       AggregatePost: AggregatePostObject
+      Comment: CommentObject
+      CommentConnection: CommentConnectionObject
+      CommentEdge: CommentEdgeObject
+      AggregateComment: AggregateCommentObject
       Mutation: MutationObject
       BatchPayload: BatchPayloadObject
       Subscription: SubscriptionObject
@@ -31,6 +35,8 @@ export interface NexusPrismaTypes {
       UserPreviousValues: UserPreviousValuesObject
       PostSubscriptionPayload: PostSubscriptionPayloadObject
       PostPreviousValues: PostPreviousValuesObject
+      CommentSubscriptionPayload: CommentSubscriptionPayloadObject
+      CommentPreviousValues: CommentPreviousValuesObject
     }
     fieldsDetails: {
       Query: QueryFieldDetails
@@ -43,6 +49,10 @@ export interface NexusPrismaTypes {
       PostConnection: PostConnectionFieldDetails
       PostEdge: PostEdgeFieldDetails
       AggregatePost: AggregatePostFieldDetails
+      Comment: CommentFieldDetails
+      CommentConnection: CommentConnectionFieldDetails
+      CommentEdge: CommentEdgeFieldDetails
+      AggregateComment: AggregateCommentFieldDetails
       Mutation: MutationFieldDetails
       BatchPayload: BatchPayloadFieldDetails
       Subscription: SubscriptionFieldDetails
@@ -50,6 +60,8 @@ export interface NexusPrismaTypes {
       UserPreviousValues: UserPreviousValuesFieldDetails
       PostSubscriptionPayload: PostSubscriptionPayloadFieldDetails
       PostPreviousValues: PostPreviousValuesFieldDetails
+      CommentSubscriptionPayload: CommentSubscriptionPayloadFieldDetails
+      CommentPreviousValues: CommentPreviousValuesFieldDetails
     }
   }
   inputTypes: {
@@ -58,6 +70,8 @@ export interface NexusPrismaTypes {
       PostWhereInput: PostWhereInputInputObject
       UserWhereInput: UserWhereInputInputObject
       PostWhereUniqueInput: PostWhereUniqueInputInputObject
+      CommentWhereUniqueInput: CommentWhereUniqueInputInputObject
+      CommentWhereInput: CommentWhereInputInputObject
       UserCreateInput: UserCreateInputInputObject
       PostCreateManyWithoutAuthorInput: PostCreateManyWithoutAuthorInputInputObject
       PostCreateWithoutAuthorInput: PostCreateWithoutAuthorInputInputObject
@@ -78,13 +92,26 @@ export interface NexusPrismaTypes {
       UserUpdateWithoutPostsDataInput: UserUpdateWithoutPostsDataInputInputObject
       UserUpsertWithoutPostsInput: UserUpsertWithoutPostsInputInputObject
       PostUpdateManyMutationInput: PostUpdateManyMutationInputInputObject
+      CommentCreateInput: CommentCreateInputInputObject
+      UserCreateOneInput: UserCreateOneInputInputObject
+      PostCreateOneInput: PostCreateOneInputInputObject
+      CommentUpdateInput: CommentUpdateInputInputObject
+      UserUpdateOneInput: UserUpdateOneInputInputObject
+      UserUpdateDataInput: UserUpdateDataInputInputObject
+      UserUpsertNestedInput: UserUpsertNestedInputInputObject
+      PostUpdateOneInput: PostUpdateOneInputInputObject
+      PostUpdateDataInput: PostUpdateDataInputInputObject
+      PostUpsertNestedInput: PostUpsertNestedInputInputObject
+      CommentUpdateManyMutationInput: CommentUpdateManyMutationInputInputObject
       UserSubscriptionWhereInput: UserSubscriptionWhereInputInputObject
       PostSubscriptionWhereInput: PostSubscriptionWhereInputInputObject
+      CommentSubscriptionWhereInput: CommentSubscriptionWhereInputInputObject
     }
   }
   enumTypes: {
     PostOrderByInput: PostOrderByInputValues,
     UserOrderByInput: UserOrderByInputValues,
+    CommentOrderByInput: CommentOrderByInputValues,
     MutationType: MutationTypeValues,
   }
 }
@@ -99,6 +126,9 @@ type QueryObject =
   | { name: 'post', args?: QueryPostArgs[] | false, alias?: string  } 
   | { name: 'posts', args?: QueryPostsArgs[] | false, alias?: string  } 
   | { name: 'postsConnection', args?: QueryPostsConnectionArgs[] | false, alias?: string  } 
+  | { name: 'comment', args?: QueryCommentArgs[] | false, alias?: string  } 
+  | { name: 'comments', args?: QueryCommentsArgs[] | false, alias?: string  } 
+  | { name: 'commentsConnection', args?: QueryCommentsConnectionArgs[] | false, alias?: string  } 
 
 type QueryFields =
   | 'user'
@@ -107,6 +137,9 @@ type QueryFields =
   | 'post'
   | 'posts'
   | 'postsConnection'
+  | 'comment'
+  | 'comments'
+  | 'commentsConnection'
 
 
 type QueryUserArgs =
@@ -138,6 +171,24 @@ type QueryPostsArgs =
   | 'first'
   | 'last'
 type QueryPostsConnectionArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
+type QueryCommentArgs =
+  | 'where'
+type QueryCommentsArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
+type QueryCommentsConnectionArgs =
   | 'where'
   | 'orderBy'
   | 'skip'
@@ -225,6 +276,45 @@ export interface QueryFieldDetails {
       context: core.GetGen<"context">,
       info?: GraphQLResolveInfo
     ) => Promise<prisma.PostConnection> | prisma.PostConnection
+  }
+  comment: {
+    type: 'Comment'
+    args: Record<QueryCommentArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where: CommentWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment | null> | prisma.Comment | null
+  }
+  comments: {
+    type: 'Comment'
+    args: Record<QueryCommentsArgs, core.NexusArgDef<string>>
+    description: string
+    list: true
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where?: CommentWhereInput | null, orderBy?: prisma.CommentOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment[]> | prisma.Comment[]
+  }
+  commentsConnection: {
+    type: 'CommentConnection'
+    args: Record<QueryCommentsConnectionArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where?: CommentWhereInput | null, orderBy?: prisma.CommentOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.CommentConnection> | prisma.CommentConnection
   }
 }
   
@@ -661,6 +751,196 @@ export interface AggregatePostFieldDetails {
 }
   
 
+// Types for Comment
+
+type CommentObject =
+  | CommentFields
+  | { name: 'id', args?: [] | false, alias?: string  } 
+  | { name: 'author', args?: [] | false, alias?: string  } 
+  | { name: 'post', args?: [] | false, alias?: string  } 
+  | { name: 'content', args?: [] | false, alias?: string  } 
+
+type CommentFields =
+  | 'id'
+  | 'author'
+  | 'post'
+  | 'content'
+
+
+
+  
+
+export interface CommentFieldDetails {
+  id: {
+    type: 'ID'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  author: {
+    type: 'User'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Comment">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.User | null> | prisma.User | null
+  }
+  post: {
+    type: 'Post'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Comment">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Post | null> | prisma.Post | null
+  }
+  content: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
+// Types for CommentConnection
+
+type CommentConnectionObject =
+  | CommentConnectionFields
+  | { name: 'pageInfo', args?: [] | false, alias?: string  } 
+  | { name: 'edges', args?: [] | false, alias?: string  } 
+  | { name: 'aggregate', args?: [] | false, alias?: string  } 
+
+type CommentConnectionFields =
+  | 'pageInfo'
+  | 'edges'
+  | 'aggregate'
+
+
+
+  
+
+export interface CommentConnectionFieldDetails {
+  pageInfo: {
+    type: 'PageInfo'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"CommentConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.PageInfo> | prisma.PageInfo
+  }
+  edges: {
+    type: 'CommentEdge'
+    args: {}
+    description: string
+    list: true
+    nullable: false
+    resolve: (
+      root: core.RootValue<"CommentConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.CommentEdge[]> | prisma.CommentEdge[]
+  }
+  aggregate: {
+    type: 'AggregateComment'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"CommentConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.AggregateComment> | prisma.AggregateComment
+  }
+}
+  
+
+// Types for CommentEdge
+
+type CommentEdgeObject =
+  | CommentEdgeFields
+  | { name: 'node', args?: [] | false, alias?: string  } 
+  | { name: 'cursor', args?: [] | false, alias?: string  } 
+
+type CommentEdgeFields =
+  | 'node'
+  | 'cursor'
+
+
+
+  
+
+export interface CommentEdgeFieldDetails {
+  node: {
+    type: 'Comment'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"CommentEdge">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment> | prisma.Comment
+  }
+  cursor: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
+// Types for AggregateComment
+
+type AggregateCommentObject =
+  | AggregateCommentFields
+  | { name: 'count', args?: [] | false, alias?: string  } 
+
+type AggregateCommentFields =
+  | 'count'
+
+
+
+  
+
+export interface AggregateCommentFieldDetails {
+  count: {
+    type: 'Int'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
 // Types for Mutation
 
 type MutationObject =
@@ -677,6 +957,12 @@ type MutationObject =
   | { name: 'upsertPost', args?: MutationUpsertPostArgs[] | false, alias?: string  } 
   | { name: 'deletePost', args?: MutationDeletePostArgs[] | false, alias?: string  } 
   | { name: 'deleteManyPosts', args?: MutationDeleteManyPostsArgs[] | false, alias?: string  } 
+  | { name: 'createComment', args?: MutationCreateCommentArgs[] | false, alias?: string  } 
+  | { name: 'updateComment', args?: MutationUpdateCommentArgs[] | false, alias?: string  } 
+  | { name: 'updateManyComments', args?: MutationUpdateManyCommentsArgs[] | false, alias?: string  } 
+  | { name: 'upsertComment', args?: MutationUpsertCommentArgs[] | false, alias?: string  } 
+  | { name: 'deleteComment', args?: MutationDeleteCommentArgs[] | false, alias?: string  } 
+  | { name: 'deleteManyComments', args?: MutationDeleteManyCommentsArgs[] | false, alias?: string  } 
 
 type MutationFields =
   | 'createUser'
@@ -691,6 +977,12 @@ type MutationFields =
   | 'upsertPost'
   | 'deletePost'
   | 'deleteManyPosts'
+  | 'createComment'
+  | 'updateComment'
+  | 'updateManyComments'
+  | 'upsertComment'
+  | 'deleteComment'
+  | 'deleteManyComments'
 
 
 type MutationCreateUserArgs =
@@ -724,6 +1016,22 @@ type MutationUpsertPostArgs =
 type MutationDeletePostArgs =
   | 'where'
 type MutationDeleteManyPostsArgs =
+  | 'where'
+type MutationCreateCommentArgs =
+  | 'data'
+type MutationUpdateCommentArgs =
+  | 'data'
+  | 'where'
+type MutationUpdateManyCommentsArgs =
+  | 'data'
+  | 'where'
+type MutationUpsertCommentArgs =
+  | 'where'
+  | 'create'
+  | 'update'
+type MutationDeleteCommentArgs =
+  | 'where'
+type MutationDeleteManyCommentsArgs =
   | 'where'
   
 
@@ -884,6 +1192,84 @@ export interface MutationFieldDetails {
       info?: GraphQLResolveInfo
     ) => Promise<prisma.BatchPayload> | prisma.BatchPayload
   }
+  createComment: {
+    type: 'Comment'
+    args: Record<MutationCreateCommentArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: CommentCreateInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment> | prisma.Comment
+  }
+  updateComment: {
+    type: 'Comment'
+    args: Record<MutationUpdateCommentArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: CommentUpdateInput, where: CommentWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment | null> | prisma.Comment | null
+  }
+  updateManyComments: {
+    type: 'BatchPayload'
+    args: Record<MutationUpdateManyCommentsArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: CommentUpdateManyMutationInput, where?: CommentWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.BatchPayload> | prisma.BatchPayload
+  }
+  upsertComment: {
+    type: 'Comment'
+    args: Record<MutationUpsertCommentArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where: CommentWhereUniqueInput, create: CommentCreateInput, update: CommentUpdateInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment> | prisma.Comment
+  }
+  deleteComment: {
+    type: 'Comment'
+    args: Record<MutationDeleteCommentArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where: CommentWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment | null> | prisma.Comment | null
+  }
+  deleteManyComments: {
+    type: 'BatchPayload'
+    args: Record<MutationDeleteManyCommentsArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where?: CommentWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.BatchPayload> | prisma.BatchPayload
+  }
 }
   
 
@@ -918,15 +1304,19 @@ type SubscriptionObject =
   | SubscriptionFields
   | { name: 'user', args?: SubscriptionUserArgs[] | false, alias?: string  } 
   | { name: 'post', args?: SubscriptionPostArgs[] | false, alias?: string  } 
+  | { name: 'comment', args?: SubscriptionCommentArgs[] | false, alias?: string  } 
 
 type SubscriptionFields =
   | 'user'
   | 'post'
+  | 'comment'
 
 
 type SubscriptionUserArgs =
   | 'where'
 type SubscriptionPostArgs =
+  | 'where'
+type SubscriptionCommentArgs =
   | 'where'
   
 
@@ -956,6 +1346,19 @@ export interface SubscriptionFieldDetails {
       context: core.GetGen<"context">,
       info?: GraphQLResolveInfo
     ) => Promise<prisma.PostSubscriptionPayload | null> | prisma.PostSubscriptionPayload | null
+  }
+  comment: {
+    type: 'CommentSubscriptionPayload'
+    args: Record<SubscriptionCommentArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Subscription">,
+      args: { where?: CommentSubscriptionWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.CommentSubscriptionPayload | null> | prisma.CommentSubscriptionPayload | null
   }
 }
   
@@ -1190,6 +1593,111 @@ export interface PostPreviousValuesFieldDetails {
 }
   
 
+// Types for CommentSubscriptionPayload
+
+type CommentSubscriptionPayloadObject =
+  | CommentSubscriptionPayloadFields
+  | { name: 'mutation', args?: [] | false, alias?: string  } 
+  | { name: 'node', args?: [] | false, alias?: string  } 
+  | { name: 'updatedFields', args?: [] | false, alias?: string  } 
+  | { name: 'previousValues', args?: [] | false, alias?: string  } 
+
+type CommentSubscriptionPayloadFields =
+  | 'mutation'
+  | 'node'
+  | 'updatedFields'
+  | 'previousValues'
+
+
+
+  
+
+export interface CommentSubscriptionPayloadFieldDetails {
+  mutation: {
+    type: 'MutationType'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"CommentSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MutationType> | prisma.MutationType
+  }
+  node: {
+    type: 'Comment'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"CommentSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment | null> | prisma.Comment | null
+  }
+  updatedFields: {
+    type: 'String'
+    args: {}
+    description: string
+    list: true
+    nullable: false
+    resolve: undefined
+  }
+  previousValues: {
+    type: 'CommentPreviousValues'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"CommentSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.CommentPreviousValues | null> | prisma.CommentPreviousValues | null
+  }
+}
+  
+
+// Types for CommentPreviousValues
+
+type CommentPreviousValuesObject =
+  | CommentPreviousValuesFields
+  | { name: 'id', args?: [] | false, alias?: string  } 
+  | { name: 'content', args?: [] | false, alias?: string  } 
+
+type CommentPreviousValuesFields =
+  | 'id'
+  | 'content'
+
+
+
+  
+
+export interface CommentPreviousValuesFieldDetails {
+  id: {
+    type: 'ID'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  content: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
 
 export interface UserWhereUniqueInput {
   id?: string | null
@@ -1380,6 +1888,84 @@ export interface PostWhereUniqueInput {
 export type PostWhereUniqueInputInputObject =
   | Extract<keyof PostWhereUniqueInput, string>
   | { name: 'id', alias?: string  } 
+  
+export interface CommentWhereUniqueInput {
+  id?: string | null
+}
+export type CommentWhereUniqueInputInputObject =
+  | Extract<keyof CommentWhereUniqueInput, string>
+  | { name: 'id', alias?: string  } 
+  
+export interface CommentWhereInput {
+  id?: string | null
+  id_not?: string | null
+  id_in?: string[]
+  id_not_in?: string[]
+  id_lt?: string | null
+  id_lte?: string | null
+  id_gt?: string | null
+  id_gte?: string | null
+  id_contains?: string | null
+  id_not_contains?: string | null
+  id_starts_with?: string | null
+  id_not_starts_with?: string | null
+  id_ends_with?: string | null
+  id_not_ends_with?: string | null
+  author?: UserWhereInput | null
+  post?: PostWhereInput | null
+  content?: string | null
+  content_not?: string | null
+  content_in?: string[]
+  content_not_in?: string[]
+  content_lt?: string | null
+  content_lte?: string | null
+  content_gt?: string | null
+  content_gte?: string | null
+  content_contains?: string | null
+  content_not_contains?: string | null
+  content_starts_with?: string | null
+  content_not_starts_with?: string | null
+  content_ends_with?: string | null
+  content_not_ends_with?: string | null
+  AND?: CommentWhereInput[]
+  OR?: CommentWhereInput[]
+  NOT?: CommentWhereInput[]
+}
+export type CommentWhereInputInputObject =
+  | Extract<keyof CommentWhereInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'id_not', alias?: string  } 
+  | { name: 'id_in', alias?: string  } 
+  | { name: 'id_not_in', alias?: string  } 
+  | { name: 'id_lt', alias?: string  } 
+  | { name: 'id_lte', alias?: string  } 
+  | { name: 'id_gt', alias?: string  } 
+  | { name: 'id_gte', alias?: string  } 
+  | { name: 'id_contains', alias?: string  } 
+  | { name: 'id_not_contains', alias?: string  } 
+  | { name: 'id_starts_with', alias?: string  } 
+  | { name: 'id_not_starts_with', alias?: string  } 
+  | { name: 'id_ends_with', alias?: string  } 
+  | { name: 'id_not_ends_with', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'post', alias?: string  } 
+  | { name: 'content', alias?: string  } 
+  | { name: 'content_not', alias?: string  } 
+  | { name: 'content_in', alias?: string  } 
+  | { name: 'content_not_in', alias?: string  } 
+  | { name: 'content_lt', alias?: string  } 
+  | { name: 'content_lte', alias?: string  } 
+  | { name: 'content_gt', alias?: string  } 
+  | { name: 'content_gte', alias?: string  } 
+  | { name: 'content_contains', alias?: string  } 
+  | { name: 'content_not_contains', alias?: string  } 
+  | { name: 'content_starts_with', alias?: string  } 
+  | { name: 'content_not_starts_with', alias?: string  } 
+  | { name: 'content_ends_with', alias?: string  } 
+  | { name: 'content_not_ends_with', alias?: string  } 
+  | { name: 'AND', alias?: string  } 
+  | { name: 'OR', alias?: string  } 
+  | { name: 'NOT', alias?: string  } 
   
 export interface UserCreateInput {
   id?: string | null
@@ -1663,6 +2249,129 @@ export type PostUpdateManyMutationInputInputObject =
   | { name: 'title', alias?: string  } 
   | { name: 'published', alias?: string  } 
   
+export interface CommentCreateInput {
+  id?: string | null
+  author?: UserCreateOneInput | null
+  post?: PostCreateOneInput | null
+  content?: string
+}
+export type CommentCreateInputInputObject =
+  | Extract<keyof CommentCreateInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'post', alias?: string  } 
+  | { name: 'content', alias?: string  } 
+  
+export interface UserCreateOneInput {
+  create?: UserCreateInput | null
+  connect?: UserWhereUniqueInput | null
+}
+export type UserCreateOneInputInputObject =
+  | Extract<keyof UserCreateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface PostCreateOneInput {
+  create?: PostCreateInput | null
+  connect?: PostWhereUniqueInput | null
+}
+export type PostCreateOneInputInputObject =
+  | Extract<keyof PostCreateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface CommentUpdateInput {
+  author?: UserUpdateOneInput | null
+  post?: PostUpdateOneInput | null
+  content?: string | null
+}
+export type CommentUpdateInputInputObject =
+  | Extract<keyof CommentUpdateInput, string>
+  | { name: 'author', alias?: string  } 
+  | { name: 'post', alias?: string  } 
+  | { name: 'content', alias?: string  } 
+  
+export interface UserUpdateOneInput {
+  create?: UserCreateInput | null
+  update?: UserUpdateDataInput | null
+  upsert?: UserUpsertNestedInput | null
+  delete?: boolean | null
+  disconnect?: boolean | null
+  connect?: UserWhereUniqueInput | null
+}
+export type UserUpdateOneInputInputObject =
+  | Extract<keyof UserUpdateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'delete', alias?: string  } 
+  | { name: 'disconnect', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface UserUpdateDataInput {
+  email?: string | null
+  name?: string | null
+  posts?: PostUpdateManyWithoutAuthorInput | null
+}
+export type UserUpdateDataInputInputObject =
+  | Extract<keyof UserUpdateDataInput, string>
+  | { name: 'email', alias?: string  } 
+  | { name: 'name', alias?: string  } 
+  | { name: 'posts', alias?: string  } 
+  
+export interface UserUpsertNestedInput {
+  update?: UserUpdateDataInput
+  create?: UserCreateInput
+}
+export type UserUpsertNestedInputInputObject =
+  | Extract<keyof UserUpsertNestedInput, string>
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
+  
+export interface PostUpdateOneInput {
+  create?: PostCreateInput | null
+  update?: PostUpdateDataInput | null
+  upsert?: PostUpsertNestedInput | null
+  delete?: boolean | null
+  disconnect?: boolean | null
+  connect?: PostWhereUniqueInput | null
+}
+export type PostUpdateOneInputInputObject =
+  | Extract<keyof PostUpdateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'delete', alias?: string  } 
+  | { name: 'disconnect', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface PostUpdateDataInput {
+  title?: string | null
+  published?: boolean | null
+  author?: UserUpdateOneWithoutPostsInput | null
+}
+export type PostUpdateDataInputInputObject =
+  | Extract<keyof PostUpdateDataInput, string>
+  | { name: 'title', alias?: string  } 
+  | { name: 'published', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  
+export interface PostUpsertNestedInput {
+  update?: PostUpdateDataInput
+  create?: PostCreateInput
+}
+export type PostUpsertNestedInputInputObject =
+  | Extract<keyof PostUpsertNestedInput, string>
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
+  
+export interface CommentUpdateManyMutationInput {
+  content?: string | null
+}
+export type CommentUpdateManyMutationInputInputObject =
+  | Extract<keyof CommentUpdateManyMutationInput, string>
+  | { name: 'content', alias?: string  } 
+  
 export interface UserSubscriptionWhereInput {
   mutation_in?: prisma.MutationType[]
   updatedFields_contains?: string | null
@@ -1705,6 +2414,27 @@ export type PostSubscriptionWhereInputInputObject =
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
   
+export interface CommentSubscriptionWhereInput {
+  mutation_in?: prisma.MutationType[]
+  updatedFields_contains?: string | null
+  updatedFields_contains_every?: string[]
+  updatedFields_contains_some?: string[]
+  node?: CommentWhereInput | null
+  AND?: CommentSubscriptionWhereInput[]
+  OR?: CommentSubscriptionWhereInput[]
+  NOT?: CommentSubscriptionWhereInput[]
+}
+export type CommentSubscriptionWhereInputInputObject =
+  | Extract<keyof CommentSubscriptionWhereInput, string>
+  | { name: 'mutation_in', alias?: string  } 
+  | { name: 'updatedFields_contains', alias?: string  } 
+  | { name: 'updatedFields_contains_every', alias?: string  } 
+  | { name: 'updatedFields_contains_some', alias?: string  } 
+  | { name: 'node', alias?: string  } 
+  | { name: 'AND', alias?: string  } 
+  | { name: 'OR', alias?: string  } 
+  | { name: 'NOT', alias?: string  } 
+  
 
 export type PostOrderByInputValues =
   | 'id_ASC'
@@ -1725,6 +2455,16 @@ export type UserOrderByInputValues =
   | 'email_DESC'
   | 'name_ASC'
   | 'name_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC'
+  
+export type CommentOrderByInputValues =
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'content_ASC'
+  | 'content_DESC'
   | 'createdAt_ASC'
   | 'createdAt_DESC'
   | 'updatedAt_ASC'
