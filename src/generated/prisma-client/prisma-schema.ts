@@ -6,11 +6,15 @@ export const typeDefs = /* GraphQL */ `type AggregateComment {
   count: Int!
 }
 
-type AggregatePost {
+type AggregateJoke {
   count: Int!
 }
 
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateVote {
   count: Int!
 }
 
@@ -21,7 +25,7 @@ type BatchPayload {
 type Comment {
   id: ID!
   author: User
-  post: Post
+  joke: Joke
   content: String!
 }
 
@@ -34,7 +38,7 @@ type CommentConnection {
 input CommentCreateInput {
   id: ID
   author: UserCreateOneInput
-  post: PostCreateOneInput
+  joke: JokeCreateOneInput
   content: String!
 }
 
@@ -75,7 +79,7 @@ input CommentSubscriptionWhereInput {
 
 input CommentUpdateInput {
   author: UserUpdateOneInput
-  post: PostUpdateOneInput
+  joke: JokeUpdateOneInput
   content: String
 }
 
@@ -99,7 +103,7 @@ input CommentWhereInput {
   id_ends_with: ID
   id_not_ends_with: ID
   author: UserWhereInput
-  post: PostWhereInput
+  joke: JokeWhereInput
   content: String
   content_not: String
   content_in: [String!]
@@ -123,6 +127,226 @@ input CommentWhereUniqueInput {
   id: ID
 }
 
+type Joke {
+  id: ID!
+  content: String!
+  published: Boolean!
+  author: User
+}
+
+type JokeConnection {
+  pageInfo: PageInfo!
+  edges: [JokeEdge]!
+  aggregate: AggregateJoke!
+}
+
+input JokeCreateInput {
+  id: ID
+  content: String!
+  published: Boolean
+  author: UserCreateOneWithoutJokesInput
+}
+
+input JokeCreateManyWithoutAuthorInput {
+  create: [JokeCreateWithoutAuthorInput!]
+  connect: [JokeWhereUniqueInput!]
+}
+
+input JokeCreateOneInput {
+  create: JokeCreateInput
+  connect: JokeWhereUniqueInput
+}
+
+input JokeCreateWithoutAuthorInput {
+  id: ID
+  content: String!
+  published: Boolean
+}
+
+type JokeEdge {
+  node: Joke!
+  cursor: String!
+}
+
+enum JokeOrderByInput {
+  id_ASC
+  id_DESC
+  content_ASC
+  content_DESC
+  published_ASC
+  published_DESC
+}
+
+type JokePreviousValues {
+  id: ID!
+  content: String!
+  published: Boolean!
+}
+
+input JokeScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  published: Boolean
+  published_not: Boolean
+  AND: [JokeScalarWhereInput!]
+  OR: [JokeScalarWhereInput!]
+  NOT: [JokeScalarWhereInput!]
+}
+
+type JokeSubscriptionPayload {
+  mutation: MutationType!
+  node: Joke
+  updatedFields: [String!]
+  previousValues: JokePreviousValues
+}
+
+input JokeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: JokeWhereInput
+  AND: [JokeSubscriptionWhereInput!]
+  OR: [JokeSubscriptionWhereInput!]
+  NOT: [JokeSubscriptionWhereInput!]
+}
+
+input JokeUpdateDataInput {
+  content: String
+  published: Boolean
+  author: UserUpdateOneWithoutJokesInput
+}
+
+input JokeUpdateInput {
+  content: String
+  published: Boolean
+  author: UserUpdateOneWithoutJokesInput
+}
+
+input JokeUpdateManyDataInput {
+  content: String
+  published: Boolean
+}
+
+input JokeUpdateManyMutationInput {
+  content: String
+  published: Boolean
+}
+
+input JokeUpdateManyWithoutAuthorInput {
+  create: [JokeCreateWithoutAuthorInput!]
+  delete: [JokeWhereUniqueInput!]
+  connect: [JokeWhereUniqueInput!]
+  set: [JokeWhereUniqueInput!]
+  disconnect: [JokeWhereUniqueInput!]
+  update: [JokeUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [JokeUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [JokeScalarWhereInput!]
+  updateMany: [JokeUpdateManyWithWhereNestedInput!]
+}
+
+input JokeUpdateManyWithWhereNestedInput {
+  where: JokeScalarWhereInput!
+  data: JokeUpdateManyDataInput!
+}
+
+input JokeUpdateOneInput {
+  create: JokeCreateInput
+  update: JokeUpdateDataInput
+  upsert: JokeUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: JokeWhereUniqueInput
+}
+
+input JokeUpdateWithoutAuthorDataInput {
+  content: String
+  published: Boolean
+}
+
+input JokeUpdateWithWhereUniqueWithoutAuthorInput {
+  where: JokeWhereUniqueInput!
+  data: JokeUpdateWithoutAuthorDataInput!
+}
+
+input JokeUpsertNestedInput {
+  update: JokeUpdateDataInput!
+  create: JokeCreateInput!
+}
+
+input JokeUpsertWithWhereUniqueWithoutAuthorInput {
+  where: JokeWhereUniqueInput!
+  update: JokeUpdateWithoutAuthorDataInput!
+  create: JokeCreateWithoutAuthorInput!
+}
+
+input JokeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  published: Boolean
+  published_not: Boolean
+  author: UserWhereInput
+  AND: [JokeWhereInput!]
+  OR: [JokeWhereInput!]
+  NOT: [JokeWhereInput!]
+}
+
+input JokeWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
@@ -132,18 +356,24 @@ type Mutation {
   upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteManyComments(where: CommentWhereInput): BatchPayload!
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
+  createJoke(data: JokeCreateInput!): Joke!
+  updateJoke(data: JokeUpdateInput!, where: JokeWhereUniqueInput!): Joke
+  updateManyJokes(data: JokeUpdateManyMutationInput!, where: JokeWhereInput): BatchPayload!
+  upsertJoke(where: JokeWhereUniqueInput!, create: JokeCreateInput!, update: JokeUpdateInput!): Joke!
+  deleteJoke(where: JokeWhereUniqueInput!): Joke
+  deleteManyJokes(where: JokeWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createVote(data: VoteCreateInput!): Vote!
+  updateVote(data: VoteUpdateInput!, where: VoteWhereUniqueInput!): Vote
+  updateManyVotes(data: VoteUpdateManyMutationInput!, where: VoteWhereInput): BatchPayload!
+  upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
+  deleteVote(where: VoteWhereUniqueInput!): Vote
+  deleteManyVotes(where: VoteWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -163,250 +393,34 @@ type PageInfo {
   endCursor: String
 }
 
-type Post {
-  id: ID!
-  title: String!
-  published: Boolean!
-  author: User
-}
-
-type PostConnection {
-  pageInfo: PageInfo!
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
-}
-
-input PostCreateInput {
-  id: ID
-  title: String!
-  published: Boolean
-  author: UserCreateOneWithoutPostsInput
-}
-
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-input PostCreateOneInput {
-  create: PostCreateInput
-  connect: PostWhereUniqueInput
-}
-
-input PostCreateWithoutAuthorInput {
-  id: ID
-  title: String!
-  published: Boolean
-}
-
-type PostEdge {
-  node: Post!
-  cursor: String!
-}
-
-enum PostOrderByInput {
-  id_ASC
-  id_DESC
-  title_ASC
-  title_DESC
-  published_ASC
-  published_DESC
-}
-
-type PostPreviousValues {
-  id: ID!
-  title: String!
-  published: Boolean!
-}
-
-input PostScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
-  AND: [PostScalarWhereInput!]
-  OR: [PostScalarWhereInput!]
-  NOT: [PostScalarWhereInput!]
-}
-
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  node: Post
-  updatedFields: [String!]
-  previousValues: PostPreviousValues
-}
-
-input PostSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: PostWhereInput
-  AND: [PostSubscriptionWhereInput!]
-  OR: [PostSubscriptionWhereInput!]
-  NOT: [PostSubscriptionWhereInput!]
-}
-
-input PostUpdateDataInput {
-  title: String
-  published: Boolean
-  author: UserUpdateOneWithoutPostsInput
-}
-
-input PostUpdateInput {
-  title: String
-  published: Boolean
-  author: UserUpdateOneWithoutPostsInput
-}
-
-input PostUpdateManyDataInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateManyMutationInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  delete: [PostWhereUniqueInput!]
-  connect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-  deleteMany: [PostScalarWhereInput!]
-  updateMany: [PostUpdateManyWithWhereNestedInput!]
-}
-
-input PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput!
-  data: PostUpdateManyDataInput!
-}
-
-input PostUpdateOneInput {
-  create: PostCreateInput
-  update: PostUpdateDataInput
-  upsert: PostUpsertNestedInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: PostWhereUniqueInput
-}
-
-input PostUpdateWithoutAuthorDataInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
-}
-
-input PostUpsertNestedInput {
-  update: PostUpdateDataInput!
-  create: PostCreateInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
-}
-
-input PostWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
-  author: UserWhereInput
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-}
-
-input PostWhereUniqueInput {
-  id: ID
-}
-
 type Query {
   comment(where: CommentWhereUniqueInput!): Comment
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
-  post(where: PostWhereUniqueInput!): Post
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  joke(where: JokeWhereUniqueInput!): Joke
+  jokes(where: JokeWhereInput, orderBy: JokeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Joke]!
+  jokesConnection(where: JokeWhereInput, orderBy: JokeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JokeConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  vote(where: VoteWhereUniqueInput!): Vote
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote]!
+  votesConnection(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VoteConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  joke(where: JokeSubscriptionWhereInput): JokeSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  vote(where: VoteSubscriptionWhereInput): VoteSubscriptionPayload
 }
 
 type User {
   id: ID!
   email: String
   name: String!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  jokes(where: JokeWhereInput, orderBy: JokeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Joke!]
 }
 
 type UserConnection {
@@ -419,7 +433,7 @@ input UserCreateInput {
   id: ID
   email: String
   name: String!
-  posts: PostCreateManyWithoutAuthorInput
+  jokes: JokeCreateManyWithoutAuthorInput
 }
 
 input UserCreateOneInput {
@@ -427,12 +441,12 @@ input UserCreateOneInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserCreateOneWithoutJokesInput {
+  create: UserCreateWithoutJokesInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutPostsInput {
+input UserCreateWithoutJokesInput {
   id: ID
   email: String
   name: String!
@@ -479,13 +493,13 @@ input UserSubscriptionWhereInput {
 input UserUpdateDataInput {
   email: String
   name: String
-  posts: PostUpdateManyWithoutAuthorInput
+  jokes: JokeUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateInput {
   email: String
   name: String
-  posts: PostUpdateManyWithoutAuthorInput
+  jokes: JokeUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyMutationInput {
@@ -502,16 +516,16 @@ input UserUpdateOneInput {
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
+input UserUpdateOneWithoutJokesInput {
+  create: UserCreateWithoutJokesInput
+  update: UserUpdateWithoutJokesDataInput
+  upsert: UserUpsertWithoutJokesInput
   delete: Boolean
   disconnect: Boolean
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateWithoutPostsDataInput {
+input UserUpdateWithoutJokesDataInput {
   email: String
   name: String
 }
@@ -521,9 +535,9 @@ input UserUpsertNestedInput {
   create: UserCreateInput!
 }
 
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
+input UserUpsertWithoutJokesInput {
+  update: UserUpdateWithoutJokesDataInput!
+  create: UserCreateWithoutJokesInput!
 }
 
 input UserWhereInput {
@@ -569,9 +583,9 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
+  jokes_every: JokeWhereInput
+  jokes_some: JokeWhereInput
+  jokes_none: JokeWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -580,5 +594,104 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type Vote {
+  id: ID!
+  author: User
+  joke: Joke
+  value: Int!
+}
+
+type VoteConnection {
+  pageInfo: PageInfo!
+  edges: [VoteEdge]!
+  aggregate: AggregateVote!
+}
+
+input VoteCreateInput {
+  id: ID
+  author: UserCreateOneInput
+  joke: JokeCreateOneInput
+  value: Int!
+}
+
+type VoteEdge {
+  node: Vote!
+  cursor: String!
+}
+
+enum VoteOrderByInput {
+  id_ASC
+  id_DESC
+  value_ASC
+  value_DESC
+}
+
+type VotePreviousValues {
+  id: ID!
+  value: Int!
+}
+
+type VoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Vote
+  updatedFields: [String!]
+  previousValues: VotePreviousValues
+}
+
+input VoteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VoteWhereInput
+  AND: [VoteSubscriptionWhereInput!]
+  OR: [VoteSubscriptionWhereInput!]
+  NOT: [VoteSubscriptionWhereInput!]
+}
+
+input VoteUpdateInput {
+  author: UserUpdateOneInput
+  joke: JokeUpdateOneInput
+  value: Int
+}
+
+input VoteUpdateManyMutationInput {
+  value: Int
+}
+
+input VoteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  author: UserWhereInput
+  joke: JokeWhereInput
+  value: Int
+  value_not: Int
+  value_in: [Int!]
+  value_not_in: [Int!]
+  value_lt: Int
+  value_lte: Int
+  value_gt: Int
+  value_gte: Int
+  AND: [VoteWhereInput!]
+  OR: [VoteWhereInput!]
+  NOT: [VoteWhereInput!]
+}
+
+input VoteWhereUniqueInput {
+  id: ID
 }
 `

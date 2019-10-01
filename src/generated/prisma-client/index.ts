@@ -17,8 +17,9 @@ export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
   comment: (where?: CommentWhereInput) => Promise<boolean>;
-  post: (where?: PostWhereInput) => Promise<boolean>;
+  joke: (where?: JokeWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
+  vote: (where?: VoteWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -59,25 +60,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => CommentConnectionPromise;
-  post: (where: PostWhereUniqueInput) => PostNullablePromise;
-  posts: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  joke: (where: JokeWhereUniqueInput) => JokeNullablePromise;
+  jokes: (args?: {
+    where?: JokeWhereInput;
+    orderBy?: JokeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Post>;
-  postsConnection: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  }) => FragmentableArray<Joke>;
+  jokesConnection: (args?: {
+    where?: JokeWhereInput;
+    orderBy?: JokeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => PostConnectionPromise;
+  }) => JokeConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -97,6 +98,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => UserConnectionPromise;
+  vote: (where: VoteWhereUniqueInput) => VoteNullablePromise;
+  votes: (args?: {
+    where?: VoteWhereInput;
+    orderBy?: VoteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Vote>;
+  votesConnection: (args?: {
+    where?: VoteWhereInput;
+    orderBy?: VoteOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => VoteConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -119,22 +139,22 @@ export interface Prisma {
   }) => CommentPromise;
   deleteComment: (where: CommentWhereUniqueInput) => CommentPromise;
   deleteManyComments: (where?: CommentWhereInput) => BatchPayloadPromise;
-  createPost: (data: PostCreateInput) => PostPromise;
-  updatePost: (args: {
-    data: PostUpdateInput;
-    where: PostWhereUniqueInput;
-  }) => PostPromise;
-  updateManyPosts: (args: {
-    data: PostUpdateManyMutationInput;
-    where?: PostWhereInput;
+  createJoke: (data: JokeCreateInput) => JokePromise;
+  updateJoke: (args: {
+    data: JokeUpdateInput;
+    where: JokeWhereUniqueInput;
+  }) => JokePromise;
+  updateManyJokes: (args: {
+    data: JokeUpdateManyMutationInput;
+    where?: JokeWhereInput;
   }) => BatchPayloadPromise;
-  upsertPost: (args: {
-    where: PostWhereUniqueInput;
-    create: PostCreateInput;
-    update: PostUpdateInput;
-  }) => PostPromise;
-  deletePost: (where: PostWhereUniqueInput) => PostPromise;
-  deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
+  upsertJoke: (args: {
+    where: JokeWhereUniqueInput;
+    create: JokeCreateInput;
+    update: JokeUpdateInput;
+  }) => JokePromise;
+  deleteJoke: (where: JokeWhereUniqueInput) => JokePromise;
+  deleteManyJokes: (where?: JokeWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -151,6 +171,22 @@ export interface Prisma {
   }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  createVote: (data: VoteCreateInput) => VotePromise;
+  updateVote: (args: {
+    data: VoteUpdateInput;
+    where: VoteWhereUniqueInput;
+  }) => VotePromise;
+  updateManyVotes: (args: {
+    data: VoteUpdateManyMutationInput;
+    where?: VoteWhereInput;
+  }) => BatchPayloadPromise;
+  upsertVote: (args: {
+    where: VoteWhereUniqueInput;
+    create: VoteCreateInput;
+    update: VoteUpdateInput;
+  }) => VotePromise;
+  deleteVote: (where: VoteWhereUniqueInput) => VotePromise;
+  deleteManyVotes: (where?: VoteWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -163,12 +199,15 @@ export interface Subscription {
   comment: (
     where?: CommentSubscriptionWhereInput
   ) => CommentSubscriptionPayloadSubscription;
-  post: (
-    where?: PostSubscriptionWhereInput
-  ) => PostSubscriptionPayloadSubscription;
+  joke: (
+    where?: JokeSubscriptionWhereInput
+  ) => JokeSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
+  vote: (
+    where?: VoteSubscriptionWhereInput
+  ) => VoteSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -179,11 +218,11 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type PostOrderByInput =
+export type JokeOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "title_ASC"
-  | "title_DESC"
+  | "content_ASC"
+  | "content_DESC"
   | "published_ASC"
   | "published_DESC";
 
@@ -201,13 +240,19 @@ export type UserOrderByInput =
   | "name_ASC"
   | "name_DESC";
 
+export type VoteOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "value_ASC"
+  | "value_DESC";
+
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type CommentWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface PostWhereInput {
+export interface JokeWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -222,26 +267,26 @@ export interface PostWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
   published?: Maybe<Boolean>;
   published_not?: Maybe<Boolean>;
   author?: Maybe<UserWhereInput>;
-  AND?: Maybe<PostWhereInput[] | PostWhereInput>;
-  OR?: Maybe<PostWhereInput[] | PostWhereInput>;
-  NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
+  AND?: Maybe<JokeWhereInput[] | JokeWhereInput>;
+  OR?: Maybe<JokeWhereInput[] | JokeWhereInput>;
+  NOT?: Maybe<JokeWhereInput[] | JokeWhereInput>;
 }
 
 export interface UserWhereInput {
@@ -287,9 +332,9 @@ export interface UserWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  posts_every?: Maybe<PostWhereInput>;
-  posts_some?: Maybe<PostWhereInput>;
-  posts_none?: Maybe<PostWhereInput>;
+  jokes_every?: Maybe<JokeWhereInput>;
+  jokes_some?: Maybe<JokeWhereInput>;
+  jokes_none?: Maybe<JokeWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -311,7 +356,7 @@ export interface CommentWhereInput {
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
   author?: Maybe<UserWhereInput>;
-  post?: Maybe<PostWhereInput>;
+  joke?: Maybe<JokeWhereInput>;
   content?: Maybe<String>;
   content_not?: Maybe<String>;
   content_in?: Maybe<String[] | String>;
@@ -331,7 +376,7 @@ export interface CommentWhereInput {
   NOT?: Maybe<CommentWhereInput[] | CommentWhereInput>;
 }
 
-export type PostWhereUniqueInput = AtLeastOne<{
+export type JokeWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -340,10 +385,44 @@ export type UserWhereUniqueInput = AtLeastOne<{
   email?: Maybe<String>;
 }>;
 
+export type VoteWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface VoteWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  author?: Maybe<UserWhereInput>;
+  joke?: Maybe<JokeWhereInput>;
+  value?: Maybe<Int>;
+  value_not?: Maybe<Int>;
+  value_in?: Maybe<Int[] | Int>;
+  value_not_in?: Maybe<Int[] | Int>;
+  value_lt?: Maybe<Int>;
+  value_lte?: Maybe<Int>;
+  value_gt?: Maybe<Int>;
+  value_gte?: Maybe<Int>;
+  AND?: Maybe<VoteWhereInput[] | VoteWhereInput>;
+  OR?: Maybe<VoteWhereInput[] | VoteWhereInput>;
+  NOT?: Maybe<VoteWhereInput[] | VoteWhereInput>;
+}
+
 export interface CommentCreateInput {
   id?: Maybe<ID_Input>;
   author?: Maybe<UserCreateOneInput>;
-  post?: Maybe<PostCreateOneInput>;
+  joke?: Maybe<JokeCreateOneInput>;
   content: String;
 }
 
@@ -356,38 +435,38 @@ export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email?: Maybe<String>;
   name: String;
-  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
+  jokes?: Maybe<JokeCreateManyWithoutAuthorInput>;
 }
 
-export interface PostCreateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+export interface JokeCreateManyWithoutAuthorInput {
+  create?: Maybe<JokeCreateWithoutAuthorInput[] | JokeCreateWithoutAuthorInput>;
+  connect?: Maybe<JokeWhereUniqueInput[] | JokeWhereUniqueInput>;
 }
 
-export interface PostCreateWithoutAuthorInput {
+export interface JokeCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
-  title: String;
+  content: String;
   published?: Maybe<Boolean>;
 }
 
-export interface PostCreateOneInput {
-  create?: Maybe<PostCreateInput>;
-  connect?: Maybe<PostWhereUniqueInput>;
+export interface JokeCreateOneInput {
+  create?: Maybe<JokeCreateInput>;
+  connect?: Maybe<JokeWhereUniqueInput>;
 }
 
-export interface PostCreateInput {
+export interface JokeCreateInput {
   id?: Maybe<ID_Input>;
-  title: String;
+  content: String;
   published?: Maybe<Boolean>;
-  author?: Maybe<UserCreateOneWithoutPostsInput>;
+  author?: Maybe<UserCreateOneWithoutJokesInput>;
 }
 
-export interface UserCreateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
+export interface UserCreateOneWithoutJokesInput {
+  create?: Maybe<UserCreateWithoutJokesInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserCreateWithoutPostsInput {
+export interface UserCreateWithoutJokesInput {
   id?: Maybe<ID_Input>;
   email?: Maybe<String>;
   name: String;
@@ -395,7 +474,7 @@ export interface UserCreateWithoutPostsInput {
 
 export interface CommentUpdateInput {
   author?: Maybe<UserUpdateOneInput>;
-  post?: Maybe<PostUpdateOneInput>;
+  joke?: Maybe<JokeUpdateOneInput>;
   content?: Maybe<String>;
 }
 
@@ -411,46 +490,46 @@ export interface UserUpdateOneInput {
 export interface UserUpdateDataInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
+  jokes?: Maybe<JokeUpdateManyWithoutAuthorInput>;
 }
 
-export interface PostUpdateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+export interface JokeUpdateManyWithoutAuthorInput {
+  create?: Maybe<JokeCreateWithoutAuthorInput[] | JokeCreateWithoutAuthorInput>;
+  delete?: Maybe<JokeWhereUniqueInput[] | JokeWhereUniqueInput>;
+  connect?: Maybe<JokeWhereUniqueInput[] | JokeWhereUniqueInput>;
+  set?: Maybe<JokeWhereUniqueInput[] | JokeWhereUniqueInput>;
+  disconnect?: Maybe<JokeWhereUniqueInput[] | JokeWhereUniqueInput>;
   update?: Maybe<
-    | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    | PostUpdateWithWhereUniqueWithoutAuthorInput
+    | JokeUpdateWithWhereUniqueWithoutAuthorInput[]
+    | JokeUpdateWithWhereUniqueWithoutAuthorInput
   >;
   upsert?: Maybe<
-    | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    | PostUpsertWithWhereUniqueWithoutAuthorInput
+    | JokeUpsertWithWhereUniqueWithoutAuthorInput[]
+    | JokeUpsertWithWhereUniqueWithoutAuthorInput
   >;
-  deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  deleteMany?: Maybe<JokeScalarWhereInput[] | JokeScalarWhereInput>;
   updateMany?: Maybe<
-    PostUpdateManyWithWhereNestedInput[] | PostUpdateManyWithWhereNestedInput
+    JokeUpdateManyWithWhereNestedInput[] | JokeUpdateManyWithWhereNestedInput
   >;
 }
 
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  data: PostUpdateWithoutAuthorDataInput;
+export interface JokeUpdateWithWhereUniqueWithoutAuthorInput {
+  where: JokeWhereUniqueInput;
+  data: JokeUpdateWithoutAuthorDataInput;
 }
 
-export interface PostUpdateWithoutAuthorDataInput {
-  title?: Maybe<String>;
+export interface JokeUpdateWithoutAuthorDataInput {
+  content?: Maybe<String>;
   published?: Maybe<Boolean>;
 }
 
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  update: PostUpdateWithoutAuthorDataInput;
-  create: PostCreateWithoutAuthorInput;
+export interface JokeUpsertWithWhereUniqueWithoutAuthorInput {
+  where: JokeWhereUniqueInput;
+  update: JokeUpdateWithoutAuthorDataInput;
+  create: JokeCreateWithoutAuthorInput;
 }
 
-export interface PostScalarWhereInput {
+export interface JokeScalarWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -465,34 +544,34 @@ export interface PostScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
   published?: Maybe<Boolean>;
   published_not?: Maybe<Boolean>;
-  AND?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  OR?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  AND?: Maybe<JokeScalarWhereInput[] | JokeScalarWhereInput>;
+  OR?: Maybe<JokeScalarWhereInput[] | JokeScalarWhereInput>;
+  NOT?: Maybe<JokeScalarWhereInput[] | JokeScalarWhereInput>;
 }
 
-export interface PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput;
-  data: PostUpdateManyDataInput;
+export interface JokeUpdateManyWithWhereNestedInput {
+  where: JokeScalarWhereInput;
+  data: JokeUpdateManyDataInput;
 }
 
-export interface PostUpdateManyDataInput {
-  title?: Maybe<String>;
+export interface JokeUpdateManyDataInput {
+  content?: Maybe<String>;
   published?: Maybe<Boolean>;
 }
 
@@ -501,69 +580,86 @@ export interface UserUpsertNestedInput {
   create: UserCreateInput;
 }
 
-export interface PostUpdateOneInput {
-  create?: Maybe<PostCreateInput>;
-  update?: Maybe<PostUpdateDataInput>;
-  upsert?: Maybe<PostUpsertNestedInput>;
+export interface JokeUpdateOneInput {
+  create?: Maybe<JokeCreateInput>;
+  update?: Maybe<JokeUpdateDataInput>;
+  upsert?: Maybe<JokeUpsertNestedInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
-  connect?: Maybe<PostWhereUniqueInput>;
+  connect?: Maybe<JokeWhereUniqueInput>;
 }
 
-export interface PostUpdateDataInput {
-  title?: Maybe<String>;
+export interface JokeUpdateDataInput {
+  content?: Maybe<String>;
   published?: Maybe<Boolean>;
-  author?: Maybe<UserUpdateOneWithoutPostsInput>;
+  author?: Maybe<UserUpdateOneWithoutJokesInput>;
 }
 
-export interface UserUpdateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  update?: Maybe<UserUpdateWithoutPostsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutPostsInput>;
+export interface UserUpdateOneWithoutJokesInput {
+  create?: Maybe<UserCreateWithoutJokesInput>;
+  update?: Maybe<UserUpdateWithoutJokesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutJokesInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserUpdateWithoutPostsDataInput {
+export interface UserUpdateWithoutJokesDataInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
 }
 
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
+export interface UserUpsertWithoutJokesInput {
+  update: UserUpdateWithoutJokesDataInput;
+  create: UserCreateWithoutJokesInput;
 }
 
-export interface PostUpsertNestedInput {
-  update: PostUpdateDataInput;
-  create: PostCreateInput;
+export interface JokeUpsertNestedInput {
+  update: JokeUpdateDataInput;
+  create: JokeCreateInput;
 }
 
 export interface CommentUpdateManyMutationInput {
   content?: Maybe<String>;
 }
 
-export interface PostUpdateInput {
-  title?: Maybe<String>;
+export interface JokeUpdateInput {
+  content?: Maybe<String>;
   published?: Maybe<Boolean>;
-  author?: Maybe<UserUpdateOneWithoutPostsInput>;
+  author?: Maybe<UserUpdateOneWithoutJokesInput>;
 }
 
-export interface PostUpdateManyMutationInput {
-  title?: Maybe<String>;
+export interface JokeUpdateManyMutationInput {
+  content?: Maybe<String>;
   published?: Maybe<Boolean>;
 }
 
 export interface UserUpdateInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
+  jokes?: Maybe<JokeUpdateManyWithoutAuthorInput>;
 }
 
 export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
+}
+
+export interface VoteCreateInput {
+  id?: Maybe<ID_Input>;
+  author?: Maybe<UserCreateOneInput>;
+  joke?: Maybe<JokeCreateOneInput>;
+  value: Int;
+}
+
+export interface VoteUpdateInput {
+  author?: Maybe<UserUpdateOneInput>;
+  joke?: Maybe<JokeUpdateOneInput>;
+  value?: Maybe<Int>;
+}
+
+export interface VoteUpdateManyMutationInput {
+  value?: Maybe<Int>;
 }
 
 export interface CommentSubscriptionWhereInput {
@@ -577,15 +673,15 @@ export interface CommentSubscriptionWhereInput {
   NOT?: Maybe<CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput>;
 }
 
-export interface PostSubscriptionWhereInput {
+export interface JokeSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<PostWhereInput>;
-  AND?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  OR?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  NOT?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
+  node?: Maybe<JokeWhereInput>;
+  AND?: Maybe<JokeSubscriptionWhereInput[] | JokeSubscriptionWhereInput>;
+  OR?: Maybe<JokeSubscriptionWhereInput[] | JokeSubscriptionWhereInput>;
+  NOT?: Maybe<JokeSubscriptionWhereInput[] | JokeSubscriptionWhereInput>;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -597,6 +693,17 @@ export interface UserSubscriptionWhereInput {
   AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
+export interface VoteSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<VoteWhereInput>;
+  AND?: Maybe<VoteSubscriptionWhereInput[] | VoteSubscriptionWhereInput>;
+  OR?: Maybe<VoteSubscriptionWhereInput[] | VoteSubscriptionWhereInput>;
+  NOT?: Maybe<VoteSubscriptionWhereInput[] | VoteSubscriptionWhereInput>;
 }
 
 export interface NodeNode {
@@ -611,7 +718,7 @@ export interface Comment {
 export interface CommentPromise extends Promise<Comment>, Fragmentable {
   id: () => Promise<ID_Output>;
   author: <T = UserPromise>() => T;
-  post: <T = PostPromise>() => T;
+  joke: <T = JokePromise>() => T;
   content: () => Promise<String>;
 }
 
@@ -620,7 +727,7 @@ export interface CommentSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   author: <T = UserSubscription>() => T;
-  post: <T = PostSubscription>() => T;
+  joke: <T = JokeSubscription>() => T;
   content: () => Promise<AsyncIterator<String>>;
 }
 
@@ -629,7 +736,7 @@ export interface CommentNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   author: <T = UserPromise>() => T;
-  post: <T = PostPromise>() => T;
+  joke: <T = JokePromise>() => T;
   content: () => Promise<String>;
 }
 
@@ -643,9 +750,9 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  jokes: <T = FragmentableArray<Joke>>(args?: {
+    where?: JokeWhereInput;
+    orderBy?: JokeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -660,9 +767,9 @@ export interface UserSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  jokes: <T = Promise<AsyncIterator<JokeSubscription>>>(args?: {
+    where?: JokeWhereInput;
+    orderBy?: JokeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -677,9 +784,9 @@ export interface UserNullablePromise
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  jokes: <T = FragmentableArray<Joke>>(args?: {
+    where?: JokeWhereInput;
+    orderBy?: JokeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -688,33 +795,33 @@ export interface UserNullablePromise
   }) => T;
 }
 
-export interface Post {
+export interface Joke {
   id: ID_Output;
-  title: String;
+  content: String;
   published: Boolean;
 }
 
-export interface PostPromise extends Promise<Post>, Fragmentable {
+export interface JokePromise extends Promise<Joke>, Fragmentable {
   id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
+  content: () => Promise<String>;
   published: () => Promise<Boolean>;
   author: <T = UserPromise>() => T;
 }
 
-export interface PostSubscription
-  extends Promise<AsyncIterator<Post>>,
+export interface JokeSubscription
+  extends Promise<AsyncIterator<Joke>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
+  content: () => Promise<AsyncIterator<String>>;
   published: () => Promise<AsyncIterator<Boolean>>;
   author: <T = UserSubscription>() => T;
 }
 
-export interface PostNullablePromise
-  extends Promise<Post | null>,
+export interface JokeNullablePromise
+  extends Promise<Joke | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
+  content: () => Promise<String>;
   published: () => Promise<Boolean>;
   author: <T = UserPromise>() => T;
 }
@@ -796,56 +903,56 @@ export interface AggregateCommentSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface PostConnection {
+export interface JokeConnection {
   pageInfo: PageInfo;
-  edges: PostEdge[];
+  edges: JokeEdge[];
 }
 
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
+export interface JokeConnectionPromise
+  extends Promise<JokeConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
+  edges: <T = FragmentableArray<JokeEdge>>() => T;
+  aggregate: <T = AggregateJokePromise>() => T;
 }
 
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
+export interface JokeConnectionSubscription
+  extends Promise<AsyncIterator<JokeConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<JokeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateJokeSubscription>() => T;
 }
 
-export interface PostEdge {
-  node: Post;
+export interface JokeEdge {
+  node: Joke;
   cursor: String;
 }
 
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
+export interface JokeEdgePromise extends Promise<JokeEdge>, Fragmentable {
+  node: <T = JokePromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
+export interface JokeEdgeSubscription
+  extends Promise<AsyncIterator<JokeEdge>>,
     Fragmentable {
-  node: <T = PostSubscription>() => T;
+  node: <T = JokeSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregatePost {
+export interface AggregateJoke {
   count: Int;
 }
 
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
+export interface AggregateJokePromise
+  extends Promise<AggregateJoke>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
+export interface AggregateJokeSubscription
+  extends Promise<AsyncIterator<AggregateJoke>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -900,6 +1007,90 @@ export interface AggregateUserPromise
 
 export interface AggregateUserSubscription
   extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Vote {
+  id: ID_Output;
+  value: Int;
+}
+
+export interface VotePromise extends Promise<Vote>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  author: <T = UserPromise>() => T;
+  joke: <T = JokePromise>() => T;
+  value: () => Promise<Int>;
+}
+
+export interface VoteSubscription
+  extends Promise<AsyncIterator<Vote>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  author: <T = UserSubscription>() => T;
+  joke: <T = JokeSubscription>() => T;
+  value: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface VoteNullablePromise
+  extends Promise<Vote | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  author: <T = UserPromise>() => T;
+  joke: <T = JokePromise>() => T;
+  value: () => Promise<Int>;
+}
+
+export interface VoteConnection {
+  pageInfo: PageInfo;
+  edges: VoteEdge[];
+}
+
+export interface VoteConnectionPromise
+  extends Promise<VoteConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<VoteEdge>>() => T;
+  aggregate: <T = AggregateVotePromise>() => T;
+}
+
+export interface VoteConnectionSubscription
+  extends Promise<AsyncIterator<VoteConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<VoteEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateVoteSubscription>() => T;
+}
+
+export interface VoteEdge {
+  node: Vote;
+  cursor: String;
+}
+
+export interface VoteEdgePromise extends Promise<VoteEdge>, Fragmentable {
+  node: <T = VotePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface VoteEdgeSubscription
+  extends Promise<AsyncIterator<VoteEdge>>,
+    Fragmentable {
+  node: <T = VoteSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateVote {
+  count: Int;
+}
+
+export interface AggregateVotePromise
+  extends Promise<AggregateVote>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateVoteSubscription
+  extends Promise<AsyncIterator<AggregateVote>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -964,50 +1155,50 @@ export interface CommentPreviousValuesSubscription
   content: () => Promise<AsyncIterator<String>>;
 }
 
-export interface PostSubscriptionPayload {
+export interface JokeSubscriptionPayload {
   mutation: MutationType;
-  node: Post;
+  node: Joke;
   updatedFields: String[];
-  previousValues: PostPreviousValues;
+  previousValues: JokePreviousValues;
 }
 
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
+export interface JokeSubscriptionPayloadPromise
+  extends Promise<JokeSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
+  node: <T = JokePromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
+  previousValues: <T = JokePreviousValuesPromise>() => T;
 }
 
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
+export interface JokeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<JokeSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
+  node: <T = JokeSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
+  previousValues: <T = JokePreviousValuesSubscription>() => T;
 }
 
-export interface PostPreviousValues {
+export interface JokePreviousValues {
   id: ID_Output;
-  title: String;
+  content: String;
   published: Boolean;
 }
 
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
+export interface JokePreviousValuesPromise
+  extends Promise<JokePreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
+  content: () => Promise<String>;
   published: () => Promise<Boolean>;
 }
 
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
+export interface JokePreviousValuesSubscription
+  extends Promise<AsyncIterator<JokePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
+  content: () => Promise<AsyncIterator<String>>;
   published: () => Promise<AsyncIterator<Boolean>>;
 }
 
@@ -1058,6 +1249,50 @@ export interface UserPreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
 }
 
+export interface VoteSubscriptionPayload {
+  mutation: MutationType;
+  node: Vote;
+  updatedFields: String[];
+  previousValues: VotePreviousValues;
+}
+
+export interface VoteSubscriptionPayloadPromise
+  extends Promise<VoteSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = VotePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = VotePreviousValuesPromise>() => T;
+}
+
+export interface VoteSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<VoteSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = VoteSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = VotePreviousValuesSubscription>() => T;
+}
+
+export interface VotePreviousValues {
+  id: ID_Output;
+  value: Int;
+}
+
+export interface VotePreviousValuesPromise
+  extends Promise<VotePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  value: () => Promise<Int>;
+}
+
+export interface VotePreviousValuesSubscription
+  extends Promise<AsyncIterator<VotePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  value: () => Promise<AsyncIterator<Int>>;
+}
+
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
@@ -1091,11 +1326,15 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "Post",
+    name: "Joke",
     embedded: false
   },
   {
     name: "Comment",
+    embedded: false
+  },
+  {
+    name: "Vote",
     embedded: false
   }
 ];

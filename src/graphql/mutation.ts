@@ -6,25 +6,25 @@ import { stringArg, idArg } from 'nexus'
 export const Mutation = prismaObjectType({
   name: 'Mutation',
   definition(t) {
-    t.prismaFields(['createUser', 'deletePost'])
+    t.prismaFields(['createUser', 'deleteJoke'])
     t.field('createDraft', {
-      type: 'Post',
+      type: 'Joke',
       args: {
         title: stringArg(),
         authorId: idArg({ nullable: true }),
       },
       resolve: (_, { title, authorId }, ctx) =>
-        ctx.prisma.createPost({
+        ctx.prisma.createJoke({
           title,
           author: { connect: { id: authorId } },
         }),
     })
     t.field('publish', {
-      type: 'Post',
+      type: 'Joke',
       nullable: true,
       args: { id: idArg() },
       resolve: (_, { id }, ctx) =>
-        ctx.prisma.updatePost({
+        ctx.prisma.updateJoke({
           where: { id },
           data: { published: true },
         }),

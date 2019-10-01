@@ -5,6 +5,8 @@ prisma admin on endpoint http://localhost:4466/_admin
   - Set up basic local database
   - Set up prisma (prisma playground on localhost:4466)
   - GraphQL endpoint
+  - Database extensions
+  - Auth
 
 
 
@@ -12,3 +14,4 @@ prisma admin on endpoint http://localhost:4466/_admin
   - Decide stack
   - seperate repo?
   - SSR?
+  - RN app? Apple watch integration?

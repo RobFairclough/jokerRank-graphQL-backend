@@ -2,11 +2,11 @@ import { prisma } from '../generated/prisma-client'
 
 // A `main` function so that we can use async/await
 async function main() {
-  // Create a new user with a new post
+  // Create a new user with a new joke
   const newUser = await prisma.createUser({
     name: 'Bob',
     email: 'bob@prisma.io',
-    posts: {
+    jokes: {
       create: [
         {
           title: 'Join us for GraphQL Conf in 2019',
@@ -23,8 +23,8 @@ async function main() {
   const allUsers = await prisma.users()
   console.log(allUsers)
 
-  const allPosts = await prisma.posts()
-  console.log(allPosts)
+  const allJokes = await prisma.jokes()
+  console.log(allJokes)
 }
 
 main().catch(e => console.error(e))

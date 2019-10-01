@@ -6,8 +6,9 @@
 export default {
   uniqueFieldsByModel: {
     User: ['id', 'email'],
-    Post: ['id'],
-    Comment: ['id']
+    Joke: ['id'],
+    Comment: ['id'],
+    Vote: ['id']
   },
   embeddedTypes: [],
   clientPath: 'src/generated/prisma-client',
@@ -234,7 +235,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "post",
+            "name": "joke",
             "description": null,
             "args": [
               {
@@ -245,7 +246,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostWhereUniqueInput",
+                    "name": "JokeWhereUniqueInput",
                     "ofType": null
                   }
                 },
@@ -254,14 +255,14 @@ export default {
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Post",
+              "name": "Joke",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "posts",
+            "name": "jokes",
             "description": null,
             "args": [
               {
@@ -269,7 +270,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -279,7 +280,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "PostOrderByInput",
+                  "name": "JokeOrderByInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -343,7 +344,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Post",
+                  "name": "Joke",
                   "ofType": null
                 }
               }
@@ -352,7 +353,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "postsConnection",
+            "name": "jokesConnection",
             "description": null,
             "args": [
               {
@@ -360,7 +361,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -370,7 +371,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "PostOrderByInput",
+                  "name": "JokeOrderByInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -431,7 +432,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "PostConnection",
+                "name": "JokeConnection",
                 "ofType": null
               }
             },
@@ -644,6 +645,211 @@ export default {
             "deprecationReason": null
           },
           {
+            "name": "vote",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Vote",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "votes",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "VoteOrderByInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "first",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Vote",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "votesConnection",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "VoteOrderByInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "first",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "VoteConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "node",
             "description": null,
             "args": [
@@ -777,7 +983,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "posts",
+            "name": "jokes",
             "description": null,
             "args": [
               {
@@ -785,7 +991,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -795,7 +1001,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "PostOrderByInput",
+                  "name": "JokeOrderByInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -859,7 +1065,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Post",
+                  "name": "Joke",
                   "ofType": null
                 }
               }
@@ -875,7 +1081,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostWhereInput",
+        "name": "JokeWhereInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1036,7 +1242,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1046,7 +1252,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not",
+            "name": "content_not",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1056,7 +1262,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_in",
+            "name": "content_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -1074,7 +1280,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_in",
+            "name": "content_not_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -1092,7 +1298,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_lt",
+            "name": "content_lt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1102,7 +1308,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_lte",
+            "name": "content_lte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1112,7 +1318,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_gt",
+            "name": "content_gt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1122,7 +1328,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_gte",
+            "name": "content_gte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1132,7 +1338,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_contains",
+            "name": "content_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1142,7 +1348,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_contains",
+            "name": "content_not_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1152,7 +1358,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_starts_with",
+            "name": "content_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1162,7 +1368,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_starts_with",
+            "name": "content_not_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1172,7 +1378,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_ends_with",
+            "name": "content_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1182,7 +1388,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_ends_with",
+            "name": "content_not_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1232,7 +1438,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 }
               }
@@ -1250,7 +1456,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 }
               }
@@ -1268,7 +1474,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 }
               }
@@ -1765,31 +1971,31 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "posts_every",
+            "name": "jokes_every",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostWhereInput",
+              "name": "JokeWhereInput",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "posts_some",
+            "name": "jokes_some",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostWhereInput",
+              "name": "JokeWhereInput",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "posts_none",
+            "name": "jokes_none",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostWhereInput",
+              "name": "JokeWhereInput",
               "ofType": null
             },
             "defaultValue": null
@@ -1855,7 +2061,7 @@ export default {
       },
       {
         "kind": "ENUM",
-        "name": "PostOrderByInput",
+        "name": "JokeOrderByInput",
         "description": null,
         "fields": null,
         "inputFields": null,
@@ -1874,13 +2080,13 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "title_ASC",
+            "name": "content_ASC",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "title_DESC",
+            "name": "content_DESC",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1936,7 +2142,7 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "Post",
+        "name": "Joke",
         "description": null,
         "fields": [
           {
@@ -1956,7 +2162,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "args": [],
             "type": {
@@ -2278,7 +2484,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostWhereUniqueInput",
+        "name": "JokeWhereUniqueInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -2299,7 +2505,7 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "PostConnection",
+        "name": "JokeConnection",
         "description": null,
         "fields": [
           {
@@ -2330,7 +2536,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "PostEdge",
+                  "name": "JokeEdge",
                   "ofType": null
                 }
               }
@@ -2347,7 +2553,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "AggregatePost",
+                "name": "AggregateJoke",
                 "ofType": null
               }
             },
@@ -2362,7 +2568,7 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "PostEdge",
+        "name": "JokeEdge",
         "description": null,
         "fields": [
           {
@@ -2374,7 +2580,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Joke",
                 "ofType": null
               }
             },
@@ -2405,7 +2611,7 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "AggregatePost",
+        "name": "AggregateJoke",
         "description": null,
         "fields": [
           {
@@ -2485,12 +2691,12 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "post",
+            "name": "joke",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Post",
+              "name": "Joke",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2691,11 +2897,11 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "post",
+            "name": "joke",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostWhereInput",
+              "name": "JokeWhereInput",
               "ofType": null
             },
             "defaultValue": null
@@ -3108,6 +3314,623 @@ export default {
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "VoteWhereUniqueInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Vote",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "author",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "joke",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Joke",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "VoteWhereInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_lt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_lte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_gt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_gte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_contains",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_contains",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_starts_with",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_starts_with",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_ends_with",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_ends_with",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "author",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UserWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "joke",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "JokeWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value_not",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value_not_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value_lt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value_lte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value_gt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value_gte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "AND",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteWhereInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "OR",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteWhereInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "NOT",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteWhereInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "VoteOrderByInput",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "id_ASC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id_DESC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value_ASC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value_DESC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt_ASC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt_DESC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt_ASC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt_DESC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "VoteConnection",
+        "description": null,
+        "fields": [
+          {
+            "name": "pageInfo",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "edges",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "VoteEdge",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "aggregate",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AggregateVote",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "VoteEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "node",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Vote",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "cursor",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AggregateVote",
+        "description": null,
+        "fields": [
+          {
+            "name": "count",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "Node",
         "description": null,
@@ -3366,7 +4189,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "createPost",
+            "name": "createJoke",
             "description": null,
             "args": [
               {
@@ -3377,7 +4200,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostCreateInput",
+                    "name": "JokeCreateInput",
                     "ofType": null
                   }
                 },
@@ -3389,7 +4212,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Joke",
                 "ofType": null
               }
             },
@@ -3397,7 +4220,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "updatePost",
+            "name": "updateJoke",
             "description": null,
             "args": [
               {
@@ -3408,7 +4231,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostUpdateInput",
+                    "name": "JokeUpdateInput",
                     "ofType": null
                   }
                 },
@@ -3422,7 +4245,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostWhereUniqueInput",
+                    "name": "JokeWhereUniqueInput",
                     "ofType": null
                   }
                 },
@@ -3431,14 +4254,14 @@ export default {
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Post",
+              "name": "Joke",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "updateManyPosts",
+            "name": "updateManyJokes",
             "description": null,
             "args": [
               {
@@ -3449,7 +4272,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostUpdateManyMutationInput",
+                    "name": "JokeUpdateManyMutationInput",
                     "ofType": null
                   }
                 },
@@ -3460,7 +4283,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -3479,7 +4302,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "upsertPost",
+            "name": "upsertJoke",
             "description": null,
             "args": [
               {
@@ -3490,7 +4313,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostWhereUniqueInput",
+                    "name": "JokeWhereUniqueInput",
                     "ofType": null
                   }
                 },
@@ -3504,7 +4327,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostCreateInput",
+                    "name": "JokeCreateInput",
                     "ofType": null
                   }
                 },
@@ -3518,7 +4341,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostUpdateInput",
+                    "name": "JokeUpdateInput",
                     "ofType": null
                   }
                 },
@@ -3530,7 +4353,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Joke",
                 "ofType": null
               }
             },
@@ -3538,7 +4361,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "deletePost",
+            "name": "deleteJoke",
             "description": null,
             "args": [
               {
@@ -3549,7 +4372,7 @@ export default {
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "PostWhereUniqueInput",
+                    "name": "JokeWhereUniqueInput",
                     "ofType": null
                   }
                 },
@@ -3558,14 +4381,14 @@ export default {
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Post",
+              "name": "Joke",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "deleteManyPosts",
+            "name": "deleteManyJokes",
             "description": null,
             "args": [
               {
@@ -3573,7 +4396,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereInput",
+                  "name": "JokeWhereInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -3816,6 +4639,232 @@ export default {
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "createVote",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteCreateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Vote",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updateVote",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Vote",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updateManyVotes",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteUpdateManyMutationInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BatchPayload",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "upsertVote",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "create",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteCreateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "update",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Vote",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteVote",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "VoteWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Vote",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteManyVotes",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BatchPayload",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -3864,11 +4913,11 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "posts",
+            "name": "jokes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostCreateManyWithoutAuthorInput",
+              "name": "JokeCreateManyWithoutAuthorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -3880,7 +4929,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostCreateManyWithoutAuthorInput",
+        "name": "JokeCreateManyWithoutAuthorInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -3895,7 +4944,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostCreateWithoutAuthorInput",
+                  "name": "JokeCreateWithoutAuthorInput",
                   "ofType": null
                 }
               }
@@ -3913,7 +4962,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereUniqueInput",
+                  "name": "JokeWhereUniqueInput",
                   "ofType": null
                 }
               }
@@ -3927,7 +4976,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostCreateWithoutAuthorInput",
+        "name": "JokeCreateWithoutAuthorInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -3942,7 +4991,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -3997,11 +5046,11 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "posts",
+            "name": "jokes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostUpdateManyWithoutAuthorInput",
+              "name": "JokeUpdateManyWithoutAuthorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -4013,7 +5062,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateManyWithoutAuthorInput",
+        "name": "JokeUpdateManyWithoutAuthorInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4028,7 +5077,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostCreateWithoutAuthorInput",
+                  "name": "JokeCreateWithoutAuthorInput",
                   "ofType": null
                 }
               }
@@ -4046,7 +5095,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereUniqueInput",
+                  "name": "JokeWhereUniqueInput",
                   "ofType": null
                 }
               }
@@ -4064,7 +5113,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereUniqueInput",
+                  "name": "JokeWhereUniqueInput",
                   "ofType": null
                 }
               }
@@ -4082,7 +5131,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereUniqueInput",
+                  "name": "JokeWhereUniqueInput",
                   "ofType": null
                 }
               }
@@ -4100,7 +5149,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostWhereUniqueInput",
+                  "name": "JokeWhereUniqueInput",
                   "ofType": null
                 }
               }
@@ -4118,7 +5167,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostUpdateWithWhereUniqueWithoutAuthorInput",
+                  "name": "JokeUpdateWithWhereUniqueWithoutAuthorInput",
                   "ofType": null
                 }
               }
@@ -4136,7 +5185,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostUpsertWithWhereUniqueWithoutAuthorInput",
+                  "name": "JokeUpsertWithWhereUniqueWithoutAuthorInput",
                   "ofType": null
                 }
               }
@@ -4154,7 +5203,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostScalarWhereInput",
+                  "name": "JokeScalarWhereInput",
                   "ofType": null
                 }
               }
@@ -4172,7 +5221,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostUpdateManyWithWhereNestedInput",
+                  "name": "JokeUpdateManyWithWhereNestedInput",
                   "ofType": null
                 }
               }
@@ -4186,7 +5235,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateWithWhereUniqueWithoutAuthorInput",
+        "name": "JokeUpdateWithWhereUniqueWithoutAuthorInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4198,7 +5247,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostWhereUniqueInput",
+                "name": "JokeWhereUniqueInput",
                 "ofType": null
               }
             },
@@ -4212,7 +5261,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostUpdateWithoutAuthorDataInput",
+                "name": "JokeUpdateWithoutAuthorDataInput",
                 "ofType": null
               }
             },
@@ -4225,12 +5274,12 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateWithoutAuthorDataInput",
+        "name": "JokeUpdateWithoutAuthorDataInput",
         "description": null,
         "fields": null,
         "inputFields": [
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4256,7 +5305,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpsertWithWhereUniqueWithoutAuthorInput",
+        "name": "JokeUpsertWithWhereUniqueWithoutAuthorInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4268,7 +5317,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostWhereUniqueInput",
+                "name": "JokeWhereUniqueInput",
                 "ofType": null
               }
             },
@@ -4282,7 +5331,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostUpdateWithoutAuthorDataInput",
+                "name": "JokeUpdateWithoutAuthorDataInput",
                 "ofType": null
               }
             },
@@ -4296,7 +5345,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostCreateWithoutAuthorInput",
+                "name": "JokeCreateWithoutAuthorInput",
                 "ofType": null
               }
             },
@@ -4309,7 +5358,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostScalarWhereInput",
+        "name": "JokeScalarWhereInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4470,7 +5519,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4480,7 +5529,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not",
+            "name": "content_not",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4490,7 +5539,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_in",
+            "name": "content_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -4508,7 +5557,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_in",
+            "name": "content_not_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -4526,7 +5575,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_lt",
+            "name": "content_lt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4536,7 +5585,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_lte",
+            "name": "content_lte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4546,7 +5595,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_gt",
+            "name": "content_gt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4556,7 +5605,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_gte",
+            "name": "content_gte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4566,7 +5615,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_contains",
+            "name": "content_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4576,7 +5625,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_contains",
+            "name": "content_not_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4586,7 +5635,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_starts_with",
+            "name": "content_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4596,7 +5645,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_starts_with",
+            "name": "content_not_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4606,7 +5655,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_ends_with",
+            "name": "content_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4616,7 +5665,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title_not_ends_with",
+            "name": "content_not_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4656,7 +5705,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostScalarWhereInput",
+                  "name": "JokeScalarWhereInput",
                   "ofType": null
                 }
               }
@@ -4674,7 +5723,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostScalarWhereInput",
+                  "name": "JokeScalarWhereInput",
                   "ofType": null
                 }
               }
@@ -4692,7 +5741,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostScalarWhereInput",
+                  "name": "JokeScalarWhereInput",
                   "ofType": null
                 }
               }
@@ -4706,7 +5755,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateManyWithWhereNestedInput",
+        "name": "JokeUpdateManyWithWhereNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4718,7 +5767,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostScalarWhereInput",
+                "name": "JokeScalarWhereInput",
                 "ofType": null
               }
             },
@@ -4732,7 +5781,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostUpdateManyDataInput",
+                "name": "JokeUpdateManyDataInput",
                 "ofType": null
               }
             },
@@ -4745,12 +5794,12 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateManyDataInput",
+        "name": "JokeUpdateManyDataInput",
         "description": null,
         "fields": null,
         "inputFields": [
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -4844,7 +5893,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostCreateInput",
+        "name": "JokeCreateInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4859,7 +5908,7 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -4887,7 +5936,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserCreateOneWithoutPostsInput",
+              "name": "UserCreateOneWithoutJokesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -4899,7 +5948,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserCreateOneWithoutPostsInput",
+        "name": "UserCreateOneWithoutJokesInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4908,7 +5957,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserCreateWithoutPostsInput",
+              "name": "UserCreateWithoutJokesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -4930,7 +5979,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserCreateWithoutPostsInput",
+        "name": "UserCreateWithoutJokesInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -4975,12 +6024,12 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateInput",
+        "name": "JokeUpdateInput",
         "description": null,
         "fields": null,
         "inputFields": [
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -5004,7 +6053,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneWithoutPostsInput",
+              "name": "UserUpdateOneWithoutJokesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5016,7 +6065,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneWithoutPostsInput",
+        "name": "UserUpdateOneWithoutJokesInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -5025,7 +6074,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserCreateWithoutPostsInput",
+              "name": "UserCreateWithoutJokesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5035,7 +6084,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateWithoutPostsDataInput",
+              "name": "UserUpdateWithoutJokesDataInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5045,7 +6094,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpsertWithoutPostsInput",
+              "name": "UserUpsertWithoutJokesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5087,7 +6136,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateWithoutPostsDataInput",
+        "name": "UserUpdateWithoutJokesDataInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -5118,7 +6167,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpsertWithoutPostsInput",
+        "name": "UserUpsertWithoutJokesInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -5130,7 +6179,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "UserUpdateWithoutPostsDataInput",
+                "name": "UserUpdateWithoutJokesDataInput",
                 "ofType": null
               }
             },
@@ -5144,7 +6193,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "UserCreateWithoutPostsInput",
+                "name": "UserCreateWithoutJokesInput",
                 "ofType": null
               }
             },
@@ -5157,12 +6206,12 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateManyMutationInput",
+        "name": "JokeUpdateManyMutationInput",
         "description": null,
         "fields": null,
         "inputFields": [
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -5213,11 +6262,11 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "post",
+            "name": "joke",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostCreateOneInput",
+              "name": "JokeCreateOneInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5274,7 +6323,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostCreateOneInput",
+        "name": "JokeCreateOneInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -5283,7 +6332,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostCreateInput",
+              "name": "JokeCreateInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5293,7 +6342,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostWhereUniqueInput",
+              "name": "JokeWhereUniqueInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5320,11 +6369,11 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "post",
+            "name": "joke",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostUpdateOneInput",
+              "name": "JokeUpdateOneInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5442,11 +6491,11 @@ export default {
             "defaultValue": null
           },
           {
-            "name": "posts",
+            "name": "jokes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostUpdateManyWithoutAuthorInput",
+              "name": "JokeUpdateManyWithoutAuthorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5497,7 +6546,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateOneInput",
+        "name": "JokeUpdateOneInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -5506,7 +6555,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostCreateInput",
+              "name": "JokeCreateInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5516,7 +6565,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostUpdateDataInput",
+              "name": "JokeUpdateDataInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5526,7 +6575,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostUpsertNestedInput",
+              "name": "JokeUpsertNestedInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5556,7 +6605,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostWhereUniqueInput",
+              "name": "JokeWhereUniqueInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5568,12 +6617,12 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpdateDataInput",
+        "name": "JokeUpdateDataInput",
         "description": null,
         "fields": null,
         "inputFields": [
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -5597,7 +6646,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneWithoutPostsInput",
+              "name": "UserUpdateOneWithoutJokesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -5609,7 +6658,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostUpsertNestedInput",
+        "name": "JokeUpsertNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -5621,7 +6670,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostUpdateDataInput",
+                "name": "JokeUpdateDataInput",
                 "ofType": null
               }
             },
@@ -5635,7 +6684,7 @@ export default {
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "PostCreateInput",
+                "name": "JokeCreateInput",
                 "ofType": null
               }
             },
@@ -5658,6 +6707,123 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "VoteCreateInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "author",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UserCreateOneInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "joke",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "JokeCreateOneInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "VoteUpdateInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "author",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UserUpdateOneInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "joke",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "JokeUpdateOneInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "VoteUpdateManyMutationInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
               "ofType": null
             },
             "defaultValue": null
@@ -5696,7 +6862,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "post",
+            "name": "joke",
             "description": null,
             "args": [
               {
@@ -5704,7 +6870,7 @@ export default {
                 "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostSubscriptionWhereInput",
+                  "name": "JokeSubscriptionWhereInput",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -5712,7 +6878,7 @@ export default {
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "PostSubscriptionPayload",
+              "name": "JokeSubscriptionPayload",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5736,6 +6902,29 @@ export default {
             "type": {
               "kind": "OBJECT",
               "name": "CommentSubscriptionPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vote",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteSubscriptionWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "VoteSubscriptionPayload",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6043,7 +7232,7 @@ export default {
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "PostSubscriptionWhereInput",
+        "name": "JokeSubscriptionWhereInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -6116,7 +7305,7 @@ export default {
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "PostWhereInput",
+              "name": "JokeWhereInput",
               "ofType": null
             },
             "defaultValue": null
@@ -6132,7 +7321,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostSubscriptionWhereInput",
+                  "name": "JokeSubscriptionWhereInput",
                   "ofType": null
                 }
               }
@@ -6150,7 +7339,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostSubscriptionWhereInput",
+                  "name": "JokeSubscriptionWhereInput",
                   "ofType": null
                 }
               }
@@ -6168,7 +7357,7 @@ export default {
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PostSubscriptionWhereInput",
+                  "name": "JokeSubscriptionWhereInput",
                   "ofType": null
                 }
               }
@@ -6182,7 +7371,7 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "PostSubscriptionPayload",
+        "name": "JokeSubscriptionPayload",
         "description": null,
         "fields": [
           {
@@ -6207,7 +7396,7 @@ export default {
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Post",
+              "name": "Joke",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6239,7 +7428,7 @@ export default {
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "PostPreviousValues",
+              "name": "JokePreviousValues",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6253,7 +7442,7 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "PostPreviousValues",
+        "name": "JokePreviousValues",
         "description": null,
         "fields": [
           {
@@ -6273,7 +7462,7 @@ export default {
             "deprecationReason": null
           },
           {
-            "name": "title",
+            "name": "content",
             "description": null,
             "args": [],
             "type": {
@@ -6551,6 +7740,259 @@ export default {
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "VoteSubscriptionWhereInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "mutation_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "MutationType",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "updatedFields_contains",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "updatedFields_contains_every",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "updatedFields_contains_some",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "node",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VoteWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "AND",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteSubscriptionWhereInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "OR",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteSubscriptionWhereInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "NOT",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "VoteSubscriptionWhereInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "VoteSubscriptionPayload",
+        "description": null,
+        "fields": [
+          {
+            "name": "mutation",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "MutationType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Vote",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedFields",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previousValues",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "VotePreviousValues",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "VotePreviousValues",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
                 "ofType": null
               }
             },
