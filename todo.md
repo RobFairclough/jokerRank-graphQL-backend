@@ -6,7 +6,7 @@ prisma admin on endpoint http://localhost:4466/_admin
   - Set up prisma (prisma playground on localhost:4466)
   - GraphQL endpoint
   - Database extensions
-  - Auth
+  - Auth: auth flow: login -> check passw -> generate token -> return token -> check token on new requests & store in context
 
 
 

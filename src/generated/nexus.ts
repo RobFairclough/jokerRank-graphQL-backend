@@ -11,11 +11,59 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CommentCreateManyWithoutJokeInput: { // input type
+    connect?: NexusGenInputs['CommentWhereUniqueInput'][] | null; // [CommentWhereUniqueInput!]
+    create?: NexusGenInputs['CommentCreateWithoutJokeInput'][] | null; // [CommentCreateWithoutJokeInput!]
+  }
+  CommentCreateWithoutJokeInput: { // input type
+    author?: NexusGenInputs['UserCreateOneInput'] | null; // UserCreateOneInput
+    content: string; // String!
+    id?: string | null; // ID
+  }
+  CommentWhereInput: { // input type
+    AND?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
+    author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    content?: string | null; // String
+    content_contains?: string | null; // String
+    content_ends_with?: string | null; // String
+    content_gt?: string | null; // String
+    content_gte?: string | null; // String
+    content_in?: string[] | null; // [String!]
+    content_lt?: string | null; // String
+    content_lte?: string | null; // String
+    content_not?: string | null; // String
+    content_not_contains?: string | null; // String
+    content_not_ends_with?: string | null; // String
+    content_not_in?: string[] | null; // [String!]
+    content_not_starts_with?: string | null; // String
+    content_starts_with?: string | null; // String
+    id?: string | null; // ID
+    id_contains?: string | null; // ID
+    id_ends_with?: string | null; // ID
+    id_gt?: string | null; // ID
+    id_gte?: string | null; // ID
+    id_in?: string[] | null; // [ID!]
+    id_lt?: string | null; // ID
+    id_lte?: string | null; // ID
+    id_not?: string | null; // ID
+    id_not_contains?: string | null; // ID
+    id_not_ends_with?: string | null; // ID
+    id_not_in?: string[] | null; // [ID!]
+    id_not_starts_with?: string | null; // ID
+    id_starts_with?: string | null; // ID
+    joke?: NexusGenInputs['JokeWhereInput'] | null; // JokeWhereInput
+    NOT?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
+    OR?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
+  }
+  CommentWhereUniqueInput: { // input type
+    id?: string | null; // ID
+  }
   JokeCreateManyWithoutAuthorInput: { // input type
     connect?: NexusGenInputs['JokeWhereUniqueInput'][] | null; // [JokeWhereUniqueInput!]
     create?: NexusGenInputs['JokeCreateWithoutAuthorInput'][] | null; // [JokeCreateWithoutAuthorInput!]
   }
   JokeCreateWithoutAuthorInput: { // input type
+    comments?: NexusGenInputs['CommentCreateManyWithoutJokeInput'] | null; // CommentCreateManyWithoutJokeInput
     content: string; // String!
     id?: string | null; // ID
     published?: boolean | null; // Boolean
@@ -23,6 +71,9 @@ export interface NexusGenInputs {
   JokeWhereInput: { // input type
     AND?: NexusGenInputs['JokeWhereInput'][] | null; // [JokeWhereInput!]
     author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    comments_every?: NexusGenInputs['CommentWhereInput'] | null; // CommentWhereInput
+    comments_none?: NexusGenInputs['CommentWhereInput'] | null; // CommentWhereInput
+    comments_some?: NexusGenInputs['CommentWhereInput'] | null; // CommentWhereInput
     content?: string | null; // String
     content_contains?: string | null; // String
     content_ends_with?: string | null; // String
@@ -60,10 +111,15 @@ export interface NexusGenInputs {
     id?: string | null; // ID
   }
   UserCreateInput: { // input type
-    email?: string | null; // String
+    email: string; // String!
     id?: string | null; // ID
     jokes?: NexusGenInputs['JokeCreateManyWithoutAuthorInput'] | null; // JokeCreateManyWithoutAuthorInput
     name: string; // String!
+    password: string; // String!
+  }
+  UserCreateOneInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateInput'] | null; // UserCreateInput
   }
   UserWhereInput: { // input type
     AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
@@ -114,10 +170,29 @@ export interface NexusGenInputs {
     name_starts_with?: string | null; // String
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     OR?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    password?: string | null; // String
+    password_contains?: string | null; // String
+    password_ends_with?: string | null; // String
+    password_gt?: string | null; // String
+    password_gte?: string | null; // String
+    password_in?: string[] | null; // [String!]
+    password_lt?: string | null; // String
+    password_lte?: string | null; // String
+    password_not?: string | null; // String
+    password_not_contains?: string | null; // String
+    password_not_ends_with?: string | null; // String
+    password_not_in?: string[] | null; // [String!]
+    password_not_starts_with?: string | null; // String
+    password_starts_with?: string | null; // String
+  }
+  UserWhereUniqueInput: { // input type
+    email?: string | null; // String
+    id?: string | null; // ID
   }
 }
 
 export interface NexusGenEnums {
+  CommentOrderByInput: "content_ASC" | "content_DESC" | "createdAt_ASC" | "createdAt_DESC" | "id_ASC" | "id_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
   JokeOrderByInput: "content_ASC" | "content_DESC" | "createdAt_ASC" | "createdAt_DESC" | "id_ASC" | "id_DESC" | "published_ASC" | "published_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
 }
 
@@ -134,9 +209,10 @@ export interface NexusGenRootTypes {
   Mutation: {};
   Query: {};
   User: { // root type
-    email?: string | null; // String
+    email: string; // String!
     id: string; // ID!
     name: string; // String!
+    password: string; // String!
   }
   String: string;
   Int: number;
@@ -146,12 +222,19 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  CommentCreateManyWithoutJokeInput: NexusGenInputs['CommentCreateManyWithoutJokeInput'];
+  CommentCreateWithoutJokeInput: NexusGenInputs['CommentCreateWithoutJokeInput'];
+  CommentWhereInput: NexusGenInputs['CommentWhereInput'];
+  CommentWhereUniqueInput: NexusGenInputs['CommentWhereUniqueInput'];
   JokeCreateManyWithoutAuthorInput: NexusGenInputs['JokeCreateManyWithoutAuthorInput'];
   JokeCreateWithoutAuthorInput: NexusGenInputs['JokeCreateWithoutAuthorInput'];
   JokeWhereInput: NexusGenInputs['JokeWhereInput'];
   JokeWhereUniqueInput: NexusGenInputs['JokeWhereUniqueInput'];
   UserCreateInput: NexusGenInputs['UserCreateInput'];
+  UserCreateOneInput: NexusGenInputs['UserCreateOneInput'];
   UserWhereInput: NexusGenInputs['UserWhereInput'];
+  UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
+  CommentOrderByInput: NexusGenEnums['CommentOrderByInput'];
   JokeOrderByInput: NexusGenEnums['JokeOrderByInput'];
 }
 
@@ -164,6 +247,7 @@ export interface NexusGenFieldTypes {
   }
   Joke: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
+    comments: NexusGenRootTypes['Comment'][] | null; // [Comment!]
     content: string; // String!
     id: string; // ID!
     published: boolean; // Boolean!
@@ -172,24 +256,37 @@ export interface NexusGenFieldTypes {
     createDraft: NexusGenRootTypes['Joke']; // Joke!
     createUser: NexusGenRootTypes['User']; // User!
     deleteJoke: NexusGenRootTypes['Joke'] | null; // Joke
+    login: string | null; // String
     publish: NexusGenRootTypes['Joke'] | null; // Joke
+    register: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
     commentsByUser: NexusGenRootTypes['Comment'][]; // [Comment!]!
     feed: NexusGenRootTypes['Joke'][]; // [Joke!]!
     joke: NexusGenRootTypes['Joke'] | null; // Joke
     jokesByUser: NexusGenRootTypes['Joke'][]; // [Joke!]!
-    myJokes: NexusGenRootTypes['Joke'][]; // [Joke!]!
   }
   User: { // field return type
-    email: string | null; // String
+    email: string; // String!
     id: string; // ID!
     jokes: NexusGenRootTypes['Joke'][] | null; // [Joke!]
     name: string; // String!
+    password: string; // String!
   }
 }
 
 export interface NexusGenArgTypes {
+  Joke: {
+    comments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenEnums['CommentOrderByInput'] | null; // CommentOrderByInput
+      skip?: number | null; // Int
+      where?: NexusGenInputs['CommentWhereInput'] | null; // CommentWhereInput
+    }
+  }
   Mutation: {
     createDraft: { // args
       authorId?: string | null; // ID
@@ -201,8 +298,17 @@ export interface NexusGenArgTypes {
     deleteJoke: { // args
       where: NexusGenInputs['JokeWhereUniqueInput']; // JokeWhereUniqueInput!
     }
+    login: { // args
+      email?: string | null; // String
+      password?: string | null; // String
+    }
     publish: { // args
       id?: string | null; // ID
+    }
+    register: { // args
+      email?: string | null; // String
+      name?: string | null; // String
+      password?: string | null; // String
     }
   }
   Query: {
@@ -236,9 +342,9 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Comment" | "Joke" | "Mutation" | "Query" | "User";
 
-export type NexusGenInputNames = "JokeCreateManyWithoutAuthorInput" | "JokeCreateWithoutAuthorInput" | "JokeWhereInput" | "JokeWhereUniqueInput" | "UserCreateInput" | "UserWhereInput";
+export type NexusGenInputNames = "CommentCreateManyWithoutJokeInput" | "CommentCreateWithoutJokeInput" | "CommentWhereInput" | "CommentWhereUniqueInput" | "JokeCreateManyWithoutAuthorInput" | "JokeCreateWithoutAuthorInput" | "JokeWhereInput" | "JokeWhereUniqueInput" | "UserCreateInput" | "UserCreateOneInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
-export type NexusGenEnumNames = "JokeOrderByInput";
+export type NexusGenEnumNames = "CommentOrderByInput" | "JokeOrderByInput";
 
 export type NexusGenInterfaceNames = never;
 

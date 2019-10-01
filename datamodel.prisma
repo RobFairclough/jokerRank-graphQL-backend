@@ -1,7 +1,8 @@
 type User {
   id: ID! @id
-  email: String @unique
+  email: String! @unique
   name: String!
+  password: String!
   jokes: [Joke!]!
 }
 type Joke {
@@ -9,6 +10,7 @@ type Joke {
   content: String!
   published: Boolean! @default(value: false)
   author: User @relation(link: INLINE)
+  comments: [Comment]
 }
 
 type Comment {

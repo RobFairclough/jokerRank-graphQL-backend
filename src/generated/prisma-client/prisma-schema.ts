@@ -38,7 +38,18 @@ type CommentConnection {
 input CommentCreateInput {
   id: ID
   author: UserCreateOneInput
-  joke: JokeCreateOneInput
+  joke: JokeCreateOneWithoutCommentsInput
+  content: String!
+}
+
+input CommentCreateManyWithoutJokeInput {
+  create: [CommentCreateWithoutJokeInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutJokeInput {
+  id: ID
+  author: UserCreateOneInput
   content: String!
 }
 
@@ -57,6 +68,40 @@ enum CommentOrderByInput {
 type CommentPreviousValues {
   id: ID!
   content: String!
+}
+
+input CommentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  AND: [CommentScalarWhereInput!]
+  OR: [CommentScalarWhereInput!]
+  NOT: [CommentScalarWhereInput!]
 }
 
 type CommentSubscriptionPayload {
@@ -79,12 +124,49 @@ input CommentSubscriptionWhereInput {
 
 input CommentUpdateInput {
   author: UserUpdateOneInput
-  joke: JokeUpdateOneInput
+  joke: JokeUpdateOneWithoutCommentsInput
+  content: String
+}
+
+input CommentUpdateManyDataInput {
   content: String
 }
 
 input CommentUpdateManyMutationInput {
   content: String
+}
+
+input CommentUpdateManyWithoutJokeInput {
+  create: [CommentCreateWithoutJokeInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutJokeInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutJokeInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
+input CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyDataInput!
+}
+
+input CommentUpdateWithoutJokeDataInput {
+  author: UserUpdateOneInput
+  content: String
+}
+
+input CommentUpdateWithWhereUniqueWithoutJokeInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutJokeDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutJokeInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutJokeDataInput!
+  create: CommentCreateWithoutJokeInput!
 }
 
 input CommentWhereInput {
@@ -132,6 +214,7 @@ type Joke {
   content: String!
   published: Boolean!
   author: User
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
 type JokeConnection {
@@ -145,6 +228,7 @@ input JokeCreateInput {
   content: String!
   published: Boolean
   author: UserCreateOneWithoutJokesInput
+  comments: CommentCreateManyWithoutJokeInput
 }
 
 input JokeCreateManyWithoutAuthorInput {
@@ -157,10 +241,23 @@ input JokeCreateOneInput {
   connect: JokeWhereUniqueInput
 }
 
+input JokeCreateOneWithoutCommentsInput {
+  create: JokeCreateWithoutCommentsInput
+  connect: JokeWhereUniqueInput
+}
+
 input JokeCreateWithoutAuthorInput {
   id: ID
   content: String!
   published: Boolean
+  comments: CommentCreateManyWithoutJokeInput
+}
+
+input JokeCreateWithoutCommentsInput {
+  id: ID
+  content: String!
+  published: Boolean
+  author: UserCreateOneWithoutJokesInput
 }
 
 type JokeEdge {
@@ -241,12 +338,14 @@ input JokeUpdateDataInput {
   content: String
   published: Boolean
   author: UserUpdateOneWithoutJokesInput
+  comments: CommentUpdateManyWithoutJokeInput
 }
 
 input JokeUpdateInput {
   content: String
   published: Boolean
   author: UserUpdateOneWithoutJokesInput
+  comments: CommentUpdateManyWithoutJokeInput
 }
 
 input JokeUpdateManyDataInput {
@@ -285,9 +384,25 @@ input JokeUpdateOneInput {
   connect: JokeWhereUniqueInput
 }
 
+input JokeUpdateOneWithoutCommentsInput {
+  create: JokeCreateWithoutCommentsInput
+  update: JokeUpdateWithoutCommentsDataInput
+  upsert: JokeUpsertWithoutCommentsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: JokeWhereUniqueInput
+}
+
 input JokeUpdateWithoutAuthorDataInput {
   content: String
   published: Boolean
+  comments: CommentUpdateManyWithoutJokeInput
+}
+
+input JokeUpdateWithoutCommentsDataInput {
+  content: String
+  published: Boolean
+  author: UserUpdateOneWithoutJokesInput
 }
 
 input JokeUpdateWithWhereUniqueWithoutAuthorInput {
@@ -298,6 +413,11 @@ input JokeUpdateWithWhereUniqueWithoutAuthorInput {
 input JokeUpsertNestedInput {
   update: JokeUpdateDataInput!
   create: JokeCreateInput!
+}
+
+input JokeUpsertWithoutCommentsInput {
+  update: JokeUpdateWithoutCommentsDataInput!
+  create: JokeCreateWithoutCommentsInput!
 }
 
 input JokeUpsertWithWhereUniqueWithoutAuthorInput {
@@ -338,6 +458,9 @@ input JokeWhereInput {
   published: Boolean
   published_not: Boolean
   author: UserWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
   AND: [JokeWhereInput!]
   OR: [JokeWhereInput!]
   NOT: [JokeWhereInput!]
@@ -418,8 +541,9 @@ type Subscription {
 
 type User {
   id: ID!
-  email: String
+  email: String!
   name: String!
+  password: String!
   jokes(where: JokeWhereInput, orderBy: JokeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Joke!]
 }
 
@@ -431,8 +555,9 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
-  email: String
+  email: String!
   name: String!
+  password: String!
   jokes: JokeCreateManyWithoutAuthorInput
 }
 
@@ -448,8 +573,9 @@ input UserCreateOneWithoutJokesInput {
 
 input UserCreateWithoutJokesInput {
   id: ID
-  email: String
+  email: String!
   name: String!
+  password: String!
 }
 
 type UserEdge {
@@ -464,12 +590,15 @@ enum UserOrderByInput {
   email_DESC
   name_ASC
   name_DESC
+  password_ASC
+  password_DESC
 }
 
 type UserPreviousValues {
   id: ID!
-  email: String
+  email: String!
   name: String!
+  password: String!
 }
 
 type UserSubscriptionPayload {
@@ -493,18 +622,21 @@ input UserSubscriptionWhereInput {
 input UserUpdateDataInput {
   email: String
   name: String
+  password: String
   jokes: JokeUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateInput {
   email: String
   name: String
+  password: String
   jokes: JokeUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
   name: String
+  password: String
 }
 
 input UserUpdateOneInput {
@@ -528,6 +660,7 @@ input UserUpdateOneWithoutJokesInput {
 input UserUpdateWithoutJokesDataInput {
   email: String
   name: String
+  password: String
 }
 
 input UserUpsertNestedInput {
@@ -583,6 +716,20 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
   jokes_every: JokeWhereInput
   jokes_some: JokeWhereInput
   jokes_none: JokeWhereInput

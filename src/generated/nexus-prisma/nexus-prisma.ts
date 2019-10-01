@@ -17,6 +17,7 @@ export interface NexusPrismaTypes {
       Query: QueryObject
       User: UserObject
       Joke: JokeObject
+      Comment: CommentObject
       UserConnection: UserConnectionObject
       PageInfo: PageInfoObject
       UserEdge: UserEdgeObject
@@ -24,7 +25,6 @@ export interface NexusPrismaTypes {
       JokeConnection: JokeConnectionObject
       JokeEdge: JokeEdgeObject
       AggregateJoke: AggregateJokeObject
-      Comment: CommentObject
       CommentConnection: CommentConnectionObject
       CommentEdge: CommentEdgeObject
       AggregateComment: AggregateCommentObject
@@ -48,6 +48,7 @@ export interface NexusPrismaTypes {
       Query: QueryFieldDetails
       User: UserFieldDetails
       Joke: JokeFieldDetails
+      Comment: CommentFieldDetails
       UserConnection: UserConnectionFieldDetails
       PageInfo: PageInfoFieldDetails
       UserEdge: UserEdgeFieldDetails
@@ -55,7 +56,6 @@ export interface NexusPrismaTypes {
       JokeConnection: JokeConnectionFieldDetails
       JokeEdge: JokeEdgeFieldDetails
       AggregateJoke: AggregateJokeFieldDetails
-      Comment: CommentFieldDetails
       CommentConnection: CommentConnectionFieldDetails
       CommentEdge: CommentEdgeFieldDetails
       AggregateComment: AggregateCommentFieldDetails
@@ -81,18 +81,31 @@ export interface NexusPrismaTypes {
       UserWhereUniqueInput: UserWhereUniqueInputInputObject
       JokeWhereInput: JokeWhereInputInputObject
       UserWhereInput: UserWhereInputInputObject
+      CommentWhereInput: CommentWhereInputInputObject
       JokeWhereUniqueInput: JokeWhereUniqueInputInputObject
       CommentWhereUniqueInput: CommentWhereUniqueInputInputObject
-      CommentWhereInput: CommentWhereInputInputObject
       VoteWhereUniqueInput: VoteWhereUniqueInputInputObject
       VoteWhereInput: VoteWhereInputInputObject
       UserCreateInput: UserCreateInputInputObject
       JokeCreateManyWithoutAuthorInput: JokeCreateManyWithoutAuthorInputInputObject
       JokeCreateWithoutAuthorInput: JokeCreateWithoutAuthorInputInputObject
+      CommentCreateManyWithoutJokeInput: CommentCreateManyWithoutJokeInputInputObject
+      CommentCreateWithoutJokeInput: CommentCreateWithoutJokeInputInputObject
+      UserCreateOneInput: UserCreateOneInputInputObject
       UserUpdateInput: UserUpdateInputInputObject
       JokeUpdateManyWithoutAuthorInput: JokeUpdateManyWithoutAuthorInputInputObject
       JokeUpdateWithWhereUniqueWithoutAuthorInput: JokeUpdateWithWhereUniqueWithoutAuthorInputInputObject
       JokeUpdateWithoutAuthorDataInput: JokeUpdateWithoutAuthorDataInputInputObject
+      CommentUpdateManyWithoutJokeInput: CommentUpdateManyWithoutJokeInputInputObject
+      CommentUpdateWithWhereUniqueWithoutJokeInput: CommentUpdateWithWhereUniqueWithoutJokeInputInputObject
+      CommentUpdateWithoutJokeDataInput: CommentUpdateWithoutJokeDataInputInputObject
+      UserUpdateOneInput: UserUpdateOneInputInputObject
+      UserUpdateDataInput: UserUpdateDataInputInputObject
+      UserUpsertNestedInput: UserUpsertNestedInputInputObject
+      CommentUpsertWithWhereUniqueWithoutJokeInput: CommentUpsertWithWhereUniqueWithoutJokeInputInputObject
+      CommentScalarWhereInput: CommentScalarWhereInputInputObject
+      CommentUpdateManyWithWhereNestedInput: CommentUpdateManyWithWhereNestedInputInputObject
+      CommentUpdateManyDataInput: CommentUpdateManyDataInputInputObject
       JokeUpsertWithWhereUniqueWithoutAuthorInput: JokeUpsertWithWhereUniqueWithoutAuthorInputInputObject
       JokeScalarWhereInput: JokeScalarWhereInputInputObject
       JokeUpdateManyWithWhereNestedInput: JokeUpdateManyWithWhereNestedInputInputObject
@@ -107,18 +120,19 @@ export interface NexusPrismaTypes {
       UserUpsertWithoutJokesInput: UserUpsertWithoutJokesInputInputObject
       JokeUpdateManyMutationInput: JokeUpdateManyMutationInputInputObject
       CommentCreateInput: CommentCreateInputInputObject
-      UserCreateOneInput: UserCreateOneInputInputObject
-      JokeCreateOneInput: JokeCreateOneInputInputObject
+      JokeCreateOneWithoutCommentsInput: JokeCreateOneWithoutCommentsInputInputObject
+      JokeCreateWithoutCommentsInput: JokeCreateWithoutCommentsInputInputObject
       CommentUpdateInput: CommentUpdateInputInputObject
-      UserUpdateOneInput: UserUpdateOneInputInputObject
-      UserUpdateDataInput: UserUpdateDataInputInputObject
-      UserUpsertNestedInput: UserUpsertNestedInputInputObject
+      JokeUpdateOneWithoutCommentsInput: JokeUpdateOneWithoutCommentsInputInputObject
+      JokeUpdateWithoutCommentsDataInput: JokeUpdateWithoutCommentsDataInputInputObject
+      JokeUpsertWithoutCommentsInput: JokeUpsertWithoutCommentsInputInputObject
+      CommentUpdateManyMutationInput: CommentUpdateManyMutationInputInputObject
+      VoteCreateInput: VoteCreateInputInputObject
+      JokeCreateOneInput: JokeCreateOneInputInputObject
+      VoteUpdateInput: VoteUpdateInputInputObject
       JokeUpdateOneInput: JokeUpdateOneInputInputObject
       JokeUpdateDataInput: JokeUpdateDataInputInputObject
       JokeUpsertNestedInput: JokeUpsertNestedInputInputObject
-      CommentUpdateManyMutationInput: CommentUpdateManyMutationInputInputObject
-      VoteCreateInput: VoteCreateInputInputObject
-      VoteUpdateInput: VoteUpdateInputInputObject
       VoteUpdateManyMutationInput: VoteUpdateManyMutationInputInputObject
       UserSubscriptionWhereInput: UserSubscriptionWhereInputInputObject
       JokeSubscriptionWhereInput: JokeSubscriptionWhereInputInputObject
@@ -128,8 +142,8 @@ export interface NexusPrismaTypes {
   }
   enumTypes: {
     JokeOrderByInput: JokeOrderByInputValues,
-    UserOrderByInput: UserOrderByInputValues,
     CommentOrderByInput: CommentOrderByInputValues,
+    UserOrderByInput: UserOrderByInputValues,
     VoteOrderByInput: VoteOrderByInputValues,
     MutationType: MutationTypeValues,
   }
@@ -408,12 +422,14 @@ type UserObject =
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'email', args?: [] | false, alias?: string  } 
   | { name: 'name', args?: [] | false, alias?: string  } 
+  | { name: 'password', args?: [] | false, alias?: string  } 
   | { name: 'jokes', args?: UserJokesArgs[] | false, alias?: string  } 
 
 type UserFields =
   | 'id'
   | 'email'
   | 'name'
+  | 'password'
   | 'jokes'
 
 
@@ -441,10 +457,18 @@ export interface UserFieldDetails {
     args: {}
     description: string
     list: undefined
-    nullable: true
+    nullable: false
     resolve: undefined
   }
   name: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  password: {
     type: 'String'
     args: {}
     description: string
@@ -476,15 +500,24 @@ type JokeObject =
   | { name: 'content', args?: [] | false, alias?: string  } 
   | { name: 'published', args?: [] | false, alias?: string  } 
   | { name: 'author', args?: [] | false, alias?: string  } 
+  | { name: 'comments', args?: JokeCommentsArgs[] | false, alias?: string  } 
 
 type JokeFields =
   | 'id'
   | 'content'
   | 'published'
   | 'author'
+  | 'comments'
 
 
-
+type JokeCommentsArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
   
 
 export interface JokeFieldDetails {
@@ -524,6 +557,84 @@ export interface JokeFieldDetails {
       context: core.GetGen<"context">,
       info?: GraphQLResolveInfo
     ) => Promise<prisma.User | null> | prisma.User | null
+  }
+  comments: {
+    type: 'Comment'
+    args: Record<JokeCommentsArgs, core.NexusArgDef<string>>
+    description: string
+    list: true
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Joke">,
+      args: { where?: CommentWhereInput | null, orderBy?: prisma.CommentOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Comment[]> | prisma.Comment[]
+  }
+}
+  
+
+// Types for Comment
+
+type CommentObject =
+  | CommentFields
+  | { name: 'id', args?: [] | false, alias?: string  } 
+  | { name: 'author', args?: [] | false, alias?: string  } 
+  | { name: 'joke', args?: [] | false, alias?: string  } 
+  | { name: 'content', args?: [] | false, alias?: string  } 
+
+type CommentFields =
+  | 'id'
+  | 'author'
+  | 'joke'
+  | 'content'
+
+
+
+  
+
+export interface CommentFieldDetails {
+  id: {
+    type: 'ID'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  author: {
+    type: 'User'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Comment">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.User | null> | prisma.User | null
+  }
+  joke: {
+    type: 'Joke'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Comment">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Joke | null> | prisma.Joke | null
+  }
+  content: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
   }
 }
   
@@ -824,71 +935,6 @@ type AggregateJokeFields =
 export interface AggregateJokeFieldDetails {
   count: {
     type: 'Int'
-    args: {}
-    description: string
-    list: undefined
-    nullable: false
-    resolve: undefined
-  }
-}
-  
-
-// Types for Comment
-
-type CommentObject =
-  | CommentFields
-  | { name: 'id', args?: [] | false, alias?: string  } 
-  | { name: 'author', args?: [] | false, alias?: string  } 
-  | { name: 'joke', args?: [] | false, alias?: string  } 
-  | { name: 'content', args?: [] | false, alias?: string  } 
-
-type CommentFields =
-  | 'id'
-  | 'author'
-  | 'joke'
-  | 'content'
-
-
-
-  
-
-export interface CommentFieldDetails {
-  id: {
-    type: 'ID'
-    args: {}
-    description: string
-    list: undefined
-    nullable: false
-    resolve: undefined
-  }
-  author: {
-    type: 'User'
-    args: {}
-    description: string
-    list: undefined
-    nullable: true
-    resolve: (
-      root: core.RootValue<"Comment">,
-      args: {  }  ,
-      context: core.GetGen<"context">,
-      info?: GraphQLResolveInfo
-    ) => Promise<prisma.User | null> | prisma.User | null
-  }
-  joke: {
-    type: 'Joke'
-    args: {}
-    description: string
-    list: undefined
-    nullable: true
-    resolve: (
-      root: core.RootValue<"Comment">,
-      args: {  }  ,
-      context: core.GetGen<"context">,
-      info?: GraphQLResolveInfo
-    ) => Promise<prisma.Joke | null> | prisma.Joke | null
-  }
-  content: {
-    type: 'String'
     args: {}
     description: string
     list: undefined
@@ -1835,11 +1881,13 @@ type UserPreviousValuesObject =
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'email', args?: [] | false, alias?: string  } 
   | { name: 'name', args?: [] | false, alias?: string  } 
+  | { name: 'password', args?: [] | false, alias?: string  } 
 
 type UserPreviousValuesFields =
   | 'id'
   | 'email'
   | 'name'
+  | 'password'
 
 
 
@@ -1859,10 +1907,18 @@ export interface UserPreviousValuesFieldDetails {
     args: {}
     description: string
     list: undefined
-    nullable: true
+    nullable: false
     resolve: undefined
   }
   name: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  password: {
     type: 'String'
     args: {}
     description: string
@@ -2240,6 +2296,9 @@ export interface JokeWhereInput {
   published?: boolean | null
   published_not?: boolean | null
   author?: UserWhereInput | null
+  comments_every?: CommentWhereInput | null
+  comments_some?: CommentWhereInput | null
+  comments_none?: CommentWhereInput | null
   AND?: JokeWhereInput[]
   OR?: JokeWhereInput[]
   NOT?: JokeWhereInput[]
@@ -2277,6 +2336,9 @@ export type JokeWhereInputInputObject =
   | { name: 'published', alias?: string  } 
   | { name: 'published_not', alias?: string  } 
   | { name: 'author', alias?: string  } 
+  | { name: 'comments_every', alias?: string  } 
+  | { name: 'comments_some', alias?: string  } 
+  | { name: 'comments_none', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
@@ -2324,6 +2386,20 @@ export interface UserWhereInput {
   name_not_starts_with?: string | null
   name_ends_with?: string | null
   name_not_ends_with?: string | null
+  password?: string | null
+  password_not?: string | null
+  password_in?: string[]
+  password_not_in?: string[]
+  password_lt?: string | null
+  password_lte?: string | null
+  password_gt?: string | null
+  password_gte?: string | null
+  password_contains?: string | null
+  password_not_contains?: string | null
+  password_starts_with?: string | null
+  password_not_starts_with?: string | null
+  password_ends_with?: string | null
+  password_not_ends_with?: string | null
   jokes_every?: JokeWhereInput | null
   jokes_some?: JokeWhereInput | null
   jokes_none?: JokeWhereInput | null
@@ -2375,26 +2451,26 @@ export type UserWhereInputInputObject =
   | { name: 'name_not_starts_with', alias?: string  } 
   | { name: 'name_ends_with', alias?: string  } 
   | { name: 'name_not_ends_with', alias?: string  } 
+  | { name: 'password', alias?: string  } 
+  | { name: 'password_not', alias?: string  } 
+  | { name: 'password_in', alias?: string  } 
+  | { name: 'password_not_in', alias?: string  } 
+  | { name: 'password_lt', alias?: string  } 
+  | { name: 'password_lte', alias?: string  } 
+  | { name: 'password_gt', alias?: string  } 
+  | { name: 'password_gte', alias?: string  } 
+  | { name: 'password_contains', alias?: string  } 
+  | { name: 'password_not_contains', alias?: string  } 
+  | { name: 'password_starts_with', alias?: string  } 
+  | { name: 'password_not_starts_with', alias?: string  } 
+  | { name: 'password_ends_with', alias?: string  } 
+  | { name: 'password_not_ends_with', alias?: string  } 
   | { name: 'jokes_every', alias?: string  } 
   | { name: 'jokes_some', alias?: string  } 
   | { name: 'jokes_none', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
-  
-export interface JokeWhereUniqueInput {
-  id?: string | null
-}
-export type JokeWhereUniqueInputInputObject =
-  | Extract<keyof JokeWhereUniqueInput, string>
-  | { name: 'id', alias?: string  } 
-  
-export interface CommentWhereUniqueInput {
-  id?: string | null
-}
-export type CommentWhereUniqueInputInputObject =
-  | Extract<keyof CommentWhereUniqueInput, string>
-  | { name: 'id', alias?: string  } 
   
 export interface CommentWhereInput {
   id?: string | null
@@ -2467,6 +2543,20 @@ export type CommentWhereInputInputObject =
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
   
+export interface JokeWhereUniqueInput {
+  id?: string | null
+}
+export type JokeWhereUniqueInputInputObject =
+  | Extract<keyof JokeWhereUniqueInput, string>
+  | { name: 'id', alias?: string  } 
+  
+export interface CommentWhereUniqueInput {
+  id?: string | null
+}
+export type CommentWhereUniqueInputInputObject =
+  | Extract<keyof CommentWhereUniqueInput, string>
+  | { name: 'id', alias?: string  } 
+  
 export interface VoteWhereUniqueInput {
   id?: string | null
 }
@@ -2535,8 +2625,9 @@ export type VoteWhereInputInputObject =
   
 export interface UserCreateInput {
   id?: string | null
-  email?: string | null
+  email?: string
   name?: string
+  password?: string
   jokes?: JokeCreateManyWithoutAuthorInput | null
 }
 export type UserCreateInputInputObject =
@@ -2544,6 +2635,7 @@ export type UserCreateInputInputObject =
   | { name: 'id', alias?: string  } 
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
+  | { name: 'password', alias?: string  } 
   | { name: 'jokes', alias?: string  } 
   
 export interface JokeCreateManyWithoutAuthorInput {
@@ -2559,22 +2651,55 @@ export interface JokeCreateWithoutAuthorInput {
   id?: string | null
   content?: string
   published?: boolean | null
+  comments?: CommentCreateManyWithoutJokeInput | null
 }
 export type JokeCreateWithoutAuthorInputInputObject =
   | Extract<keyof JokeCreateWithoutAuthorInput, string>
   | { name: 'id', alias?: string  } 
   | { name: 'content', alias?: string  } 
   | { name: 'published', alias?: string  } 
+  | { name: 'comments', alias?: string  } 
+  
+export interface CommentCreateManyWithoutJokeInput {
+  create?: CommentCreateWithoutJokeInput[]
+  connect?: CommentWhereUniqueInput[]
+}
+export type CommentCreateManyWithoutJokeInputInputObject =
+  | Extract<keyof CommentCreateManyWithoutJokeInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface CommentCreateWithoutJokeInput {
+  id?: string | null
+  author?: UserCreateOneInput | null
+  content?: string
+}
+export type CommentCreateWithoutJokeInputInputObject =
+  | Extract<keyof CommentCreateWithoutJokeInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'content', alias?: string  } 
+  
+export interface UserCreateOneInput {
+  create?: UserCreateInput | null
+  connect?: UserWhereUniqueInput | null
+}
+export type UserCreateOneInputInputObject =
+  | Extract<keyof UserCreateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
   
 export interface UserUpdateInput {
   email?: string | null
   name?: string | null
+  password?: string | null
   jokes?: JokeUpdateManyWithoutAuthorInput | null
 }
 export type UserUpdateInputInputObject =
   | Extract<keyof UserUpdateInput, string>
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
+  | { name: 'password', alias?: string  } 
   | { name: 'jokes', alias?: string  } 
   
 export interface JokeUpdateManyWithoutAuthorInput {
@@ -2612,11 +2737,187 @@ export type JokeUpdateWithWhereUniqueWithoutAuthorInputInputObject =
 export interface JokeUpdateWithoutAuthorDataInput {
   content?: string | null
   published?: boolean | null
+  comments?: CommentUpdateManyWithoutJokeInput | null
 }
 export type JokeUpdateWithoutAuthorDataInputInputObject =
   | Extract<keyof JokeUpdateWithoutAuthorDataInput, string>
   | { name: 'content', alias?: string  } 
   | { name: 'published', alias?: string  } 
+  | { name: 'comments', alias?: string  } 
+  
+export interface CommentUpdateManyWithoutJokeInput {
+  create?: CommentCreateWithoutJokeInput[]
+  delete?: CommentWhereUniqueInput[]
+  connect?: CommentWhereUniqueInput[]
+  set?: CommentWhereUniqueInput[]
+  disconnect?: CommentWhereUniqueInput[]
+  update?: CommentUpdateWithWhereUniqueWithoutJokeInput[]
+  upsert?: CommentUpsertWithWhereUniqueWithoutJokeInput[]
+  deleteMany?: CommentScalarWhereInput[]
+  updateMany?: CommentUpdateManyWithWhereNestedInput[]
+}
+export type CommentUpdateManyWithoutJokeInputInputObject =
+  | Extract<keyof CommentUpdateManyWithoutJokeInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'delete', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  | { name: 'set', alias?: string  } 
+  | { name: 'disconnect', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'deleteMany', alias?: string  } 
+  | { name: 'updateMany', alias?: string  } 
+  
+export interface CommentUpdateWithWhereUniqueWithoutJokeInput {
+  where?: CommentWhereUniqueInput
+  data?: CommentUpdateWithoutJokeDataInput
+}
+export type CommentUpdateWithWhereUniqueWithoutJokeInputInputObject =
+  | Extract<keyof CommentUpdateWithWhereUniqueWithoutJokeInput, string>
+  | { name: 'where', alias?: string  } 
+  | { name: 'data', alias?: string  } 
+  
+export interface CommentUpdateWithoutJokeDataInput {
+  author?: UserUpdateOneInput | null
+  content?: string | null
+}
+export type CommentUpdateWithoutJokeDataInputInputObject =
+  | Extract<keyof CommentUpdateWithoutJokeDataInput, string>
+  | { name: 'author', alias?: string  } 
+  | { name: 'content', alias?: string  } 
+  
+export interface UserUpdateOneInput {
+  create?: UserCreateInput | null
+  update?: UserUpdateDataInput | null
+  upsert?: UserUpsertNestedInput | null
+  delete?: boolean | null
+  disconnect?: boolean | null
+  connect?: UserWhereUniqueInput | null
+}
+export type UserUpdateOneInputInputObject =
+  | Extract<keyof UserUpdateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'delete', alias?: string  } 
+  | { name: 'disconnect', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface UserUpdateDataInput {
+  email?: string | null
+  name?: string | null
+  password?: string | null
+  jokes?: JokeUpdateManyWithoutAuthorInput | null
+}
+export type UserUpdateDataInputInputObject =
+  | Extract<keyof UserUpdateDataInput, string>
+  | { name: 'email', alias?: string  } 
+  | { name: 'name', alias?: string  } 
+  | { name: 'password', alias?: string  } 
+  | { name: 'jokes', alias?: string  } 
+  
+export interface UserUpsertNestedInput {
+  update?: UserUpdateDataInput
+  create?: UserCreateInput
+}
+export type UserUpsertNestedInputInputObject =
+  | Extract<keyof UserUpsertNestedInput, string>
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
+  
+export interface CommentUpsertWithWhereUniqueWithoutJokeInput {
+  where?: CommentWhereUniqueInput
+  update?: CommentUpdateWithoutJokeDataInput
+  create?: CommentCreateWithoutJokeInput
+}
+export type CommentUpsertWithWhereUniqueWithoutJokeInputInputObject =
+  | Extract<keyof CommentUpsertWithWhereUniqueWithoutJokeInput, string>
+  | { name: 'where', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
+  
+export interface CommentScalarWhereInput {
+  id?: string | null
+  id_not?: string | null
+  id_in?: string[]
+  id_not_in?: string[]
+  id_lt?: string | null
+  id_lte?: string | null
+  id_gt?: string | null
+  id_gte?: string | null
+  id_contains?: string | null
+  id_not_contains?: string | null
+  id_starts_with?: string | null
+  id_not_starts_with?: string | null
+  id_ends_with?: string | null
+  id_not_ends_with?: string | null
+  content?: string | null
+  content_not?: string | null
+  content_in?: string[]
+  content_not_in?: string[]
+  content_lt?: string | null
+  content_lte?: string | null
+  content_gt?: string | null
+  content_gte?: string | null
+  content_contains?: string | null
+  content_not_contains?: string | null
+  content_starts_with?: string | null
+  content_not_starts_with?: string | null
+  content_ends_with?: string | null
+  content_not_ends_with?: string | null
+  AND?: CommentScalarWhereInput[]
+  OR?: CommentScalarWhereInput[]
+  NOT?: CommentScalarWhereInput[]
+}
+export type CommentScalarWhereInputInputObject =
+  | Extract<keyof CommentScalarWhereInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'id_not', alias?: string  } 
+  | { name: 'id_in', alias?: string  } 
+  | { name: 'id_not_in', alias?: string  } 
+  | { name: 'id_lt', alias?: string  } 
+  | { name: 'id_lte', alias?: string  } 
+  | { name: 'id_gt', alias?: string  } 
+  | { name: 'id_gte', alias?: string  } 
+  | { name: 'id_contains', alias?: string  } 
+  | { name: 'id_not_contains', alias?: string  } 
+  | { name: 'id_starts_with', alias?: string  } 
+  | { name: 'id_not_starts_with', alias?: string  } 
+  | { name: 'id_ends_with', alias?: string  } 
+  | { name: 'id_not_ends_with', alias?: string  } 
+  | { name: 'content', alias?: string  } 
+  | { name: 'content_not', alias?: string  } 
+  | { name: 'content_in', alias?: string  } 
+  | { name: 'content_not_in', alias?: string  } 
+  | { name: 'content_lt', alias?: string  } 
+  | { name: 'content_lte', alias?: string  } 
+  | { name: 'content_gt', alias?: string  } 
+  | { name: 'content_gte', alias?: string  } 
+  | { name: 'content_contains', alias?: string  } 
+  | { name: 'content_not_contains', alias?: string  } 
+  | { name: 'content_starts_with', alias?: string  } 
+  | { name: 'content_not_starts_with', alias?: string  } 
+  | { name: 'content_ends_with', alias?: string  } 
+  | { name: 'content_not_ends_with', alias?: string  } 
+  | { name: 'AND', alias?: string  } 
+  | { name: 'OR', alias?: string  } 
+  | { name: 'NOT', alias?: string  } 
+  
+export interface CommentUpdateManyWithWhereNestedInput {
+  where?: CommentScalarWhereInput
+  data?: CommentUpdateManyDataInput
+}
+export type CommentUpdateManyWithWhereNestedInputInputObject =
+  | Extract<keyof CommentUpdateManyWithWhereNestedInput, string>
+  | { name: 'where', alias?: string  } 
+  | { name: 'data', alias?: string  } 
+  
+export interface CommentUpdateManyDataInput {
+  content?: string | null
+}
+export type CommentUpdateManyDataInputInputObject =
+  | Extract<keyof CommentUpdateManyDataInput, string>
+  | { name: 'content', alias?: string  } 
   
 export interface JokeUpsertWithWhereUniqueWithoutAuthorInput {
   where?: JokeWhereUniqueInput
@@ -2721,17 +3022,20 @@ export type JokeUpdateManyDataInputInputObject =
 export interface UserUpdateManyMutationInput {
   email?: string | null
   name?: string | null
+  password?: string | null
 }
 export type UserUpdateManyMutationInputInputObject =
   | Extract<keyof UserUpdateManyMutationInput, string>
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
+  | { name: 'password', alias?: string  } 
   
 export interface JokeCreateInput {
   id?: string | null
   content?: string
   published?: boolean | null
   author?: UserCreateOneWithoutJokesInput | null
+  comments?: CommentCreateManyWithoutJokeInput | null
 }
 export type JokeCreateInputInputObject =
   | Extract<keyof JokeCreateInput, string>
@@ -2739,6 +3043,7 @@ export type JokeCreateInputInputObject =
   | { name: 'content', alias?: string  } 
   | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
+  | { name: 'comments', alias?: string  } 
   
 export interface UserCreateOneWithoutJokesInput {
   create?: UserCreateWithoutJokesInput | null
@@ -2751,25 +3056,29 @@ export type UserCreateOneWithoutJokesInputInputObject =
   
 export interface UserCreateWithoutJokesInput {
   id?: string | null
-  email?: string | null
+  email?: string
   name?: string
+  password?: string
 }
 export type UserCreateWithoutJokesInputInputObject =
   | Extract<keyof UserCreateWithoutJokesInput, string>
   | { name: 'id', alias?: string  } 
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
+  | { name: 'password', alias?: string  } 
   
 export interface JokeUpdateInput {
   content?: string | null
   published?: boolean | null
   author?: UserUpdateOneWithoutJokesInput | null
+  comments?: CommentUpdateManyWithoutJokeInput | null
 }
 export type JokeUpdateInputInputObject =
   | Extract<keyof JokeUpdateInput, string>
   | { name: 'content', alias?: string  } 
   | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
+  | { name: 'comments', alias?: string  } 
   
 export interface UserUpdateOneWithoutJokesInput {
   create?: UserCreateWithoutJokesInput | null
@@ -2791,11 +3100,13 @@ export type UserUpdateOneWithoutJokesInputInputObject =
 export interface UserUpdateWithoutJokesDataInput {
   email?: string | null
   name?: string | null
+  password?: string | null
 }
 export type UserUpdateWithoutJokesDataInputInputObject =
   | Extract<keyof UserUpdateWithoutJokesDataInput, string>
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
+  | { name: 'password', alias?: string  } 
   
 export interface UserUpsertWithoutJokesInput {
   update?: UserUpdateWithoutJokesDataInput
@@ -2818,7 +3129,7 @@ export type JokeUpdateManyMutationInputInputObject =
 export interface CommentCreateInput {
   id?: string | null
   author?: UserCreateOneInput | null
-  joke?: JokeCreateOneInput | null
+  joke?: JokeCreateOneWithoutCommentsInput | null
   content?: string
 }
 export type CommentCreateInputInputObject =
@@ -2828,27 +3139,31 @@ export type CommentCreateInputInputObject =
   | { name: 'joke', alias?: string  } 
   | { name: 'content', alias?: string  } 
   
-export interface UserCreateOneInput {
-  create?: UserCreateInput | null
-  connect?: UserWhereUniqueInput | null
+export interface JokeCreateOneWithoutCommentsInput {
+  create?: JokeCreateWithoutCommentsInput | null
+  connect?: JokeWhereUniqueInput | null
 }
-export type UserCreateOneInputInputObject =
-  | Extract<keyof UserCreateOneInput, string>
+export type JokeCreateOneWithoutCommentsInputInputObject =
+  | Extract<keyof JokeCreateOneWithoutCommentsInput, string>
   | { name: 'create', alias?: string  } 
   | { name: 'connect', alias?: string  } 
   
-export interface JokeCreateOneInput {
-  create?: JokeCreateInput | null
-  connect?: JokeWhereUniqueInput | null
+export interface JokeCreateWithoutCommentsInput {
+  id?: string | null
+  content?: string
+  published?: boolean | null
+  author?: UserCreateOneWithoutJokesInput | null
 }
-export type JokeCreateOneInputInputObject =
-  | Extract<keyof JokeCreateOneInput, string>
-  | { name: 'create', alias?: string  } 
-  | { name: 'connect', alias?: string  } 
+export type JokeCreateWithoutCommentsInputInputObject =
+  | Extract<keyof JokeCreateWithoutCommentsInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'content', alias?: string  } 
+  | { name: 'published', alias?: string  } 
+  | { name: 'author', alias?: string  } 
   
 export interface CommentUpdateInput {
   author?: UserUpdateOneInput | null
-  joke?: JokeUpdateOneInput | null
+  joke?: JokeUpdateOneWithoutCommentsInput | null
   content?: string | null
 }
 export type CommentUpdateInputInputObject =
@@ -2857,53 +3172,16 @@ export type CommentUpdateInputInputObject =
   | { name: 'joke', alias?: string  } 
   | { name: 'content', alias?: string  } 
   
-export interface UserUpdateOneInput {
-  create?: UserCreateInput | null
-  update?: UserUpdateDataInput | null
-  upsert?: UserUpsertNestedInput | null
-  delete?: boolean | null
-  disconnect?: boolean | null
-  connect?: UserWhereUniqueInput | null
-}
-export type UserUpdateOneInputInputObject =
-  | Extract<keyof UserUpdateOneInput, string>
-  | { name: 'create', alias?: string  } 
-  | { name: 'update', alias?: string  } 
-  | { name: 'upsert', alias?: string  } 
-  | { name: 'delete', alias?: string  } 
-  | { name: 'disconnect', alias?: string  } 
-  | { name: 'connect', alias?: string  } 
-  
-export interface UserUpdateDataInput {
-  email?: string | null
-  name?: string | null
-  jokes?: JokeUpdateManyWithoutAuthorInput | null
-}
-export type UserUpdateDataInputInputObject =
-  | Extract<keyof UserUpdateDataInput, string>
-  | { name: 'email', alias?: string  } 
-  | { name: 'name', alias?: string  } 
-  | { name: 'jokes', alias?: string  } 
-  
-export interface UserUpsertNestedInput {
-  update?: UserUpdateDataInput
-  create?: UserCreateInput
-}
-export type UserUpsertNestedInputInputObject =
-  | Extract<keyof UserUpsertNestedInput, string>
-  | { name: 'update', alias?: string  } 
-  | { name: 'create', alias?: string  } 
-  
-export interface JokeUpdateOneInput {
-  create?: JokeCreateInput | null
-  update?: JokeUpdateDataInput | null
-  upsert?: JokeUpsertNestedInput | null
+export interface JokeUpdateOneWithoutCommentsInput {
+  create?: JokeCreateWithoutCommentsInput | null
+  update?: JokeUpdateWithoutCommentsDataInput | null
+  upsert?: JokeUpsertWithoutCommentsInput | null
   delete?: boolean | null
   disconnect?: boolean | null
   connect?: JokeWhereUniqueInput | null
 }
-export type JokeUpdateOneInputInputObject =
-  | Extract<keyof JokeUpdateOneInput, string>
+export type JokeUpdateOneWithoutCommentsInputInputObject =
+  | Extract<keyof JokeUpdateOneWithoutCommentsInput, string>
   | { name: 'create', alias?: string  } 
   | { name: 'update', alias?: string  } 
   | { name: 'upsert', alias?: string  } 
@@ -2911,23 +3189,23 @@ export type JokeUpdateOneInputInputObject =
   | { name: 'disconnect', alias?: string  } 
   | { name: 'connect', alias?: string  } 
   
-export interface JokeUpdateDataInput {
+export interface JokeUpdateWithoutCommentsDataInput {
   content?: string | null
   published?: boolean | null
   author?: UserUpdateOneWithoutJokesInput | null
 }
-export type JokeUpdateDataInputInputObject =
-  | Extract<keyof JokeUpdateDataInput, string>
+export type JokeUpdateWithoutCommentsDataInputInputObject =
+  | Extract<keyof JokeUpdateWithoutCommentsDataInput, string>
   | { name: 'content', alias?: string  } 
   | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
   
-export interface JokeUpsertNestedInput {
-  update?: JokeUpdateDataInput
-  create?: JokeCreateInput
+export interface JokeUpsertWithoutCommentsInput {
+  update?: JokeUpdateWithoutCommentsDataInput
+  create?: JokeCreateWithoutCommentsInput
 }
-export type JokeUpsertNestedInputInputObject =
-  | Extract<keyof JokeUpsertNestedInput, string>
+export type JokeUpsertWithoutCommentsInputInputObject =
+  | Extract<keyof JokeUpsertWithoutCommentsInput, string>
   | { name: 'update', alias?: string  } 
   | { name: 'create', alias?: string  } 
   
@@ -2951,6 +3229,15 @@ export type VoteCreateInputInputObject =
   | { name: 'joke', alias?: string  } 
   | { name: 'value', alias?: string  } 
   
+export interface JokeCreateOneInput {
+  create?: JokeCreateInput | null
+  connect?: JokeWhereUniqueInput | null
+}
+export type JokeCreateOneInputInputObject =
+  | Extract<keyof JokeCreateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
 export interface VoteUpdateInput {
   author?: UserUpdateOneInput | null
   joke?: JokeUpdateOneInput | null
@@ -2961,6 +3248,45 @@ export type VoteUpdateInputInputObject =
   | { name: 'author', alias?: string  } 
   | { name: 'joke', alias?: string  } 
   | { name: 'value', alias?: string  } 
+  
+export interface JokeUpdateOneInput {
+  create?: JokeCreateInput | null
+  update?: JokeUpdateDataInput | null
+  upsert?: JokeUpsertNestedInput | null
+  delete?: boolean | null
+  disconnect?: boolean | null
+  connect?: JokeWhereUniqueInput | null
+}
+export type JokeUpdateOneInputInputObject =
+  | Extract<keyof JokeUpdateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'delete', alias?: string  } 
+  | { name: 'disconnect', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface JokeUpdateDataInput {
+  content?: string | null
+  published?: boolean | null
+  author?: UserUpdateOneWithoutJokesInput | null
+  comments?: CommentUpdateManyWithoutJokeInput | null
+}
+export type JokeUpdateDataInputInputObject =
+  | Extract<keyof JokeUpdateDataInput, string>
+  | { name: 'content', alias?: string  } 
+  | { name: 'published', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'comments', alias?: string  } 
+  
+export interface JokeUpsertNestedInput {
+  update?: JokeUpdateDataInput
+  create?: JokeCreateInput
+}
+export type JokeUpsertNestedInputInputObject =
+  | Extract<keyof JokeUpsertNestedInput, string>
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
   
 export interface VoteUpdateManyMutationInput {
   value?: number | null
@@ -3066,6 +3392,16 @@ export type JokeOrderByInputValues =
   | 'updatedAt_ASC'
   | 'updatedAt_DESC'
   
+export type CommentOrderByInputValues =
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'content_ASC'
+  | 'content_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC'
+  
 export type UserOrderByInputValues =
   | 'id_ASC'
   | 'id_DESC'
@@ -3073,16 +3409,8 @@ export type UserOrderByInputValues =
   | 'email_DESC'
   | 'name_ASC'
   | 'name_DESC'
-  | 'createdAt_ASC'
-  | 'createdAt_DESC'
-  | 'updatedAt_ASC'
-  | 'updatedAt_DESC'
-  
-export type CommentOrderByInputValues =
-  | 'id_ASC'
-  | 'id_DESC'
-  | 'content_ASC'
-  | 'content_DESC'
+  | 'password_ASC'
+  | 'password_DESC'
   | 'createdAt_ASC'
   | 'createdAt_DESC'
   | 'updatedAt_ASC'

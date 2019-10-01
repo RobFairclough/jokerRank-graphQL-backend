@@ -1,6 +1,9 @@
 import { prismaObjectType } from "nexus-prisma"
 import { stringArg, idArg } from 'nexus'
-
+import { User, UserCreateInput } from "../generated/prisma-client"
+import { Context } from "prisma-client-lib/dist/types"
+import { UserWhereInput } from "../generated/nexus-prisma/nexus-prisma"
+import * as bcrypt from 'bcrypt';
 
 // @ts-ignore
 export const Mutation = prismaObjectType({
@@ -28,6 +31,42 @@ export const Mutation = prismaObjectType({
           where: { id },
           data: { published: true },
         }),
+    });
+    t.field('register', {
+      type: 'User',
+      args: { email: stringArg(), password: stringArg(), name: stringArg() },
+      resolve: (_, { email, password, name }, ctx) => {
+        // todo error handling? status codes?
+        if (!email || !password || !name) return null;
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+        const userToSave: UserCreateInput = {
+          email, password: hashedPassword, name
+        }
+        // todo check that email etc. is unique
+        const newUser = ctx.prisma.createUser(userToSave);
+        // todo figure out implementation to hide this
+        // different type for output user, not connected to db?
+        // store passwords seperately?
+        newUser.password = 'nope';
+        return newUser;
+      }
+    })
+    t.field('login', {
+      type: 'String',
+      nullable: true,
+      args: { email: stringArg(), password: stringArg() },
+      resolve: async (_, { email, password }, ctx) => {
+        const user: User = await ctx.prisma.user({ where: { email } });
+        // verify user exists
+        // encrypt input password and check against stored password
+        const isValidated = !!user && bcrypt.compareSync(password, user.password);
+        if (isValidated) {
+          // generate and return token
+
+        }
+        return null;
+      }
     })
   },
 })
