@@ -15,3 +15,4 @@ prisma admin on endpoint http://localhost:4466/_admin
   - seperate repo?
   - SSR?
   - RN app? Apple watch integration?
+  - basic site pages: home random jokes, jokes sorted/filtered, author page, single joke page with comments

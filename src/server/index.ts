@@ -1,11 +1,18 @@
 import { prisma } from '../generated/prisma-client'
-import { GraphQLServer } from 'graphql-yoga'
+import { ApolloServer } from 'apollo-server';
 import { schema } from '../graphql/schema'
+import { getUser } from '../utils/auth';
 
-const server = new GraphQLServer({
-  schema,
-  context: { prisma },
-})
-server.start(() => {
-  console.log('Server is running on http://localhost:4000');
-})
+const server = new ApolloServer({
+  schema, context: ({ req }) => {
+    const token = req.headers.authorization || '';
+    const user = getUser(token);
+    return { prisma }
+  }
+});
+
+
+
+server.listen().then(info => {
+  console.log('running on ', info.port);
+});

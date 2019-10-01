@@ -12,7 +12,7 @@ export const Query = prismaObjectType({
         ctx.prisma.jokes({ where: { published: true } }),
     });
     t.list.field('jokesByUser', {
-      type: 'Post',
+      type: 'Joke',
       args: { email: stringArg() },
       resolve: (_, { email }, ctx) =>
         ctx.prisma.jokes({ where: { author: { email } } }),
@@ -21,6 +21,14 @@ export const Query = prismaObjectType({
       type: 'Comment',
       args: { email: stringArg() },
       resolve: (_, { email }, ctx) => ctx.prisma.comments({ where: { author: { email } } })
-    })
+    });
+    // t.list.field('myJokes', {
+    //   type: 'Joke',
+    //   resolve: (_, args, ctx) => {
+    //     // get logged in user 
+    //     // const user = ctx.???
+    //     // return ctx.prisma.jokes({where: {author: {id: user.id}}})
+    //   }
+    // })
   },
 });
