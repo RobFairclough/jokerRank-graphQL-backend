@@ -22,9 +22,6 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.3",
-    "ts-node": "^8.4.1",
-    "ts-node-dev": "^1.0.0-pre.43",
-    "typescript": "^3.7.0-beta"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -36,6 +33,9 @@
     "jsonwebtoken": "^8.5.1",
     "nexus": "^0.11.7",
     "nexus-prisma": "^0.3.8",
-    "prisma-client-lib": "^1.34.8"
+    "prisma-client-lib": "^1.34.8",
+    "ts-node": "^8.4.1",
+    "ts-node-dev": "^1.0.0-pre.43",
+    "typescript": "^3.7.0-beta"
   }
 }
