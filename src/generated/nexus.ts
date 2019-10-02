@@ -265,6 +265,7 @@ export interface NexusGenFieldTypes {
     feed: NexusGenRootTypes['Joke'][]; // [Joke!]!
     joke: NexusGenRootTypes['Joke'] | null; // Joke
     jokesByUser: NexusGenRootTypes['Joke'][]; // [Joke!]!
+    myJokes: NexusGenRootTypes['Joke'][]; // [Joke!]!
   }
   User: { // field return type
     email: string; // String!

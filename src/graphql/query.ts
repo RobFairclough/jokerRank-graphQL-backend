@@ -1,5 +1,5 @@
-import { prismaObjectType } from "nexus-prisma";
-import { stringArg, idArg } from 'nexus'
+import { prismaObjectType } from 'nexus-prisma';
+import { stringArg, idArg } from 'nexus';
 
 // @ts-ignore
 export const Query = prismaObjectType({
@@ -8,27 +8,27 @@ export const Query = prismaObjectType({
     t.prismaFields(['joke']);
     t.list.field('feed', {
       type: 'Joke',
-      resolve: (_, args, ctx) =>
-        ctx.prisma.jokes({ where: { published: true } }),
+      resolve: (_, args, ctx) => ctx.prisma.jokes({ where: { published: true } }),
     });
     t.list.field('jokesByUser', {
       type: 'Joke',
       args: { email: stringArg() },
-      resolve: (_, { email }, ctx) =>
-        ctx.prisma.jokes({ where: { author: { email } } }),
+      resolve: (_, { email }, ctx) => ctx.prisma.jokes({ where: { author: { email } } }),
     });
     t.list.field('commentsByUser', {
       type: 'Comment',
       args: { email: stringArg() },
-      resolve: (_, { email }, ctx) => ctx.prisma.comments({ where: { author: { email } } })
+      resolve: (_, { email }, ctx) => ctx.prisma.comments({ where: { author: { email } } }),
     });
-    // t.list.field('myJokes', {
-    //   type: 'Joke',
-    //   resolve: (_, args, ctx) => {
-    //     // get logged in user 
-    //     // const user = ctx.???
-    //     // return ctx.prisma.jokes({where: {author: {id: user.id}}})
-    //   }
-    // })
+    t.list.field('myJokes', {
+      type: 'Joke',
+      resolve: (_, args, ctx) => {
+        const { auth } = ctx;
+        if (!auth || !auth.id) {
+          return null;
+        }
+        return ctx.prisma.jokes({ where: { author: { id: auth.id } } });
+      },
+    });
   },
 });

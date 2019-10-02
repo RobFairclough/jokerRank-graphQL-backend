@@ -1,18 +1,17 @@
-import { prisma } from '../generated/prisma-client'
+import { prisma } from '../generated/prisma-client';
 import { ApolloServer } from 'apollo-server';
-import { schema } from '../graphql/schema'
-import { getUser } from '../utils/auth';
+import { schema } from '../graphql/schema';
+import { getUser, readJWT } from '../utils/auth';
 
 const server = new ApolloServer({
-  schema, context: ({ req }) => {
+  schema,
+  context: ({ req }) => {
     const token = req.headers.authorization || '';
-    const user = getUser(token);
-    return { prisma }
-  }
+    const auth = readJWT(token);
+    return { prisma, auth };
+  },
 });
 
-
-
-server.listen().then(info => {
+server.listen().then((info) => {
   console.log('running on ', info.port);
 });

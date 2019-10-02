@@ -162,6 +162,7 @@ type Query {
   feed: [Joke!]!
   joke(where: JokeWhereUniqueInput!): Joke
   jokesByUser(email: String): [Joke!]!
+  myJokes: [Joke!]!
 }
 
 type User {
