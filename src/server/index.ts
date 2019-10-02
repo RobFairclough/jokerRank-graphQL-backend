@@ -10,6 +10,8 @@ const server = new ApolloServer({
     const auth = readJWT(token);
     return { prisma, auth };
   },
+  introspection: true,
+  playground: true
 });
 
 server.listen(process.env.PORT || 4000).then((info) => {
