@@ -5,7 +5,7 @@ import { stringArg, idArg } from 'nexus';
 export const Query = prismaObjectType({
   name: 'Query',
   definition(t) {
-    t.prismaFields(['joke']);
+    t.prismaFields(['joke', 'users', 'jokes', 'comments']);
     t.list.field('feed', {
       type: 'Joke',
       resolve: (_, args, ctx) => ctx.prisma.jokes({ where: { published: true } }),

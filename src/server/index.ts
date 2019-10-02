@@ -10,6 +10,7 @@ const server = new ApolloServer({
     const auth = readJWT(token);
     return { prisma, auth };
   },
+  // todo disable before live
   introspection: true,
   playground: true
 });
