@@ -10,7 +10,7 @@ import { createJWT } from '../utils/auth';
 export const Mutation = prismaObjectType({
   name: 'Mutation',
   definition(t) {
-    t.prismaFields(['createUser', 'deleteJoke']);
+    t.prismaFields(['deleteJoke']);
     t.field('createDraft', {
       type: 'Joke',
       args: {
@@ -57,11 +57,13 @@ export const Mutation = prismaObjectType({
       type: 'String',
       nullable: true,
       args: { email: stringArg(), password: stringArg() },
-      resolve: async (_, { email, password }, ctx) => {
+      resolve: async (_, { email, password }, ctx: Context) => {
+        console.log({ ctx });
         const user: User = await ctx.prisma.user({ email });
+        if (!user) return null;
         // verify user exists
         // encrypt input password and check against stored password
-        const isValidated = !!user && bcrypt.compareSync(password, user.password);
+        const isValidated = bcrypt.compareSync(password, user.password);
         if (isValidated) {
           const token = createJWT(user);
           // generate and return token

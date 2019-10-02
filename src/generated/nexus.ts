@@ -11,15 +11,6 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  CommentCreateManyWithoutJokeInput: { // input type
-    connect?: NexusGenInputs['CommentWhereUniqueInput'][] | null; // [CommentWhereUniqueInput!]
-    create?: NexusGenInputs['CommentCreateWithoutJokeInput'][] | null; // [CommentCreateWithoutJokeInput!]
-  }
-  CommentCreateWithoutJokeInput: { // input type
-    author?: NexusGenInputs['UserCreateOneInput'] | null; // UserCreateOneInput
-    content: string; // String!
-    id?: string | null; // ID
-  }
   CommentWhereInput: { // input type
     AND?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
     author?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -54,19 +45,6 @@ export interface NexusGenInputs {
     joke?: NexusGenInputs['JokeWhereInput'] | null; // JokeWhereInput
     NOT?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
     OR?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
-  }
-  CommentWhereUniqueInput: { // input type
-    id?: string | null; // ID
-  }
-  JokeCreateManyWithoutAuthorInput: { // input type
-    connect?: NexusGenInputs['JokeWhereUniqueInput'][] | null; // [JokeWhereUniqueInput!]
-    create?: NexusGenInputs['JokeCreateWithoutAuthorInput'][] | null; // [JokeCreateWithoutAuthorInput!]
-  }
-  JokeCreateWithoutAuthorInput: { // input type
-    comments?: NexusGenInputs['CommentCreateManyWithoutJokeInput'] | null; // CommentCreateManyWithoutJokeInput
-    content: string; // String!
-    id?: string | null; // ID
-    published?: boolean | null; // Boolean
   }
   JokeWhereInput: { // input type
     AND?: NexusGenInputs['JokeWhereInput'][] | null; // [JokeWhereInput!]
@@ -109,17 +87,6 @@ export interface NexusGenInputs {
   }
   JokeWhereUniqueInput: { // input type
     id?: string | null; // ID
-  }
-  UserCreateInput: { // input type
-    email: string; // String!
-    id?: string | null; // ID
-    jokes?: NexusGenInputs['JokeCreateManyWithoutAuthorInput'] | null; // JokeCreateManyWithoutAuthorInput
-    name: string; // String!
-    password: string; // String!
-  }
-  UserCreateOneInput: { // input type
-    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-    create?: NexusGenInputs['UserCreateInput'] | null; // UserCreateInput
   }
   UserWhereInput: { // input type
     AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
@@ -185,10 +152,6 @@ export interface NexusGenInputs {
     password_not_starts_with?: string | null; // String
     password_starts_with?: string | null; // String
   }
-  UserWhereUniqueInput: { // input type
-    email?: string | null; // String
-    id?: string | null; // ID
-  }
 }
 
 export interface NexusGenEnums {
@@ -222,18 +185,10 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-  CommentCreateManyWithoutJokeInput: NexusGenInputs['CommentCreateManyWithoutJokeInput'];
-  CommentCreateWithoutJokeInput: NexusGenInputs['CommentCreateWithoutJokeInput'];
   CommentWhereInput: NexusGenInputs['CommentWhereInput'];
-  CommentWhereUniqueInput: NexusGenInputs['CommentWhereUniqueInput'];
-  JokeCreateManyWithoutAuthorInput: NexusGenInputs['JokeCreateManyWithoutAuthorInput'];
-  JokeCreateWithoutAuthorInput: NexusGenInputs['JokeCreateWithoutAuthorInput'];
   JokeWhereInput: NexusGenInputs['JokeWhereInput'];
   JokeWhereUniqueInput: NexusGenInputs['JokeWhereUniqueInput'];
-  UserCreateInput: NexusGenInputs['UserCreateInput'];
-  UserCreateOneInput: NexusGenInputs['UserCreateOneInput'];
   UserWhereInput: NexusGenInputs['UserWhereInput'];
-  UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
   CommentOrderByInput: NexusGenEnums['CommentOrderByInput'];
   JokeOrderByInput: NexusGenEnums['JokeOrderByInput'];
 }
@@ -254,7 +209,6 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createDraft: NexusGenRootTypes['Joke']; // Joke!
-    createUser: NexusGenRootTypes['User']; // User!
     deleteJoke: NexusGenRootTypes['Joke'] | null; // Joke
     login: string | null; // String
     publish: NexusGenRootTypes['Joke'] | null; // Joke
@@ -292,9 +246,6 @@ export interface NexusGenArgTypes {
     createDraft: { // args
       authorId?: string | null; // ID
       title?: string | null; // String
-    }
-    createUser: { // args
-      data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
     }
     deleteJoke: { // args
       where: NexusGenInputs['JokeWhereUniqueInput']; // JokeWhereUniqueInput!
@@ -343,7 +294,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Comment" | "Joke" | "Mutation" | "Query" | "User";
 
-export type NexusGenInputNames = "CommentCreateManyWithoutJokeInput" | "CommentCreateWithoutJokeInput" | "CommentWhereInput" | "CommentWhereUniqueInput" | "JokeCreateManyWithoutAuthorInput" | "JokeCreateWithoutAuthorInput" | "JokeWhereInput" | "JokeWhereUniqueInput" | "UserCreateInput" | "UserCreateOneInput" | "UserWhereInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "CommentWhereInput" | "JokeWhereInput" | "JokeWhereUniqueInput" | "UserWhereInput";
 
 export type NexusGenEnumNames = "CommentOrderByInput" | "JokeOrderByInput";
 

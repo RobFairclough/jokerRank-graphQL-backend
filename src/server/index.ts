@@ -1,7 +1,7 @@
 import { prisma } from '../generated/prisma-client';
 import { ApolloServer } from 'apollo-server';
 import { schema } from '../graphql/schema';
-import { getUser, readJWT } from '../utils/auth';
+import { readJWT } from '../utils/auth';
 
 const server = new ApolloServer({
   schema,

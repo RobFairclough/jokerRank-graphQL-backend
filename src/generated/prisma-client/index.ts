@@ -1537,6 +1537,6 @@ export const models: Model[] = [
 export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
   models,
-  endpoint: `http://localhost:4466`
+  endpoint: `https://jokerrank-2bec00a129.herokuapp.com`
 });
 export const prisma = new Prisma();

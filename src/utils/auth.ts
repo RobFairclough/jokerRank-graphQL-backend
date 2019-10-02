@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { User } from '../generated/prisma-client';
+import { AuthToken } from '../types/Server';
 
 // todo movetoconfig
 const key = 'buster';
@@ -10,17 +11,15 @@ export const createJWT = (user: User): string => {
   return token;
 };
 
-export const readJWT = (token: string): object | null => {
+export const readJWT = (token: string): AuthToken | null => {
   try {
-    const decoded = jwt.verify(token, key);
-    if (typeof decoded === 'object') return decoded;
+    const trimmedToken = token.split('Bearer: ')[1]
+    const decoded = jwt.verify(trimmedToken, key);
+
+    if (typeof decoded !== 'string') return decoded as AuthToken;
     return null;
   } catch {
     return null;
   }
 };
 
-// todo create in-code types? other introspection possible?
-export const getUser = (token: string): object =>
-  // decode jwt, return user object
-  ({});

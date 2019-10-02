@@ -24,9 +24,8 @@ export const Query = prismaObjectType({
       type: 'Joke',
       resolve: (_, args, ctx) => {
         const { auth } = ctx;
-        if (!auth || !auth.id) {
-          return null;
-        }
+        if (!auth?.id) return null
+
         return ctx.prisma.jokes({ where: { author: { id: auth.id } } });
       },
     });

@@ -9,17 +9,6 @@ type Comment {
   joke: Joke
 }
 
-input CommentCreateManyWithoutJokeInput {
-  connect: [CommentWhereUniqueInput!]
-  create: [CommentCreateWithoutJokeInput!]
-}
-
-input CommentCreateWithoutJokeInput {
-  author: UserCreateOneInput
-  content: String!
-  id: ID
-}
-
 enum CommentOrderByInput {
   content_ASC
   content_DESC
@@ -67,28 +56,12 @@ input CommentWhereInput {
   OR: [CommentWhereInput!]
 }
 
-input CommentWhereUniqueInput {
-  id: ID
-}
-
 type Joke {
   author: User
   comments(after: String, before: String, first: Int, last: Int, orderBy: CommentOrderByInput, skip: Int, where: CommentWhereInput): [Comment!]
   content: String!
   id: ID!
   published: Boolean!
-}
-
-input JokeCreateManyWithoutAuthorInput {
-  connect: [JokeWhereUniqueInput!]
-  create: [JokeCreateWithoutAuthorInput!]
-}
-
-input JokeCreateWithoutAuthorInput {
-  comments: CommentCreateManyWithoutJokeInput
-  content: String!
-  id: ID
-  published: Boolean
 }
 
 enum JokeOrderByInput {
@@ -150,7 +123,6 @@ input JokeWhereUniqueInput {
 
 type Mutation {
   createDraft(authorId: ID, title: String): Joke!
-  createUser(data: UserCreateInput!): User!
   deleteJoke(where: JokeWhereUniqueInput!): Joke
   login(email: String, password: String): String
   publish(id: ID): Joke
@@ -171,19 +143,6 @@ type User {
   jokes(after: String, before: String, first: Int, last: Int, orderBy: JokeOrderByInput, skip: Int, where: JokeWhereInput): [Joke!]
   name: String!
   password: String!
-}
-
-input UserCreateInput {
-  email: String!
-  id: ID
-  jokes: JokeCreateManyWithoutAuthorInput
-  name: String!
-  password: String!
-}
-
-input UserCreateOneInput {
-  connect: UserWhereUniqueInput
-  create: UserCreateInput
 }
 
 input UserWhereInput {
@@ -249,9 +208,4 @@ input UserWhereInput {
   password_not_in: [String!]
   password_not_starts_with: String
   password_starts_with: String
-}
-
-input UserWhereUniqueInput {
-  email: String
-  id: ID
 }
