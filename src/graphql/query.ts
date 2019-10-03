@@ -31,3 +31,10 @@ export const Query = prismaObjectType({
     });
   },
 });
+
+export const User = prismaObjectType({
+  name: 'User',
+  definition(t) {
+    t.prismaFields({filter: ['password']});
+  }
+})

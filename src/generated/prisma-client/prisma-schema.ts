@@ -27,6 +27,8 @@ type Comment {
   author: User
   joke: Joke
   content: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type CommentConnection {
@@ -63,11 +65,17 @@ enum CommentOrderByInput {
   id_DESC
   content_ASC
   content_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CommentPreviousValues {
   id: ID!
   content: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input CommentScalarWhereInput {
@@ -99,6 +107,22 @@ input CommentScalarWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [CommentScalarWhereInput!]
   OR: [CommentScalarWhereInput!]
   NOT: [CommentScalarWhereInput!]
@@ -200,6 +224,22 @@ input CommentWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [CommentWhereInput!]
   OR: [CommentWhereInput!]
   NOT: [CommentWhereInput!]
@@ -209,12 +249,16 @@ input CommentWhereUniqueInput {
   id: ID
 }
 
+scalar DateTime
+
 type Joke {
   id: ID!
   content: String!
   published: Boolean!
   author: User
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type JokeConnection {
@@ -272,12 +316,18 @@ enum JokeOrderByInput {
   content_DESC
   published_ASC
   published_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type JokePreviousValues {
   id: ID!
   content: String!
   published: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input JokeScalarWhereInput {
@@ -311,6 +361,22 @@ input JokeScalarWhereInput {
   content_not_ends_with: String
   published: Boolean
   published_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [JokeScalarWhereInput!]
   OR: [JokeScalarWhereInput!]
   NOT: [JokeScalarWhereInput!]
@@ -461,6 +527,22 @@ input JokeWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [JokeWhereInput!]
   OR: [JokeWhereInput!]
   NOT: [JokeWhereInput!]
@@ -468,6 +550,7 @@ input JokeWhereInput {
 
 input JokeWhereUniqueInput {
   id: ID
+  content: String
 }
 
 scalar Long
@@ -545,6 +628,9 @@ type User {
   name: String!
   password: String!
   jokes(where: JokeWhereInput, orderBy: JokeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Joke!]
+  type: UserType
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -559,6 +645,7 @@ input UserCreateInput {
   name: String!
   password: String!
   jokes: JokeCreateManyWithoutAuthorInput
+  type: UserType
 }
 
 input UserCreateOneInput {
@@ -576,6 +663,7 @@ input UserCreateWithoutJokesInput {
   email: String!
   name: String!
   password: String!
+  type: UserType
 }
 
 type UserEdge {
@@ -592,6 +680,12 @@ enum UserOrderByInput {
   name_DESC
   password_ASC
   password_DESC
+  type_ASC
+  type_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
@@ -599,6 +693,9 @@ type UserPreviousValues {
   email: String!
   name: String!
   password: String!
+  type: UserType
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -619,11 +716,17 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+enum UserType {
+  ADMIN
+  STANDARD
+}
+
 input UserUpdateDataInput {
   email: String
   name: String
   password: String
   jokes: JokeUpdateManyWithoutAuthorInput
+  type: UserType
 }
 
 input UserUpdateInput {
@@ -631,12 +734,14 @@ input UserUpdateInput {
   name: String
   password: String
   jokes: JokeUpdateManyWithoutAuthorInput
+  type: UserType
 }
 
 input UserUpdateManyMutationInput {
   email: String
   name: String
   password: String
+  type: UserType
 }
 
 input UserUpdateOneInput {
@@ -661,6 +766,7 @@ input UserUpdateWithoutJokesDataInput {
   email: String
   name: String
   password: String
+  type: UserType
 }
 
 input UserUpsertNestedInput {
@@ -733,6 +839,26 @@ input UserWhereInput {
   jokes_every: JokeWhereInput
   jokes_some: JokeWhereInput
   jokes_none: JokeWhereInput
+  type: UserType
+  type_not: UserType
+  type_in: [UserType!]
+  type_not_in: [UserType!]
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

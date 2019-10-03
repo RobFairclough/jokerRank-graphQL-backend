@@ -5,8 +5,10 @@
 type Comment {
   author: User
   content: String!
+  createdAt: DateTime!
   id: ID!
   joke: Joke
+  updatedAt: DateTime!
 }
 
 enum CommentOrderByInput {
@@ -37,6 +39,14 @@ input CommentWhereInput {
   content_not_in: [String!]
   content_not_starts_with: String
   content_starts_with: String
+  createdAt: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not: DateTime
+  createdAt_not_in: [DateTime!]
   id: ID
   id_contains: ID
   id_ends_with: ID
@@ -54,14 +64,26 @@ input CommentWhereInput {
   joke: JokeWhereInput
   NOT: [CommentWhereInput!]
   OR: [CommentWhereInput!]
+  updatedAt: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not: DateTime
+  updatedAt_not_in: [DateTime!]
 }
+
+scalar DateTime
 
 type Joke {
   author: User
   comments(after: String, before: String, first: Int, last: Int, orderBy: CommentOrderByInput, skip: Int, where: CommentWhereInput): [Comment!]
   content: String!
+  createdAt: DateTime!
   id: ID!
   published: Boolean!
+  updatedAt: DateTime!
 }
 
 enum JokeOrderByInput {
@@ -97,6 +119,14 @@ input JokeWhereInput {
   content_not_in: [String!]
   content_not_starts_with: String
   content_starts_with: String
+  createdAt: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not: DateTime
+  createdAt_not_in: [DateTime!]
   id: ID
   id_contains: ID
   id_ends_with: ID
@@ -115,9 +145,18 @@ input JokeWhereInput {
   OR: [JokeWhereInput!]
   published: Boolean
   published_not: Boolean
+  updatedAt: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not: DateTime
+  updatedAt_not_in: [DateTime!]
 }
 
 input JokeWhereUniqueInput {
+  content: String
   id: ID
 }
 
@@ -130,23 +169,58 @@ type Mutation {
 }
 
 type Query {
+  comments(after: String, before: String, first: Int, last: Int, orderBy: CommentOrderByInput, skip: Int, where: CommentWhereInput): [Comment!]!
   commentsByUser(email: String): [Comment!]!
   feed: [Joke!]!
   joke(where: JokeWhereUniqueInput!): Joke
+  jokes(after: String, before: String, first: Int, last: Int, orderBy: JokeOrderByInput, skip: Int, where: JokeWhereInput): [Joke!]!
   jokesByUser(email: String): [Joke!]!
   myJokes: [Joke!]!
+  users(after: String, before: String, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): [User!]!
 }
 
 type User {
+  createdAt: DateTime!
   email: String!
   id: ID!
   jokes(after: String, before: String, first: Int, last: Int, orderBy: JokeOrderByInput, skip: Int, where: JokeWhereInput): [Joke!]
   name: String!
-  password: String!
+  type: UserType
+  updatedAt: DateTime!
+}
+
+enum UserOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  email_ASC
+  email_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  password_ASC
+  password_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+enum UserType {
+  ADMIN
+  STANDARD
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
+  createdAt: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not: DateTime
+  createdAt_not_in: [DateTime!]
   email: String
   email_contains: String
   email_ends_with: String
@@ -208,4 +282,16 @@ input UserWhereInput {
   password_not_in: [String!]
   password_not_starts_with: String
   password_starts_with: String
+  type: UserType
+  type_in: [UserType!]
+  type_not: UserType
+  type_not_in: [UserType!]
+  updatedAt: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not: DateTime
+  updatedAt_not_in: [DateTime!]
 }

@@ -141,6 +141,7 @@ export interface NexusPrismaTypes {
     }
   }
   enumTypes: {
+    UserType: UserTypeValues,
     JokeOrderByInput: JokeOrderByInputValues,
     CommentOrderByInput: CommentOrderByInputValues,
     UserOrderByInput: UserOrderByInputValues,
@@ -424,6 +425,9 @@ type UserObject =
   | { name: 'name', args?: [] | false, alias?: string  } 
   | { name: 'password', args?: [] | false, alias?: string  } 
   | { name: 'jokes', args?: UserJokesArgs[] | false, alias?: string  } 
+  | { name: 'type', args?: [] | false, alias?: string  } 
+  | { name: 'createdAt', args?: [] | false, alias?: string  } 
+  | { name: 'updatedAt', args?: [] | false, alias?: string  } 
 
 type UserFields =
   | 'id'
@@ -431,6 +435,9 @@ type UserFields =
   | 'name'
   | 'password'
   | 'jokes'
+  | 'type'
+  | 'createdAt'
+  | 'updatedAt'
 
 
 type UserJokesArgs =
@@ -489,6 +496,35 @@ export interface UserFieldDetails {
       info?: GraphQLResolveInfo
     ) => Promise<prisma.Joke[]> | prisma.Joke[]
   }
+  type: {
+    type: 'UserType'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"User">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.UserType | null> | prisma.UserType | null
+  }
+  createdAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  updatedAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
 }
   
 
@@ -501,6 +537,8 @@ type JokeObject =
   | { name: 'published', args?: [] | false, alias?: string  } 
   | { name: 'author', args?: [] | false, alias?: string  } 
   | { name: 'comments', args?: JokeCommentsArgs[] | false, alias?: string  } 
+  | { name: 'createdAt', args?: [] | false, alias?: string  } 
+  | { name: 'updatedAt', args?: [] | false, alias?: string  } 
 
 type JokeFields =
   | 'id'
@@ -508,6 +546,8 @@ type JokeFields =
   | 'published'
   | 'author'
   | 'comments'
+  | 'createdAt'
+  | 'updatedAt'
 
 
 type JokeCommentsArgs =
@@ -571,6 +611,22 @@ export interface JokeFieldDetails {
       info?: GraphQLResolveInfo
     ) => Promise<prisma.Comment[]> | prisma.Comment[]
   }
+  createdAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  updatedAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
 }
   
 
@@ -582,12 +638,16 @@ type CommentObject =
   | { name: 'author', args?: [] | false, alias?: string  } 
   | { name: 'joke', args?: [] | false, alias?: string  } 
   | { name: 'content', args?: [] | false, alias?: string  } 
+  | { name: 'createdAt', args?: [] | false, alias?: string  } 
+  | { name: 'updatedAt', args?: [] | false, alias?: string  } 
 
 type CommentFields =
   | 'id'
   | 'author'
   | 'joke'
   | 'content'
+  | 'createdAt'
+  | 'updatedAt'
 
 
 
@@ -630,6 +690,22 @@ export interface CommentFieldDetails {
   }
   content: {
     type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  createdAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  updatedAt: {
+    type: 'DateTime'
     args: {}
     description: string
     list: undefined
@@ -1882,12 +1958,18 @@ type UserPreviousValuesObject =
   | { name: 'email', args?: [] | false, alias?: string  } 
   | { name: 'name', args?: [] | false, alias?: string  } 
   | { name: 'password', args?: [] | false, alias?: string  } 
+  | { name: 'type', args?: [] | false, alias?: string  } 
+  | { name: 'createdAt', args?: [] | false, alias?: string  } 
+  | { name: 'updatedAt', args?: [] | false, alias?: string  } 
 
 type UserPreviousValuesFields =
   | 'id'
   | 'email'
   | 'name'
   | 'password'
+  | 'type'
+  | 'createdAt'
+  | 'updatedAt'
 
 
 
@@ -1920,6 +2002,35 @@ export interface UserPreviousValuesFieldDetails {
   }
   password: {
     type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  type: {
+    type: 'UserType'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"UserPreviousValues">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.UserType | null> | prisma.UserType | null
+  }
+  createdAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  updatedAt: {
+    type: 'DateTime'
     args: {}
     description: string
     list: undefined
@@ -2006,11 +2117,15 @@ type JokePreviousValuesObject =
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'content', args?: [] | false, alias?: string  } 
   | { name: 'published', args?: [] | false, alias?: string  } 
+  | { name: 'createdAt', args?: [] | false, alias?: string  } 
+  | { name: 'updatedAt', args?: [] | false, alias?: string  } 
 
 type JokePreviousValuesFields =
   | 'id'
   | 'content'
   | 'published'
+  | 'createdAt'
+  | 'updatedAt'
 
 
 
@@ -2035,6 +2150,22 @@ export interface JokePreviousValuesFieldDetails {
   }
   published: {
     type: 'Boolean'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  createdAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  updatedAt: {
+    type: 'DateTime'
     args: {}
     description: string
     list: undefined
@@ -2120,10 +2251,14 @@ type CommentPreviousValuesObject =
   | CommentPreviousValuesFields
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'content', args?: [] | false, alias?: string  } 
+  | { name: 'createdAt', args?: [] | false, alias?: string  } 
+  | { name: 'updatedAt', args?: [] | false, alias?: string  } 
 
 type CommentPreviousValuesFields =
   | 'id'
   | 'content'
+  | 'createdAt'
+  | 'updatedAt'
 
 
 
@@ -2140,6 +2275,22 @@ export interface CommentPreviousValuesFieldDetails {
   }
   content: {
     type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  createdAt: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  updatedAt: {
+    type: 'DateTime'
     args: {}
     description: string
     list: undefined
@@ -2299,6 +2450,22 @@ export interface JokeWhereInput {
   comments_every?: CommentWhereInput | null
   comments_some?: CommentWhereInput | null
   comments_none?: CommentWhereInput | null
+  createdAt?: string | null
+  createdAt_not?: string | null
+  createdAt_in?: string[]
+  createdAt_not_in?: string[]
+  createdAt_lt?: string | null
+  createdAt_lte?: string | null
+  createdAt_gt?: string | null
+  createdAt_gte?: string | null
+  updatedAt?: string | null
+  updatedAt_not?: string | null
+  updatedAt_in?: string[]
+  updatedAt_not_in?: string[]
+  updatedAt_lt?: string | null
+  updatedAt_lte?: string | null
+  updatedAt_gt?: string | null
+  updatedAt_gte?: string | null
   AND?: JokeWhereInput[]
   OR?: JokeWhereInput[]
   NOT?: JokeWhereInput[]
@@ -2339,6 +2506,22 @@ export type JokeWhereInputInputObject =
   | { name: 'comments_every', alias?: string  } 
   | { name: 'comments_some', alias?: string  } 
   | { name: 'comments_none', alias?: string  } 
+  | { name: 'createdAt', alias?: string  } 
+  | { name: 'createdAt_not', alias?: string  } 
+  | { name: 'createdAt_in', alias?: string  } 
+  | { name: 'createdAt_not_in', alias?: string  } 
+  | { name: 'createdAt_lt', alias?: string  } 
+  | { name: 'createdAt_lte', alias?: string  } 
+  | { name: 'createdAt_gt', alias?: string  } 
+  | { name: 'createdAt_gte', alias?: string  } 
+  | { name: 'updatedAt', alias?: string  } 
+  | { name: 'updatedAt_not', alias?: string  } 
+  | { name: 'updatedAt_in', alias?: string  } 
+  | { name: 'updatedAt_not_in', alias?: string  } 
+  | { name: 'updatedAt_lt', alias?: string  } 
+  | { name: 'updatedAt_lte', alias?: string  } 
+  | { name: 'updatedAt_gt', alias?: string  } 
+  | { name: 'updatedAt_gte', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
@@ -2403,6 +2586,26 @@ export interface UserWhereInput {
   jokes_every?: JokeWhereInput | null
   jokes_some?: JokeWhereInput | null
   jokes_none?: JokeWhereInput | null
+  type?: prisma.UserType | null
+  type_not?: prisma.UserType | null
+  type_in?: prisma.UserType[]
+  type_not_in?: prisma.UserType[]
+  createdAt?: string | null
+  createdAt_not?: string | null
+  createdAt_in?: string[]
+  createdAt_not_in?: string[]
+  createdAt_lt?: string | null
+  createdAt_lte?: string | null
+  createdAt_gt?: string | null
+  createdAt_gte?: string | null
+  updatedAt?: string | null
+  updatedAt_not?: string | null
+  updatedAt_in?: string[]
+  updatedAt_not_in?: string[]
+  updatedAt_lt?: string | null
+  updatedAt_lte?: string | null
+  updatedAt_gt?: string | null
+  updatedAt_gte?: string | null
   AND?: UserWhereInput[]
   OR?: UserWhereInput[]
   NOT?: UserWhereInput[]
@@ -2468,6 +2671,26 @@ export type UserWhereInputInputObject =
   | { name: 'jokes_every', alias?: string  } 
   | { name: 'jokes_some', alias?: string  } 
   | { name: 'jokes_none', alias?: string  } 
+  | { name: 'type', alias?: string  } 
+  | { name: 'type_not', alias?: string  } 
+  | { name: 'type_in', alias?: string  } 
+  | { name: 'type_not_in', alias?: string  } 
+  | { name: 'createdAt', alias?: string  } 
+  | { name: 'createdAt_not', alias?: string  } 
+  | { name: 'createdAt_in', alias?: string  } 
+  | { name: 'createdAt_not_in', alias?: string  } 
+  | { name: 'createdAt_lt', alias?: string  } 
+  | { name: 'createdAt_lte', alias?: string  } 
+  | { name: 'createdAt_gt', alias?: string  } 
+  | { name: 'createdAt_gte', alias?: string  } 
+  | { name: 'updatedAt', alias?: string  } 
+  | { name: 'updatedAt_not', alias?: string  } 
+  | { name: 'updatedAt_in', alias?: string  } 
+  | { name: 'updatedAt_not_in', alias?: string  } 
+  | { name: 'updatedAt_lt', alias?: string  } 
+  | { name: 'updatedAt_lte', alias?: string  } 
+  | { name: 'updatedAt_gt', alias?: string  } 
+  | { name: 'updatedAt_gte', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
@@ -2503,6 +2726,22 @@ export interface CommentWhereInput {
   content_not_starts_with?: string | null
   content_ends_with?: string | null
   content_not_ends_with?: string | null
+  createdAt?: string | null
+  createdAt_not?: string | null
+  createdAt_in?: string[]
+  createdAt_not_in?: string[]
+  createdAt_lt?: string | null
+  createdAt_lte?: string | null
+  createdAt_gt?: string | null
+  createdAt_gte?: string | null
+  updatedAt?: string | null
+  updatedAt_not?: string | null
+  updatedAt_in?: string[]
+  updatedAt_not_in?: string[]
+  updatedAt_lt?: string | null
+  updatedAt_lte?: string | null
+  updatedAt_gt?: string | null
+  updatedAt_gte?: string | null
   AND?: CommentWhereInput[]
   OR?: CommentWhereInput[]
   NOT?: CommentWhereInput[]
@@ -2539,16 +2778,34 @@ export type CommentWhereInputInputObject =
   | { name: 'content_not_starts_with', alias?: string  } 
   | { name: 'content_ends_with', alias?: string  } 
   | { name: 'content_not_ends_with', alias?: string  } 
+  | { name: 'createdAt', alias?: string  } 
+  | { name: 'createdAt_not', alias?: string  } 
+  | { name: 'createdAt_in', alias?: string  } 
+  | { name: 'createdAt_not_in', alias?: string  } 
+  | { name: 'createdAt_lt', alias?: string  } 
+  | { name: 'createdAt_lte', alias?: string  } 
+  | { name: 'createdAt_gt', alias?: string  } 
+  | { name: 'createdAt_gte', alias?: string  } 
+  | { name: 'updatedAt', alias?: string  } 
+  | { name: 'updatedAt_not', alias?: string  } 
+  | { name: 'updatedAt_in', alias?: string  } 
+  | { name: 'updatedAt_not_in', alias?: string  } 
+  | { name: 'updatedAt_lt', alias?: string  } 
+  | { name: 'updatedAt_lte', alias?: string  } 
+  | { name: 'updatedAt_gt', alias?: string  } 
+  | { name: 'updatedAt_gte', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
   
 export interface JokeWhereUniqueInput {
   id?: string | null
+  content?: string | null
 }
 export type JokeWhereUniqueInputInputObject =
   | Extract<keyof JokeWhereUniqueInput, string>
   | { name: 'id', alias?: string  } 
+  | { name: 'content', alias?: string  } 
   
 export interface CommentWhereUniqueInput {
   id?: string | null
@@ -2629,6 +2886,7 @@ export interface UserCreateInput {
   name?: string
   password?: string
   jokes?: JokeCreateManyWithoutAuthorInput | null
+  type?: prisma.UserType | null
 }
 export type UserCreateInputInputObject =
   | Extract<keyof UserCreateInput, string>
@@ -2637,6 +2895,7 @@ export type UserCreateInputInputObject =
   | { name: 'name', alias?: string  } 
   | { name: 'password', alias?: string  } 
   | { name: 'jokes', alias?: string  } 
+  | { name: 'type', alias?: string  } 
   
 export interface JokeCreateManyWithoutAuthorInput {
   create?: JokeCreateWithoutAuthorInput[]
@@ -2694,6 +2953,7 @@ export interface UserUpdateInput {
   name?: string | null
   password?: string | null
   jokes?: JokeUpdateManyWithoutAuthorInput | null
+  type?: prisma.UserType | null
 }
 export type UserUpdateInputInputObject =
   | Extract<keyof UserUpdateInput, string>
@@ -2701,6 +2961,7 @@ export type UserUpdateInputInputObject =
   | { name: 'name', alias?: string  } 
   | { name: 'password', alias?: string  } 
   | { name: 'jokes', alias?: string  } 
+  | { name: 'type', alias?: string  } 
   
 export interface JokeUpdateManyWithoutAuthorInput {
   create?: JokeCreateWithoutAuthorInput[]
@@ -2808,6 +3069,7 @@ export interface UserUpdateDataInput {
   name?: string | null
   password?: string | null
   jokes?: JokeUpdateManyWithoutAuthorInput | null
+  type?: prisma.UserType | null
 }
 export type UserUpdateDataInputInputObject =
   | Extract<keyof UserUpdateDataInput, string>
@@ -2815,6 +3077,7 @@ export type UserUpdateDataInputInputObject =
   | { name: 'name', alias?: string  } 
   | { name: 'password', alias?: string  } 
   | { name: 'jokes', alias?: string  } 
+  | { name: 'type', alias?: string  } 
   
 export interface UserUpsertNestedInput {
   update?: UserUpdateDataInput
@@ -2865,6 +3128,22 @@ export interface CommentScalarWhereInput {
   content_not_starts_with?: string | null
   content_ends_with?: string | null
   content_not_ends_with?: string | null
+  createdAt?: string | null
+  createdAt_not?: string | null
+  createdAt_in?: string[]
+  createdAt_not_in?: string[]
+  createdAt_lt?: string | null
+  createdAt_lte?: string | null
+  createdAt_gt?: string | null
+  createdAt_gte?: string | null
+  updatedAt?: string | null
+  updatedAt_not?: string | null
+  updatedAt_in?: string[]
+  updatedAt_not_in?: string[]
+  updatedAt_lt?: string | null
+  updatedAt_lte?: string | null
+  updatedAt_gt?: string | null
+  updatedAt_gte?: string | null
   AND?: CommentScalarWhereInput[]
   OR?: CommentScalarWhereInput[]
   NOT?: CommentScalarWhereInput[]
@@ -2899,6 +3178,22 @@ export type CommentScalarWhereInputInputObject =
   | { name: 'content_not_starts_with', alias?: string  } 
   | { name: 'content_ends_with', alias?: string  } 
   | { name: 'content_not_ends_with', alias?: string  } 
+  | { name: 'createdAt', alias?: string  } 
+  | { name: 'createdAt_not', alias?: string  } 
+  | { name: 'createdAt_in', alias?: string  } 
+  | { name: 'createdAt_not_in', alias?: string  } 
+  | { name: 'createdAt_lt', alias?: string  } 
+  | { name: 'createdAt_lte', alias?: string  } 
+  | { name: 'createdAt_gt', alias?: string  } 
+  | { name: 'createdAt_gte', alias?: string  } 
+  | { name: 'updatedAt', alias?: string  } 
+  | { name: 'updatedAt_not', alias?: string  } 
+  | { name: 'updatedAt_in', alias?: string  } 
+  | { name: 'updatedAt_not_in', alias?: string  } 
+  | { name: 'updatedAt_lt', alias?: string  } 
+  | { name: 'updatedAt_lte', alias?: string  } 
+  | { name: 'updatedAt_gt', alias?: string  } 
+  | { name: 'updatedAt_gte', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
@@ -2961,6 +3256,22 @@ export interface JokeScalarWhereInput {
   content_not_ends_with?: string | null
   published?: boolean | null
   published_not?: boolean | null
+  createdAt?: string | null
+  createdAt_not?: string | null
+  createdAt_in?: string[]
+  createdAt_not_in?: string[]
+  createdAt_lt?: string | null
+  createdAt_lte?: string | null
+  createdAt_gt?: string | null
+  createdAt_gte?: string | null
+  updatedAt?: string | null
+  updatedAt_not?: string | null
+  updatedAt_in?: string[]
+  updatedAt_not_in?: string[]
+  updatedAt_lt?: string | null
+  updatedAt_lte?: string | null
+  updatedAt_gt?: string | null
+  updatedAt_gte?: string | null
   AND?: JokeScalarWhereInput[]
   OR?: JokeScalarWhereInput[]
   NOT?: JokeScalarWhereInput[]
@@ -2997,6 +3308,22 @@ export type JokeScalarWhereInputInputObject =
   | { name: 'content_not_ends_with', alias?: string  } 
   | { name: 'published', alias?: string  } 
   | { name: 'published_not', alias?: string  } 
+  | { name: 'createdAt', alias?: string  } 
+  | { name: 'createdAt_not', alias?: string  } 
+  | { name: 'createdAt_in', alias?: string  } 
+  | { name: 'createdAt_not_in', alias?: string  } 
+  | { name: 'createdAt_lt', alias?: string  } 
+  | { name: 'createdAt_lte', alias?: string  } 
+  | { name: 'createdAt_gt', alias?: string  } 
+  | { name: 'createdAt_gte', alias?: string  } 
+  | { name: 'updatedAt', alias?: string  } 
+  | { name: 'updatedAt_not', alias?: string  } 
+  | { name: 'updatedAt_in', alias?: string  } 
+  | { name: 'updatedAt_not_in', alias?: string  } 
+  | { name: 'updatedAt_lt', alias?: string  } 
+  | { name: 'updatedAt_lte', alias?: string  } 
+  | { name: 'updatedAt_gt', alias?: string  } 
+  | { name: 'updatedAt_gte', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
@@ -3023,12 +3350,14 @@ export interface UserUpdateManyMutationInput {
   email?: string | null
   name?: string | null
   password?: string | null
+  type?: prisma.UserType | null
 }
 export type UserUpdateManyMutationInputInputObject =
   | Extract<keyof UserUpdateManyMutationInput, string>
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'type', alias?: string  } 
   
 export interface JokeCreateInput {
   id?: string | null
@@ -3059,6 +3388,7 @@ export interface UserCreateWithoutJokesInput {
   email?: string
   name?: string
   password?: string
+  type?: prisma.UserType | null
 }
 export type UserCreateWithoutJokesInputInputObject =
   | Extract<keyof UserCreateWithoutJokesInput, string>
@@ -3066,6 +3396,7 @@ export type UserCreateWithoutJokesInputInputObject =
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'type', alias?: string  } 
   
 export interface JokeUpdateInput {
   content?: string | null
@@ -3101,12 +3432,14 @@ export interface UserUpdateWithoutJokesDataInput {
   email?: string | null
   name?: string | null
   password?: string | null
+  type?: prisma.UserType | null
 }
 export type UserUpdateWithoutJokesDataInputInputObject =
   | Extract<keyof UserUpdateWithoutJokesDataInput, string>
   | { name: 'email', alias?: string  } 
   | { name: 'name', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'type', alias?: string  } 
   
 export interface UserUpsertWithoutJokesInput {
   update?: UserUpdateWithoutJokesDataInput
@@ -3380,6 +3713,10 @@ export type VoteSubscriptionWhereInputInputObject =
   | { name: 'NOT', alias?: string  } 
   
 
+export type UserTypeValues =
+  | 'ADMIN'
+  | 'STANDARD'
+  
 export type JokeOrderByInputValues =
   | 'id_ASC'
   | 'id_DESC'
@@ -3411,6 +3748,8 @@ export type UserOrderByInputValues =
   | 'name_DESC'
   | 'password_ASC'
   | 'password_DESC'
+  | 'type_ASC'
+  | 'type_DESC'
   | 'createdAt_ASC'
   | 'createdAt_DESC'
   | 'updatedAt_ASC'

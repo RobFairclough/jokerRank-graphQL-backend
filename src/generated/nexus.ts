@@ -28,6 +28,14 @@ export interface NexusGenInputs {
     content_not_in?: string[] | null; // [String!]
     content_not_starts_with?: string | null; // String
     content_starts_with?: string | null; // String
+    createdAt?: any | null; // DateTime
+    createdAt_gt?: any | null; // DateTime
+    createdAt_gte?: any | null; // DateTime
+    createdAt_in?: any[] | null; // [DateTime!]
+    createdAt_lt?: any | null; // DateTime
+    createdAt_lte?: any | null; // DateTime
+    createdAt_not?: any | null; // DateTime
+    createdAt_not_in?: any[] | null; // [DateTime!]
     id?: string | null; // ID
     id_contains?: string | null; // ID
     id_ends_with?: string | null; // ID
@@ -45,6 +53,14 @@ export interface NexusGenInputs {
     joke?: NexusGenInputs['JokeWhereInput'] | null; // JokeWhereInput
     NOT?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
     OR?: NexusGenInputs['CommentWhereInput'][] | null; // [CommentWhereInput!]
+    updatedAt?: any | null; // DateTime
+    updatedAt_gt?: any | null; // DateTime
+    updatedAt_gte?: any | null; // DateTime
+    updatedAt_in?: any[] | null; // [DateTime!]
+    updatedAt_lt?: any | null; // DateTime
+    updatedAt_lte?: any | null; // DateTime
+    updatedAt_not?: any | null; // DateTime
+    updatedAt_not_in?: any[] | null; // [DateTime!]
   }
   JokeWhereInput: { // input type
     AND?: NexusGenInputs['JokeWhereInput'][] | null; // [JokeWhereInput!]
@@ -66,6 +82,14 @@ export interface NexusGenInputs {
     content_not_in?: string[] | null; // [String!]
     content_not_starts_with?: string | null; // String
     content_starts_with?: string | null; // String
+    createdAt?: any | null; // DateTime
+    createdAt_gt?: any | null; // DateTime
+    createdAt_gte?: any | null; // DateTime
+    createdAt_in?: any[] | null; // [DateTime!]
+    createdAt_lt?: any | null; // DateTime
+    createdAt_lte?: any | null; // DateTime
+    createdAt_not?: any | null; // DateTime
+    createdAt_not_in?: any[] | null; // [DateTime!]
     id?: string | null; // ID
     id_contains?: string | null; // ID
     id_ends_with?: string | null; // ID
@@ -84,12 +108,29 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['JokeWhereInput'][] | null; // [JokeWhereInput!]
     published?: boolean | null; // Boolean
     published_not?: boolean | null; // Boolean
+    updatedAt?: any | null; // DateTime
+    updatedAt_gt?: any | null; // DateTime
+    updatedAt_gte?: any | null; // DateTime
+    updatedAt_in?: any[] | null; // [DateTime!]
+    updatedAt_lt?: any | null; // DateTime
+    updatedAt_lte?: any | null; // DateTime
+    updatedAt_not?: any | null; // DateTime
+    updatedAt_not_in?: any[] | null; // [DateTime!]
   }
   JokeWhereUniqueInput: { // input type
+    content?: string | null; // String
     id?: string | null; // ID
   }
   UserWhereInput: { // input type
     AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    createdAt?: any | null; // DateTime
+    createdAt_gt?: any | null; // DateTime
+    createdAt_gte?: any | null; // DateTime
+    createdAt_in?: any[] | null; // [DateTime!]
+    createdAt_lt?: any | null; // DateTime
+    createdAt_lte?: any | null; // DateTime
+    createdAt_not?: any | null; // DateTime
+    createdAt_not_in?: any[] | null; // [DateTime!]
     email?: string | null; // String
     email_contains?: string | null; // String
     email_ends_with?: string | null; // String
@@ -151,37 +192,58 @@ export interface NexusGenInputs {
     password_not_in?: string[] | null; // [String!]
     password_not_starts_with?: string | null; // String
     password_starts_with?: string | null; // String
+    type?: NexusGenEnums['UserType'] | null; // UserType
+    type_in?: NexusGenEnums['UserType'][] | null; // [UserType!]
+    type_not?: NexusGenEnums['UserType'] | null; // UserType
+    type_not_in?: NexusGenEnums['UserType'][] | null; // [UserType!]
+    updatedAt?: any | null; // DateTime
+    updatedAt_gt?: any | null; // DateTime
+    updatedAt_gte?: any | null; // DateTime
+    updatedAt_in?: any[] | null; // [DateTime!]
+    updatedAt_lt?: any | null; // DateTime
+    updatedAt_lte?: any | null; // DateTime
+    updatedAt_not?: any | null; // DateTime
+    updatedAt_not_in?: any[] | null; // [DateTime!]
   }
 }
 
 export interface NexusGenEnums {
   CommentOrderByInput: "content_ASC" | "content_DESC" | "createdAt_ASC" | "createdAt_DESC" | "id_ASC" | "id_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
   JokeOrderByInput: "content_ASC" | "content_DESC" | "createdAt_ASC" | "createdAt_DESC" | "id_ASC" | "id_DESC" | "published_ASC" | "published_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
+  UserOrderByInput: "createdAt_ASC" | "createdAt_DESC" | "email_ASC" | "email_DESC" | "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC" | "password_ASC" | "password_DESC" | "type_ASC" | "type_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
+  UserType: "ADMIN" | "STANDARD"
 }
 
 export interface NexusGenRootTypes {
   Comment: { // root type
     content: string; // String!
+    createdAt: any; // DateTime!
     id: string; // ID!
+    updatedAt: any; // DateTime!
   }
   Joke: { // root type
     content: string; // String!
+    createdAt: any; // DateTime!
     id: string; // ID!
     published: boolean; // Boolean!
+    updatedAt: any; // DateTime!
   }
   Mutation: {};
   Query: {};
   User: { // root type
+    createdAt: any; // DateTime!
     email: string; // String!
     id: string; // ID!
     name: string; // String!
-    password: string; // String!
+    type?: NexusGenEnums['UserType'] | null; // UserType
+    updatedAt: any; // DateTime!
   }
   String: string;
   Int: number;
   Float: number;
   Boolean: boolean;
   ID: string;
+  DateTime: any;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
@@ -191,21 +253,27 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserWhereInput: NexusGenInputs['UserWhereInput'];
   CommentOrderByInput: NexusGenEnums['CommentOrderByInput'];
   JokeOrderByInput: NexusGenEnums['JokeOrderByInput'];
+  UserOrderByInput: NexusGenEnums['UserOrderByInput'];
+  UserType: NexusGenEnums['UserType'];
 }
 
 export interface NexusGenFieldTypes {
   Comment: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
     content: string; // String!
+    createdAt: any; // DateTime!
     id: string; // ID!
     joke: NexusGenRootTypes['Joke'] | null; // Joke
+    updatedAt: any; // DateTime!
   }
   Joke: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
     comments: NexusGenRootTypes['Comment'][] | null; // [Comment!]
     content: string; // String!
+    createdAt: any; // DateTime!
     id: string; // ID!
     published: boolean; // Boolean!
+    updatedAt: any; // DateTime!
   }
   Mutation: { // field return type
     createDraft: NexusGenRootTypes['Joke']; // Joke!
@@ -215,18 +283,23 @@ export interface NexusGenFieldTypes {
     register: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
+    comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
     commentsByUser: NexusGenRootTypes['Comment'][]; // [Comment!]!
     feed: NexusGenRootTypes['Joke'][]; // [Joke!]!
     joke: NexusGenRootTypes['Joke'] | null; // Joke
+    jokes: NexusGenRootTypes['Joke'][]; // [Joke!]!
     jokesByUser: NexusGenRootTypes['Joke'][]; // [Joke!]!
     myJokes: NexusGenRootTypes['Joke'][]; // [Joke!]!
+    users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
+    createdAt: any; // DateTime!
     email: string; // String!
     id: string; // ID!
     jokes: NexusGenRootTypes['Joke'][] | null; // [Joke!]
     name: string; // String!
-    password: string; // String!
+    type: NexusGenEnums['UserType'] | null; // UserType
+    updatedAt: any; // DateTime!
   }
 }
 
@@ -264,14 +337,41 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    comments: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenEnums['CommentOrderByInput'] | null; // CommentOrderByInput
+      skip?: number | null; // Int
+      where?: NexusGenInputs['CommentWhereInput'] | null; // CommentWhereInput
+    }
     commentsByUser: { // args
       email?: string | null; // String
     }
     joke: { // args
       where: NexusGenInputs['JokeWhereUniqueInput']; // JokeWhereUniqueInput!
     }
+    jokes: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenEnums['JokeOrderByInput'] | null; // JokeOrderByInput
+      skip?: number | null; // Int
+      where?: NexusGenInputs['JokeWhereInput'] | null; // JokeWhereInput
+    }
     jokesByUser: { // args
       email?: string | null; // String
+    }
+    users: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenEnums['UserOrderByInput'] | null; // UserOrderByInput
+      skip?: number | null; // Int
+      where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     }
   }
   User: {
@@ -296,11 +396,11 @@ export type NexusGenObjectNames = "Comment" | "Joke" | "Mutation" | "Query" | "U
 
 export type NexusGenInputNames = "CommentWhereInput" | "JokeWhereInput" | "JokeWhereUniqueInput" | "UserWhereInput";
 
-export type NexusGenEnumNames = "CommentOrderByInput" | "JokeOrderByInput";
+export type NexusGenEnumNames = "CommentOrderByInput" | "JokeOrderByInput" | "UserOrderByInput" | "UserType";
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String";
 
 export type NexusGenUnionNames = never;
 
