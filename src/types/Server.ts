@@ -1,7 +1,8 @@
-import { Prisma } from "../generated/prisma-client";
+import { Prisma, UserType } from '../generated/prisma-client';
 
 export interface AuthToken {
   id: string;
+  type: UserType;
 }
 
 export interface Context {

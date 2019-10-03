@@ -534,7 +534,6 @@ type JokeObject =
   | JokeFields
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'content', args?: [] | false, alias?: string  } 
-  | { name: 'published', args?: [] | false, alias?: string  } 
   | { name: 'author', args?: [] | false, alias?: string  } 
   | { name: 'comments', args?: JokeCommentsArgs[] | false, alias?: string  } 
   | { name: 'createdAt', args?: [] | false, alias?: string  } 
@@ -543,7 +542,6 @@ type JokeObject =
 type JokeFields =
   | 'id'
   | 'content'
-  | 'published'
   | 'author'
   | 'comments'
   | 'createdAt'
@@ -571,14 +569,6 @@ export interface JokeFieldDetails {
   }
   content: {
     type: 'String'
-    args: {}
-    description: string
-    list: undefined
-    nullable: false
-    resolve: undefined
-  }
-  published: {
-    type: 'Boolean'
     args: {}
     description: string
     list: undefined
@@ -2116,14 +2106,12 @@ type JokePreviousValuesObject =
   | JokePreviousValuesFields
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'content', args?: [] | false, alias?: string  } 
-  | { name: 'published', args?: [] | false, alias?: string  } 
   | { name: 'createdAt', args?: [] | false, alias?: string  } 
   | { name: 'updatedAt', args?: [] | false, alias?: string  } 
 
 type JokePreviousValuesFields =
   | 'id'
   | 'content'
-  | 'published'
   | 'createdAt'
   | 'updatedAt'
 
@@ -2142,14 +2130,6 @@ export interface JokePreviousValuesFieldDetails {
   }
   content: {
     type: 'String'
-    args: {}
-    description: string
-    list: undefined
-    nullable: false
-    resolve: undefined
-  }
-  published: {
-    type: 'Boolean'
     args: {}
     description: string
     list: undefined
@@ -2444,8 +2424,6 @@ export interface JokeWhereInput {
   content_not_starts_with?: string | null
   content_ends_with?: string | null
   content_not_ends_with?: string | null
-  published?: boolean | null
-  published_not?: boolean | null
   author?: UserWhereInput | null
   comments_every?: CommentWhereInput | null
   comments_some?: CommentWhereInput | null
@@ -2500,8 +2478,6 @@ export type JokeWhereInputInputObject =
   | { name: 'content_not_starts_with', alias?: string  } 
   | { name: 'content_ends_with', alias?: string  } 
   | { name: 'content_not_ends_with', alias?: string  } 
-  | { name: 'published', alias?: string  } 
-  | { name: 'published_not', alias?: string  } 
   | { name: 'author', alias?: string  } 
   | { name: 'comments_every', alias?: string  } 
   | { name: 'comments_some', alias?: string  } 
@@ -2909,14 +2885,12 @@ export type JokeCreateManyWithoutAuthorInputInputObject =
 export interface JokeCreateWithoutAuthorInput {
   id?: string | null
   content?: string
-  published?: boolean | null
   comments?: CommentCreateManyWithoutJokeInput | null
 }
 export type JokeCreateWithoutAuthorInputInputObject =
   | Extract<keyof JokeCreateWithoutAuthorInput, string>
   | { name: 'id', alias?: string  } 
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   | { name: 'comments', alias?: string  } 
   
 export interface CommentCreateManyWithoutJokeInput {
@@ -2997,13 +2971,11 @@ export type JokeUpdateWithWhereUniqueWithoutAuthorInputInputObject =
   
 export interface JokeUpdateWithoutAuthorDataInput {
   content?: string | null
-  published?: boolean | null
   comments?: CommentUpdateManyWithoutJokeInput | null
 }
 export type JokeUpdateWithoutAuthorDataInputInputObject =
   | Extract<keyof JokeUpdateWithoutAuthorDataInput, string>
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   | { name: 'comments', alias?: string  } 
   
 export interface CommentUpdateManyWithoutJokeInput {
@@ -3254,8 +3226,6 @@ export interface JokeScalarWhereInput {
   content_not_starts_with?: string | null
   content_ends_with?: string | null
   content_not_ends_with?: string | null
-  published?: boolean | null
-  published_not?: boolean | null
   createdAt?: string | null
   createdAt_not?: string | null
   createdAt_in?: string[]
@@ -3306,8 +3276,6 @@ export type JokeScalarWhereInputInputObject =
   | { name: 'content_not_starts_with', alias?: string  } 
   | { name: 'content_ends_with', alias?: string  } 
   | { name: 'content_not_ends_with', alias?: string  } 
-  | { name: 'published', alias?: string  } 
-  | { name: 'published_not', alias?: string  } 
   | { name: 'createdAt', alias?: string  } 
   | { name: 'createdAt_not', alias?: string  } 
   | { name: 'createdAt_in', alias?: string  } 
@@ -3339,12 +3307,10 @@ export type JokeUpdateManyWithWhereNestedInputInputObject =
   
 export interface JokeUpdateManyDataInput {
   content?: string | null
-  published?: boolean | null
 }
 export type JokeUpdateManyDataInputInputObject =
   | Extract<keyof JokeUpdateManyDataInput, string>
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   
 export interface UserUpdateManyMutationInput {
   email?: string | null
@@ -3362,7 +3328,6 @@ export type UserUpdateManyMutationInputInputObject =
 export interface JokeCreateInput {
   id?: string | null
   content?: string
-  published?: boolean | null
   author?: UserCreateOneWithoutJokesInput | null
   comments?: CommentCreateManyWithoutJokeInput | null
 }
@@ -3370,7 +3335,6 @@ export type JokeCreateInputInputObject =
   | Extract<keyof JokeCreateInput, string>
   | { name: 'id', alias?: string  } 
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
   | { name: 'comments', alias?: string  } 
   
@@ -3400,14 +3364,12 @@ export type UserCreateWithoutJokesInputInputObject =
   
 export interface JokeUpdateInput {
   content?: string | null
-  published?: boolean | null
   author?: UserUpdateOneWithoutJokesInput | null
   comments?: CommentUpdateManyWithoutJokeInput | null
 }
 export type JokeUpdateInputInputObject =
   | Extract<keyof JokeUpdateInput, string>
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
   | { name: 'comments', alias?: string  } 
   
@@ -3452,12 +3414,10 @@ export type UserUpsertWithoutJokesInputInputObject =
   
 export interface JokeUpdateManyMutationInput {
   content?: string | null
-  published?: boolean | null
 }
 export type JokeUpdateManyMutationInputInputObject =
   | Extract<keyof JokeUpdateManyMutationInput, string>
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   
 export interface CommentCreateInput {
   id?: string | null
@@ -3484,14 +3444,12 @@ export type JokeCreateOneWithoutCommentsInputInputObject =
 export interface JokeCreateWithoutCommentsInput {
   id?: string | null
   content?: string
-  published?: boolean | null
   author?: UserCreateOneWithoutJokesInput | null
 }
 export type JokeCreateWithoutCommentsInputInputObject =
   | Extract<keyof JokeCreateWithoutCommentsInput, string>
   | { name: 'id', alias?: string  } 
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
   
 export interface CommentUpdateInput {
@@ -3524,13 +3482,11 @@ export type JokeUpdateOneWithoutCommentsInputInputObject =
   
 export interface JokeUpdateWithoutCommentsDataInput {
   content?: string | null
-  published?: boolean | null
   author?: UserUpdateOneWithoutJokesInput | null
 }
 export type JokeUpdateWithoutCommentsDataInputInputObject =
   | Extract<keyof JokeUpdateWithoutCommentsDataInput, string>
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
   
 export interface JokeUpsertWithoutCommentsInput {
@@ -3601,14 +3557,12 @@ export type JokeUpdateOneInputInputObject =
   
 export interface JokeUpdateDataInput {
   content?: string | null
-  published?: boolean | null
   author?: UserUpdateOneWithoutJokesInput | null
   comments?: CommentUpdateManyWithoutJokeInput | null
 }
 export type JokeUpdateDataInputInputObject =
   | Extract<keyof JokeUpdateDataInput, string>
   | { name: 'content', alias?: string  } 
-  | { name: 'published', alias?: string  } 
   | { name: 'author', alias?: string  } 
   | { name: 'comments', alias?: string  } 
   
@@ -3722,8 +3676,6 @@ export type JokeOrderByInputValues =
   | 'id_DESC'
   | 'content_ASC'
   | 'content_DESC'
-  | 'published_ASC'
-  | 'published_DESC'
   | 'createdAt_ASC'
   | 'createdAt_DESC'
   | 'updatedAt_ASC'

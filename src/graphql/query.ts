@@ -8,7 +8,7 @@ export const Query = prismaObjectType({
     t.prismaFields(['joke', 'users', 'jokes', 'comments']);
     t.list.field('feed', {
       type: 'Joke',
-      resolve: (_, args, ctx) => ctx.prisma.jokes({ where: { published: true } }),
+      resolve: (_, args, ctx) => ctx.prisma.jokes(),
     });
     t.list.field('jokesByUser', {
       type: 'Joke',

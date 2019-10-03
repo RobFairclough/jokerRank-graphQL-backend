@@ -254,7 +254,6 @@ scalar DateTime
 type Joke {
   id: ID!
   content: String!
-  published: Boolean!
   author: User
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
@@ -270,7 +269,6 @@ type JokeConnection {
 input JokeCreateInput {
   id: ID
   content: String!
-  published: Boolean
   author: UserCreateOneWithoutJokesInput
   comments: CommentCreateManyWithoutJokeInput
 }
@@ -293,14 +291,12 @@ input JokeCreateOneWithoutCommentsInput {
 input JokeCreateWithoutAuthorInput {
   id: ID
   content: String!
-  published: Boolean
   comments: CommentCreateManyWithoutJokeInput
 }
 
 input JokeCreateWithoutCommentsInput {
   id: ID
   content: String!
-  published: Boolean
   author: UserCreateOneWithoutJokesInput
 }
 
@@ -314,8 +310,6 @@ enum JokeOrderByInput {
   id_DESC
   content_ASC
   content_DESC
-  published_ASC
-  published_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -325,7 +319,6 @@ enum JokeOrderByInput {
 type JokePreviousValues {
   id: ID!
   content: String!
-  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -359,8 +352,6 @@ input JokeScalarWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -402,26 +393,22 @@ input JokeSubscriptionWhereInput {
 
 input JokeUpdateDataInput {
   content: String
-  published: Boolean
   author: UserUpdateOneWithoutJokesInput
   comments: CommentUpdateManyWithoutJokeInput
 }
 
 input JokeUpdateInput {
   content: String
-  published: Boolean
   author: UserUpdateOneWithoutJokesInput
   comments: CommentUpdateManyWithoutJokeInput
 }
 
 input JokeUpdateManyDataInput {
   content: String
-  published: Boolean
 }
 
 input JokeUpdateManyMutationInput {
   content: String
-  published: Boolean
 }
 
 input JokeUpdateManyWithoutAuthorInput {
@@ -461,13 +448,11 @@ input JokeUpdateOneWithoutCommentsInput {
 
 input JokeUpdateWithoutAuthorDataInput {
   content: String
-  published: Boolean
   comments: CommentUpdateManyWithoutJokeInput
 }
 
 input JokeUpdateWithoutCommentsDataInput {
   content: String
-  published: Boolean
   author: UserUpdateOneWithoutJokesInput
 }
 
@@ -521,8 +506,6 @@ input JokeWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
   author: UserWhereInput
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput

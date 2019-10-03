@@ -18,7 +18,6 @@ type User {
 type Joke {
   id: ID! @id
   content: String! @unique
-  published: Boolean! @default(value: false)
   author: User @relation(link: INLINE)
   comments: [Comment]
   createdAt: DateTime! @createdAt

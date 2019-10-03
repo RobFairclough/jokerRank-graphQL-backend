@@ -106,8 +106,6 @@ export interface NexusGenInputs {
     id_starts_with?: string | null; // ID
     NOT?: NexusGenInputs['JokeWhereInput'][] | null; // [JokeWhereInput!]
     OR?: NexusGenInputs['JokeWhereInput'][] | null; // [JokeWhereInput!]
-    published?: boolean | null; // Boolean
-    published_not?: boolean | null; // Boolean
     updatedAt?: any | null; // DateTime
     updatedAt_gt?: any | null; // DateTime
     updatedAt_gte?: any | null; // DateTime
@@ -209,7 +207,7 @@ export interface NexusGenInputs {
 
 export interface NexusGenEnums {
   CommentOrderByInput: "content_ASC" | "content_DESC" | "createdAt_ASC" | "createdAt_DESC" | "id_ASC" | "id_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
-  JokeOrderByInput: "content_ASC" | "content_DESC" | "createdAt_ASC" | "createdAt_DESC" | "id_ASC" | "id_DESC" | "published_ASC" | "published_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
+  JokeOrderByInput: "content_ASC" | "content_DESC" | "createdAt_ASC" | "createdAt_DESC" | "id_ASC" | "id_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
   UserOrderByInput: "createdAt_ASC" | "createdAt_DESC" | "email_ASC" | "email_DESC" | "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC" | "password_ASC" | "password_DESC" | "type_ASC" | "type_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
   UserType: "ADMIN" | "STANDARD"
 }
@@ -225,7 +223,6 @@ export interface NexusGenRootTypes {
     content: string; // String!
     createdAt: any; // DateTime!
     id: string; // ID!
-    published: boolean; // Boolean!
     updatedAt: any; // DateTime!
   }
   Mutation: {};
@@ -272,14 +269,13 @@ export interface NexusGenFieldTypes {
     content: string; // String!
     createdAt: any; // DateTime!
     id: string; // ID!
-    published: boolean; // Boolean!
     updatedAt: any; // DateTime!
   }
   Mutation: { // field return type
+    addJoke: NexusGenRootTypes['Joke'] | null; // Joke
     createDraft: NexusGenRootTypes['Joke']; // Joke!
     deleteJoke: NexusGenRootTypes['Joke'] | null; // Joke
     login: string | null; // String
-    publish: NexusGenRootTypes['Joke'] | null; // Joke
     register: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
@@ -316,6 +312,9 @@ export interface NexusGenArgTypes {
     }
   }
   Mutation: {
+    addJoke: { // args
+      content: string; // String!
+    }
     createDraft: { // args
       authorId?: string | null; // ID
       title?: string | null; // String
@@ -327,13 +326,10 @@ export interface NexusGenArgTypes {
       email?: string | null; // String
       password?: string | null; // String
     }
-    publish: { // args
-      id?: string | null; // ID
-    }
     register: { // args
-      email?: string | null; // String
-      name?: string | null; // String
-      password?: string | null; // String
+      email: string; // String!
+      name: string; // String!
+      password: string; // String!
     }
   }
   Query: {

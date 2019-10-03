@@ -1,12 +1,12 @@
 import { prismaObjectType } from 'nexus-prisma';
 import { stringArg, idArg } from 'nexus';
-import { Context } from 'prisma-client-lib/dist/types';
 import * as bcrypt from 'bcrypt';
-import { User, UserCreateInput } from '../generated/prisma-client';
-import { UserWhereInput } from '../generated/nexus-prisma/nexus-prisma';
+import { UserCreateInput, Joke } from '../generated/prisma-client';
 import { createJWT } from '../utils/auth';
+import { Context } from '../types/Server';
 
 // @ts-ignore
+const required = true;
 export const Mutation = prismaObjectType({
   name: 'Mutation',
   definition(t) {
@@ -22,18 +22,14 @@ export const Mutation = prismaObjectType({
         author: { connect: { id: authorId } },
       }),
     });
-    t.field('publish', {
-      type: 'Joke',
-      nullable: true,
-      args: { id: idArg() },
-      resolve: (_, { id }, ctx) => ctx.prisma.updateJoke({
-        where: { id },
-        data: { published: true },
-      }),
-    });
+
     t.field('register', {
       type: 'User',
-      args: { email: stringArg(), password: stringArg(), name: stringArg() },
+      args: {
+        email: stringArg({ required }),
+        password: stringArg({ required }),
+        name: stringArg({ required }),
+      },
       resolve: (_, { email, password, name }, ctx) => {
         // todo error handling? status codes?
         if (!email || !password || !name) return null;
@@ -44,12 +40,7 @@ export const Mutation = prismaObjectType({
           password: hashedPassword,
           name,
         };
-        // todo check that email etc. is unique
         const newUser = ctx.prisma.createUser(userToSave);
-        // todo figure out implementation to hide this
-        // different type for output user, not connected to db?
-        // store passwords seperately?
-        newUser.password = 'nope';
         return newUser;
       },
     });
@@ -58,18 +49,28 @@ export const Mutation = prismaObjectType({
       nullable: true,
       args: { email: stringArg(), password: stringArg() },
       resolve: async (_, { email, password }, ctx: Context) => {
-        console.log({ ctx });
-        const user: User = await ctx.prisma.user({ email });
+        const user = await ctx.prisma.user({ email });
         if (!user) return null;
-        // verify user exists
-        // encrypt input password and check against stored password
         const isValidated = bcrypt.compareSync(password, user.password);
         if (isValidated) {
           const token = createJWT(user);
-          // generate and return token
           return token;
         }
         return null;
+      },
+    });
+    t.field('addJoke', {
+      type: 'Joke',
+      nullable: true,
+      args: { content: stringArg({ required }) },
+      resolve: async (_, { content }, ctx: Context): Promise<Joke | null> => {
+        const { auth } = ctx;
+        if (!auth.id) return null;
+        const joke = await ctx.prisma.createJoke({
+          content,
+          author: { connect: { id: auth.id } },
+        });
+        return joke;
       },
     });
   },

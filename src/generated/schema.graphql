@@ -82,7 +82,6 @@ type Joke {
   content: String!
   createdAt: DateTime!
   id: ID!
-  published: Boolean!
   updatedAt: DateTime!
 }
 
@@ -93,8 +92,6 @@ enum JokeOrderByInput {
   createdAt_DESC
   id_ASC
   id_DESC
-  published_ASC
-  published_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -143,8 +140,6 @@ input JokeWhereInput {
   id_starts_with: ID
   NOT: [JokeWhereInput!]
   OR: [JokeWhereInput!]
-  published: Boolean
-  published_not: Boolean
   updatedAt: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
@@ -161,11 +156,11 @@ input JokeWhereUniqueInput {
 }
 
 type Mutation {
+  addJoke(content: String!): Joke
   createDraft(authorId: ID, title: String): Joke!
   deleteJoke(where: JokeWhereUniqueInput!): Joke
   login(email: String, password: String): String
-  publish(id: ID): Joke
-  register(email: String, name: String, password: String): User!
+  register(email: String!, name: String!, password: String!): User!
 }
 
 type Query {

@@ -1,13 +1,13 @@
 import * as jwt from 'jsonwebtoken';
-import { User } from '../generated/prisma-client';
+import { User, UserType } from '../generated/prisma-client';
 import { AuthToken } from '../types/Server';
 
 // todo movetoconfig
 const key = 'buster';
 
 export const createJWT = (user: User): string => {
-  const { id } = user;
-  const token = jwt.sign({ id }, key);
+  const { id, type } = user;
+  const token = jwt.sign({ id, isAdmin: type === "ADMIN"}, key);
   return token;
 };
 

@@ -225,8 +225,6 @@ export type JokeOrderByInput =
   | "id_DESC"
   | "content_ASC"
   | "content_DESC"
-  | "published_ASC"
-  | "published_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -299,8 +297,6 @@ export interface JokeWhereInput {
   content_not_starts_with?: Maybe<String>;
   content_ends_with?: Maybe<String>;
   content_not_ends_with?: Maybe<String>;
-  published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
   author?: Maybe<UserWhereInput>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
@@ -536,7 +532,6 @@ export interface JokeCreateManyWithoutAuthorInput {
 export interface JokeCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
   content: String;
-  published?: Maybe<Boolean>;
   comments?: Maybe<CommentCreateManyWithoutJokeInput>;
 }
 
@@ -561,7 +556,6 @@ export interface JokeCreateOneWithoutCommentsInput {
 export interface JokeCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
   content: String;
-  published?: Maybe<Boolean>;
   author?: Maybe<UserCreateOneWithoutJokesInput>;
 }
 
@@ -628,7 +622,6 @@ export interface JokeUpdateWithWhereUniqueWithoutAuthorInput {
 
 export interface JokeUpdateWithoutAuthorDataInput {
   content?: Maybe<String>;
-  published?: Maybe<Boolean>;
   comments?: Maybe<CommentUpdateManyWithoutJokeInput>;
 }
 
@@ -765,8 +758,6 @@ export interface JokeScalarWhereInput {
   content_not_starts_with?: Maybe<String>;
   content_ends_with?: Maybe<String>;
   content_not_ends_with?: Maybe<String>;
-  published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -795,7 +786,6 @@ export interface JokeUpdateManyWithWhereNestedInput {
 
 export interface JokeUpdateManyDataInput {
   content?: Maybe<String>;
-  published?: Maybe<Boolean>;
 }
 
 export interface UserUpsertNestedInput {
@@ -814,7 +804,6 @@ export interface JokeUpdateOneWithoutCommentsInput {
 
 export interface JokeUpdateWithoutCommentsDataInput {
   content?: Maybe<String>;
-  published?: Maybe<Boolean>;
   author?: Maybe<UserUpdateOneWithoutJokesInput>;
 }
 
@@ -851,21 +840,18 @@ export interface CommentUpdateManyMutationInput {
 export interface JokeCreateInput {
   id?: Maybe<ID_Input>;
   content: String;
-  published?: Maybe<Boolean>;
   author?: Maybe<UserCreateOneWithoutJokesInput>;
   comments?: Maybe<CommentCreateManyWithoutJokeInput>;
 }
 
 export interface JokeUpdateInput {
   content?: Maybe<String>;
-  published?: Maybe<Boolean>;
   author?: Maybe<UserUpdateOneWithoutJokesInput>;
   comments?: Maybe<CommentUpdateManyWithoutJokeInput>;
 }
 
 export interface JokeUpdateManyMutationInput {
   content?: Maybe<String>;
-  published?: Maybe<Boolean>;
 }
 
 export interface UserUpdateInput {
@@ -912,7 +898,6 @@ export interface JokeUpdateOneInput {
 
 export interface JokeUpdateDataInput {
   content?: Maybe<String>;
-  published?: Maybe<Boolean>;
   author?: Maybe<UserUpdateOneWithoutJokesInput>;
   comments?: Maybe<CommentUpdateManyWithoutJokeInput>;
 }
@@ -1086,7 +1071,6 @@ export interface UserNullablePromise
 export interface Joke {
   id: ID_Output;
   content: String;
-  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -1094,7 +1078,6 @@ export interface Joke {
 export interface JokePromise extends Promise<Joke>, Fragmentable {
   id: () => Promise<ID_Output>;
   content: () => Promise<String>;
-  published: () => Promise<Boolean>;
   author: <T = UserPromise>() => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
@@ -1114,7 +1097,6 @@ export interface JokeSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   content: () => Promise<AsyncIterator<String>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
   author: <T = UserSubscription>() => T;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
     where?: CommentWhereInput;
@@ -1134,7 +1116,6 @@ export interface JokeNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   content: () => Promise<String>;
-  published: () => Promise<Boolean>;
   author: <T = UserPromise>() => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
@@ -1512,7 +1493,6 @@ export interface JokeSubscriptionPayloadSubscription
 export interface JokePreviousValues {
   id: ID_Output;
   content: String;
-  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -1522,7 +1502,6 @@ export interface JokePreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   content: () => Promise<String>;
-  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -1532,7 +1511,6 @@ export interface JokePreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   content: () => Promise<AsyncIterator<String>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -1652,11 +1630,6 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
-/*
 DateTime scalar input type, allowing Date
 */
 export type DateTimeInput = Date | string;
@@ -1670,6 +1643,11 @@ export type DateTimeOutput = string;
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 export type Long = string;
 
