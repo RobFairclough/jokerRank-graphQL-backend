@@ -65,13 +65,26 @@ export const Mutation = prismaObjectType({
       args: { content: stringArg({ required }) },
       resolve: async (_, { content }, ctx: Context): Promise<Joke | null> => {
         const { auth } = ctx;
-        if (!auth.id) return null;
+        if (!auth?.id) return null;
         const joke = await ctx.prisma.createJoke({
           content,
           author: { connect: { id: auth.id } },
         });
         return joke;
       },
+    });
+
+    t.field('addComment', {
+      type: 'Comment',
+      nullable: true,
+      args: { content: stringArg({ required }), jokeID: stringArg({ required }) },
+      resolve: async (_, { content, jokeID }, ctx: Context) => {
+        const { auth } = ctx;
+        if (!auth?.id) return null;
+        const comment = await ctx.prisma
+          .createComment({ content, author: { connect: { id: auth.id } }, joke: { connect: { id: jokeID } } });
+        return comment;
+      }
     });
   },
 });

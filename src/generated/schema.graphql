@@ -156,6 +156,7 @@ input JokeWhereUniqueInput {
 }
 
 type Mutation {
+  addComment(content: String!, jokeID: String!): Comment
   addJoke(content: String!): Joke
   createDraft(authorId: ID, title: String): Joke!
   deleteJoke(where: JokeWhereUniqueInput!): Joke

@@ -272,6 +272,7 @@ export interface NexusGenFieldTypes {
     updatedAt: any; // DateTime!
   }
   Mutation: { // field return type
+    addComment: NexusGenRootTypes['Comment'] | null; // Comment
     addJoke: NexusGenRootTypes['Joke'] | null; // Joke
     createDraft: NexusGenRootTypes['Joke']; // Joke!
     deleteJoke: NexusGenRootTypes['Joke'] | null; // Joke
@@ -312,6 +313,10 @@ export interface NexusGenArgTypes {
     }
   }
   Mutation: {
+    addComment: { // args
+      content: string; // String!
+      jokeID: string; // String!
+    }
     addJoke: { // args
       content: string; // String!
     }

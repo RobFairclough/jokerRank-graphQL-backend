@@ -9,7 +9,8 @@
     "start:dev": "npm run build:live",
     "build": "tsc -p .",
     "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server/index.ts",
-    "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./src/server/"
+    "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./src/server/",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
