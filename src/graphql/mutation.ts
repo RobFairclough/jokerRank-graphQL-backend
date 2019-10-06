@@ -86,5 +86,35 @@ export const Mutation = prismaObjectType({
         return comment;
       }
     });
+
+    t.field('deleteComment', {
+      type: 'Comment',
+      nullable: true,
+      args: { commentID: stringArg({ required }) },
+      resolve: async (_, { commentID }, ctx: Context) => {
+        const { auth } = ctx;
+        if (!auth?.id) return null;
+        const author = await ctx.prisma.comment({ id: commentID }) ?.author();
+        if (author?.id === auth.id || auth.type === 'ADMIN') {
+          const comment = await ctx.prisma.deleteComment({ id: commentID });
+          return comment;
+        }
+        return null;
+      }
+    });
+    // naming this deleteJoke gives a lint error that I should look into
+    t.field('deleteOneJoke', {
+      type: 'Joke',
+      nullable: true,
+      args: { jokeID: stringArg({ required }) },
+      resolve: async (_, { jokeID }, ctx: Context) => {
+        const { auth } = ctx;
+        if (!auth?.id) return null;
+        const canDelete = ctx.auth.type === 'ADMIN' ||
+          await ctx.prisma.joke({ id: jokeID }).author().id() === ctx.auth.id;
+        if (canDelete) return await ctx.prisma.deleteJoke({ id: jokeID });
+        return null;
+      }
+    })
   },
 });
